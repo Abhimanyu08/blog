@@ -7,7 +7,7 @@
 # https://learnxinyminutes.com/docs/yaml/
 
 title: Abhimanyu
-description: An easy to use blogging platform with support for Jupyter Notebooks.
+description: A blog where I write about things I learn on my self-taught journey in the field of Artificial Intelligence
 github_username: Abhimanyu08
 # you can comment the below line out if your repo name is not different than your baseurl
 github_repo: "blog"
@@ -39,8 +39,8 @@ baseurl: "/blog" # the subpath of your site, e.g. "/blog".
 # Github and twitter are optional:
 minima:
   social_links:
-    twitter: fastdotai
-    github: fastai
+    twitter: A_Bhimany_u
+    github: Abhimanyu08
 
 # Set this to true to get LaTeX math equation support
 use_math: 
