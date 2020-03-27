@@ -134,15 +134,10 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h4"><a href="#Quick-summary-and-technique-to-solve-problems-involving-Bayes'-Theorem-:">Quick summary and technique to solve problems involving Bayes&#39; Theorem : </a></li>
 </ul>
 </li>
-<li class="toc-entry toc-h2"><a href="#4.-Interesting-Study-Demonstrating-The-Counter-Intuitiveness-Of-The-Bayes'-Theorem">4. Interesting Study Demonstrating The Counter-Intuitiveness Of The Bayes&#39; Theorem </a>
-<ul>
-<li class="toc-entry toc-h4"><a href="#Listing-all-the-ways-in-which-the-evidence-can-occur-:">Listing all the ways in which the evidence can occur : </a></li>
-</ul>
-</li>
+<li class="toc-entry toc-h2"><a href="#4.-Interesting-Study-Demonstrating-The-Counter-Intuitiveness-Of-The-Bayes'-Theorem">4. Interesting Study Demonstrating The Counter-Intuitiveness Of The Bayes&#39; Theorem </a></li>
 <li class="toc-entry toc-h2"><a href="#5.-Bayes'-Theorem-As-A-Way-Of-Updating-Our-Priors-And-Belief-Systems.">5. Bayes&#39; Theorem As A Way Of Updating Our Priors And Belief Systems. </a>
 <ul>
-<li class="toc-entry toc-h4"><a href="#Ways-In-Which-Evidence-Can-Be-Observed-(Test-result-Can-Come-Out-As-Positive).-:">Ways In Which Evidence Can Be Observed (Test result Can Come Out As Positive). : </a></li>
-<li class="toc-entry toc-h3"><a href="#But-What-If-You-Took-A-Second-Test-And-It-Comes-As-Positive-:">But What If You Took A Second Test And It Comes As Positive : </a></li>
+<li class="toc-entry toc-h3"><a href="#But-What-If-You-Took-A-Second-Test-And-It-Comes-As-Positive">But What If You Took A Second Test And It Comes As Positive </a></li>
 </ul>
 </li>
 </ul><!--
@@ -291,9 +286,7 @@ The calculated probability <strong>${P(A\mid D)}$</strong> is called the <strong
 </li>
 </ol>
 <p>We also need to take into account some statistical facts to decide our prior beliefs. At the time of conduction of this study, there were 20 farmers for every 1 librarian in america. Thus, out of 210, 10 people were librarian and 200 are farmers.Therefore, probability of a random person being a farmer i.e ${P(F)}$ = 0.95 and probability of a random person being a librarian i.e ${P(L)}$ is 0.05 (assuming our representative sample has only farmers and librarians).</p>
-<h4 id="Listing-all-the-ways-in-which-the-evidence-can-occur-:">
-<a class="anchor" href="#Listing-all-the-ways-in-which-the-evidence-can-occur-:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Listing all the ways in which the evidence can occur :<a class="anchor-link" href="#Listing-all-the-ways-in-which-the-evidence-can-occur-:"> </a>
-</h4>
+<p><strong>Listing all the ways in which the evidence can occur:</strong></p>
 <ol>
 <li>The person selected at random is a librarian <strong>and</strong> he is a "meek and tidy soul" (${P(L)\times P(E\mid L)}$) <strong>or</strong> 2. The person selected at random is a farmer <strong>and</strong> he is a "meek and tidy soul" (${P(F)\times P(E\mid F)}$).</li>
 </ol>
@@ -322,9 +315,7 @@ The calculated probability <strong>${P(A\mid D)}$</strong> is called the <strong
 <li>
 <strong>Prior belief before seeing the evidence</strong> -&gt; Probaility of you having the disease before you went for tests. ${P(D)}$ = 0.001 (because 0.1% of the population has it and you're part of the population)</li>
 </ul>
-<h4 id="Ways-In-Which-Evidence-Can-Be-Observed-(Test-result-Can-Come-Out-As-Positive).-:">
-<a class="anchor" href="#Ways-In-Which-Evidence-Can-Be-Observed-(Test-result-Can-Come-Out-As-Positive).-:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Ways In Which Evidence Can Be Observed (Test result Can Come Out As Positive). :<a class="anchor-link" href="#Ways-In-Which-Evidence-Can-Be-Observed-(Test-result-Can-Come-Out-As-Positive).-:"> </a>
-</h4>
+<p><strong>Ways In Which Evidence Can Be Observed (Test result Can Come Out As Positive)</strong>:</p>
 <ol>
 <li>You have the disease <strong>and</strong> test comes as positive (${P(D)\times P(E\mid D)}$). <strong>or</strong> 2. You don't have the disease <strong>and</strong> test shows positive (incorrectly) (${P(\neg D).P(E\mid \neg D)}$).</li>
 </ol>
@@ -334,8 +325,8 @@ The calculated probability <strong>${P(A\mid D)}$</strong> is called the <strong
 <p>After calculations, the probability of you having the disease comes out to be a mere 9%, which again seems counter-intuitive. Even after being declared positive by a pretty accurate test you are probably healthy and test is False!</p>
 <p>This counter-intuitiveness stems from the fact that probability of our <strong>hypothesis given the evidence</strong> depends heavily on our <strong>prior</strong> i.e probability of our hypothesis being correct without the evidence ${(P(D)}$ in above calculation). In this particular example, the probability of us having the disease without having the test results in our hand was so low (0.001) that even the new strong evidence couldn't vote in favour of our hypothesis that we have the disease.</p>
 <p>Think of just 1000 people which also includes you. According to given data, 1 out of these 1000 is sick from the disease. Let's say that he goes for the test and is correctly identified as positive. The other 999 also go for tests. The test will falsely identify 1% of 999 healthy people, i.e 10 healthy people are shown positive. So now, there are 11 people in entire population with positive test results and you are one of them. Out of these 11 positive test results only 1 is correct. That's why having a positive result is not as bad as you might think!</p>
-<h3 id="But-What-If-You-Took-A-Second-Test-And-It-Comes-As-Positive-:">
-<a class="anchor" href="#But-What-If-You-Took-A-Second-Test-And-It-Comes-As-Positive-:" aria-hidden="true"><span class="octicon octicon-link"></span></a>But What If You Took A Second Test And It Comes As Positive :<a class="anchor-link" href="#But-What-If-You-Took-A-Second-Test-And-It-Comes-As-Positive-:"> </a>
+<h3 id="But-What-If-You-Took-A-Second-Test-And-It-Comes-As-Positive">
+<a class="anchor" href="#But-What-If-You-Took-A-Second-Test-And-It-Comes-As-Positive" aria-hidden="true"><span class="octicon octicon-link"></span></a>But What If You Took A Second Test And It Comes As Positive<a class="anchor-link" href="#But-What-If-You-Took-A-Second-Test-And-It-Comes-As-Positive"> </a>
 </h3>
 <p>Suppose just to be sure, you go through tests from a different lab and that result also comes out as positive (assuming that that lab also gives correct results 99% of the times). Now, what are the chances that you have the disease.Everything remains the same in terms of data except the <strong>prior</strong>. The basic definition of the prior is <strong>"Probability that your hypothesis is true before collecting the evidence"</strong>. Thus, in this case the <strong>prior</strong> is probability of you having the disease without having seen the results from second test. Therefore, prior should be 9% or 0.09 for the second case (<strong>Posterior</strong> from the first test). Even though the earlier test was likely to be false, it served us by updating our <strong>prior</strong> from 0.001 to 0.09 by providing us with a strong evidence.</p>
 <p>The probability of having the disease <strong>given</strong> that second test result is also positive = 
