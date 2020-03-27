@@ -328,7 +328,7 @@ The calculated probability <strong>${P(A\mid D)}$</strong> is called the <strong
 <ol>
 <li>You have the disease <strong>and</strong> test comes as positive (${P(D)\times P(E\mid D)}$). <strong>or</strong> 2. You don't have the disease <strong>and</strong> test shows positive (incorrectly) (${P(\neg D).P(E\mid \neg D)}$).</li>
 </ol>
-<p>Mathematically -&gt; <strong>${P(D)\times P(E\mid D) + P(\neg D).P(E\mid \neg D)}$</strong></p>
+<p>Mathematically -&gt; <strong>${P(D) = P(D)\times P(E\mid D) + P(\neg D).P(E\mid \neg D)}$</strong></p>
 <p>We are interested in case 1.</p>
 <p>Thus, probability of you having the disease <strong>given</strong> positive test results ${P(D\mid E)}$ = ${\displaystyle \frac {P(D)\times P(E\mid D)}{P(D)\times P(E\mid D) + P(\neg D)\times P(E\mid \neg D)}}$.</p>
 <p>After calculations, the probability of you having the disease comes out to be a mere 9%, which again seems counter-intuitive. Even after being declared positive by a pretty accurate test you are probably healthy and test is False!</p>
@@ -341,7 +341,7 @@ The calculated probability <strong>${P(A\mid D)}$</strong> is called the <strong
 <p>The probability of having the disease <strong>given</strong> that second test result is also positive = 
 ${\displaystyle \frac {0.99\times 0.09}{0.99\times 0.09 + 0.01\times 0.91}}$ = ${91 \%}$.</p>
 <p>Thus, now you have 91% chances of being sick and intuitively this makes sense because the chances of two such accurate tests showing false results are pretty low.</p>
-<p>You had a hypothesis that you are sick with 0.1 percent odds. Then, you collected a evidence by going through a test and that evidence updated your belief in your hypothesis to 9%. Subsequently you went out to collect another evidence by going through another test. That test further updated your belief in hypothesis to 91%.</p>
+<p>You had a hypothesis that you are sick with 0.1 percent odds. Then, you collected a evidence by going through a test and that evidence updated your belief in your hypothesis to 9%. Subsequently, you went out to collect another evidence by going through another test. That test further updated your belief in hypothesis to 91%.</p>
 <p>This case shows that Bayes' theorem serves us by updating our priors with help of new evidences. The posteriors serve as priors for the next time any evidence is collected. This process iteratively helps in scientifically solidifying or falsifying our hypotheses by regularly collecting new evidences and updating our Priors subsequently.</p>
 
 </div>
