@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>What Does Label Smoothing Do? | Abhimanyu</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="What Does Label Smoothing Do?" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An intuitive explaination of why does label smoothing helps to better generalize the model" />
+<meta property="og:description" content="An intuitive explaination of why does label smoothing helps to better generalize the model" />
+<link rel="canonical" href="https://abhimanyu08.github.io/blog/deep-learning/2020/05/16/.html" />
+<meta property="og:url" content="https://abhimanyu08.github.io/blog/deep-learning/2020/05/16/.html" />
+<meta property="og:site_name" content="Abhimanyu" />
+<meta property="og:image" content="https://abhimanyu08.github.io/blog/images/1.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-16T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"An intuitive explaination of why does label smoothing helps to better generalize the model","@type":"BlogPosting","headline":"What Does Label Smoothing Do?","dateModified":"2020-05-16T00:00:00-05:00","datePublished":"2020-05-16T00:00:00-05:00","image":"https://abhimanyu08.github.io/blog/images/1.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://abhimanyu08.github.io/blog/deep-learning/2020/05/16/.html"},"url":"https://abhimanyu08.github.io/blog/deep-learning/2020/05/16/.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://abhimanyu08.github.io/blog/feed.xml" title="Abhimanyu" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>What Does Label Smoothing Do? | Abhimanyu</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="What Does Label Smoothing Do?" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="An intuitive explaination of why does label smoothing helps to better generalize the model" />
+<meta property="og:description" content="An intuitive explaination of why does label smoothing helps to better generalize the model" />
+<link rel="canonical" href="https://abhimanyu08.github.io/blog/deep-learning/2020/05/16/.html" />
+<meta property="og:url" content="https://abhimanyu08.github.io/blog/deep-learning/2020/05/16/.html" />
+<meta property="og:site_name" content="Abhimanyu" />
+<meta property="og:image" content="https://abhimanyu08.github.io/blog/images/1.jpg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2020-05-16T00:00:00-05:00" />
+<script type="application/ld+json">
+{"description":"An intuitive explaination of why does label smoothing helps to better generalize the model","@type":"BlogPosting","headline":"What Does Label Smoothing Do?","dateModified":"2020-05-16T00:00:00-05:00","datePublished":"2020-05-16T00:00:00-05:00","image":"https://abhimanyu08.github.io/blog/images/1.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://abhimanyu08.github.io/blog/deep-learning/2020/05/16/.html"},"url":"https://abhimanyu08.github.io/blog/deep-learning/2020/05/16/.html","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://abhimanyu08.github.io/blog/feed.xml" title="Abhimanyu" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Abhimanyu</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">What Does Label Smoothing Do?</h1><p class="page-description">An intuitive explaination of why does label smoothing helps to better generalize the model</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-05-16T00:00:00-05:00" itemprop="datePublished">
+        May 16, 2020
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      3 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#deep-learning">deep-learning</a>
+        
+      
+      </p>
+    
+
+    
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Introduction">Introduction </a></li>
+<li class="toc-entry toc-h2"><a href="#What-Is-Label-Smoothing?">What Is Label Smoothing? </a></li>
+</ul><!--
+#################################################
+### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
+#################################################
+# file to edit: _notebooks/2020-05-17.ipynb
+-->
+
+<div class="container" id="notebook-container">
+        
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Introduction">
+<a class="anchor" href="#Introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction<a class="anchor-link" href="#Introduction"> </a>
+</h2>
+<p>Label smoothing was introduced by Szegedy et.al in the paper <a href="https://arxiv.org/abs/1512.00567">Rethinking the Inception Architecture</a>. Since then this trick has been used in many papers to improve the SOTA results on many datasets in various architectures. Although being widely used, there is less insight as to why this technique helps the model to perform better. The paper by Rafael Müller et.al <a href="https://arxiv.org/abs/1906.02629v2">When does Label Smoothing Help?</a> provides insight into this question. This blog post is an attempt to explain the main result of the paper.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="What-Is-Label-Smoothing?">
+<a class="anchor" href="#What-Is-Label-Smoothing?" aria-hidden="true"><span class="octicon octicon-link"></span></a>What Is Label Smoothing?<a class="anchor-link" href="#What-Is-Label-Smoothing?"> </a>
+</h2>
+<p>Generally, in a classification problem, our aim is to maximize the log-likelihood of our label where label is based upon the ground truth. In other words, we want our model to assign maximum probability to the true label given the parameters and the input i.e ${P(\hat y\mid x,\theta)}$ where the true label is known beforehand. We motivate our model to achieve this by minimizing the cross-entropy loss between the predictions and the ground truth labels. Cross entropy loss is defined by the equation:
+${-\sum_{i=1}^{n} y_{i} \times log(\hat y_{i}) }$ where n is the number of classes for.eg for Imagenet n = 1000. Don't be intimidated by the daunting equation and jargon because in reality the calculation of loss becomes very easy as the labels are provided as one-hot encoded vectors. Suppose you build a model for task of image-classification between 3 classes. For every image as the input the model predicts a 3 length vector. Let's say for image 1 the model's normalised predictions are 
+${\hat y = [0.2, 0.7,0.1]}$ and the image belongs to category 2. Therefore, the target vector will be ${y = [0,1,0]}$. The loss for this image will be ${-(0\times \log 0.2 + 1\times \log 0.7 + 0\times \log 0.1) = -\log 0.7}$.
+There is little more to how the normalised predictions of the model are calculated. The model's predictions are calulated by using the activation Softmax in the last layer's output. The model outputs a length 3 vector and each of the element 
+of the vector is called 'logit'. For the logits to represent a valid probability distribution over the classes they should sum to 1. This is accomplished by passing the logits through a softmax layer. Let's say the output vector for a certain image as input is ${z = [z_{1}, z_{2},...,z_{n}]}$ then the predictions are calculated as ${\hat y = \text Softmax \left(z \right) = \large [\frac {e^{z_{1}}}{\sum_{i=1}^{n} e^{z_{i}}}, \frac {e^{z_{2}}}{\sum_{i=1}^{n} e^{z_{i}}}...
+\frac {e^{z_{n}}}{\sum_{i=1}^{n} e^{z_{i}}}]}$.
+Notice that sum of all the elements of ${\hat y}$ is 1. Suppose the ground truth label for the image is 2, then the target vector is ${[0,1,0,0,....0]}$ (The length of target vector is n as well). Thus, the Cross-entropy loss for this image,in it's full glory is written as ${\text loss\left(y,z\right) = -1 \times \normalsize \log \frac {e^{z_{2}}}{\sum_{i=1}^{n} e^{z_{i}}} = \log {\sum_{i=1}^{n} e^{z_{i}}} - z_{2}}$. Minimising this loss encourages ${z_{2}}$ to be as high as possible while ${z_{i}}$ for ${i\ne2}$ are encouraged to be close to 0.</p>
+<p>The problem with this approach is that model becomes over-confident for it's predictions as it assigns nearly 100% probability to the ground label. Szegedy et. al argue that this can lead to overfitting and model may not be able to generalize well. Intuitively this makes sense. for.eg Let's say our dataset contains two symantically similar classes (<a href="https://www.robots.ox.ac.uk/~vgg/data/pets/">pets dataset</a> has plenty of those). Suppose image1 belongs to one of the classes and image2 to other. Because these images are very similar, the output logits of these images would be very similar. Our over-confident model may assign other class to the images with high confidence(close to 100% probability) and thus our validation loss will be very high.</p>
+<p>The gradient of our loss w.r.t logit of correct class label k is ${\large \frac {e^{z_{k}}}{\sum_{i=1}^{n} e^{z_{i}}}-1}$ and w.r.t other logits is ${\large \frac {e^{z_{i}}}{\sum_{i=1}^{n} e^{z_{i}}}}$. Minimising the Cross-entropy loss leads to logit corresponding to correct class to be much higher than other logits. This leads to vanishing of gradients of loss w.r.t other logits and thus it hinders the model's ability to adapt.</p>
+
+</div>
+</div>
+</div>
+</div>
+
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="Abhimanyu08/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blog/deep-learning/2020/05/16/.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>A blog where I write about things I learn on my self-taught journey in the field of Artificial Intelligence</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/Abhimanyu08" title="Abhimanyu08"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/A_Bhimany_u" title="A_Bhimany_u"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
