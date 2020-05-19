@@ -109,7 +109,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      9 min read
+      13 min read
     
 </span></p>
 
@@ -132,7 +132,13 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#Implementation-In-Code">Implementation In Code </a></li>
 <li class="toc-entry toc-h2"><a href="#How-And-Why-Does-It-Work?">How And Why Does It Work? </a>
 <ul>
-<li class="toc-entry toc-h3"><a href="#Give-title">Give title </a></li>
+<li class="toc-entry toc-h3"><a href="#Calculating-Loss-Without-Label-Smoothing">Calculating Loss Without Label Smoothing </a></li>
+<li class="toc-entry toc-h3"><a href="#Calculating-Loss-Without-Label-Smoothing">Calculating Loss Without Label Smoothing </a></li>
+</ul>
+</li>
+<li class="toc-entry toc-h2"><a href="#Geometric-Point-Of-View">Geometric Point Of View </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#Euclidean-Norm">Euclidean Norm </a></li>
 </ul>
 </li>
 </ul><!--
@@ -237,16 +243,90 @@ The loss is ${L\left(\hat y ,y\right) = \sum_{i=1}^{k} -y_{i} \times \log \hat y
 <a class="anchor" href="#How-And-Why-Does-It-Work?" aria-hidden="true"><span class="octicon octicon-link"></span></a>How And Why Does It Work?<a class="anchor-link" href="#How-And-Why-Does-It-Work?"> </a>
 </h2>
 <p>Label smoothing goes against the conventional practice of maximising the likelihood of ground truth label. Instead it punishes the model if the logits which don't correspond to correct label get too low. This can be seen by the second term in equation of loss mentioned above i.e ${-\frac{\varepsilon}{k}\times\left(\sum_{i=1}^{k} \log\hat y_{i}\right)}$. We can see that if ${\hat y_{i}\, for\, i = {1,2,...,k}}$ go too close to 0 then the loss goes up (${\log}$ of something close to 0 is a large negative number). In contrast, Maximising the likelihood of ground truth label encourages the logits that don't correspond to correct label to go as low as possible. Let's dig into how label smoothing improves things despite going against the concept of probability theory.</p>
-<h3 id="Give-title">
-<a class="anchor" href="#Give-title" aria-hidden="true"><span class="octicon octicon-link"></span></a>Give title<a class="anchor-link" href="#Give-title"> </a>
+<h3 id="Calculating-Loss-Without-Label-Smoothing">
+<a class="anchor" href="#Calculating-Loss-Without-Label-Smoothing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Calculating Loss Without Label Smoothing<a class="anchor-link" href="#Calculating-Loss-Without-Label-Smoothing"> </a>
 </h3>
-<p>Let's imagine that we have a task to build a model for image classification task where each image can have one of three labels. This means our model will output a length 3 vector containing our three logits. Assume that penultimate layer of the model has has 4 activations. The model's last 3 layers will look something like shown below. I have joined an extra layer at the end which corresponds to calculation of our cross entropy loss by taking three logits as input. <img src="my_icons/nn.png" alt="image">. We put in an image in this model which has a target vector ${y = [0,1,0]}$. The penultimate layer's activations are ${X = [x_{1},x_{2},x_{3},x_{4}]^{T}}$, the last layer's outputs are ${Z = [z_{1},z_{2},z_{3}]^{T}}$ (A single vector is conventionally written as column vector, therefore, ${X}$ and ${Z}$ are written as transpose of row vectors). ${Z}$ is calculated from the penultimate layer's activation using the equation ${Z = W\star X}$ (${\star}$ here denotes matrix multiplication). Bias is ignored for sake of brevity. ${W}$ is the weight matrix connecting penultimate layer and output layer. ${W = \left[
+<p>Let's imagine that we have a task to build a model for image classification task where each image can have one of three labels. This means our model will output a length 3 vector containing our three logits. Assume that penultimate layer of the model has has 4 activations. The model's last 3 layers will look something like shown below. I have joined an extra layer at the end which corresponds to calculation of our cross entropy loss by taking three logits as input. <img src="my_icons/nn.png" alt="image">. We put in an image in this model which has a target vector ${y^{h} = [0,1,0]^{T}}$. The penultimate layer's activations are ${X = [x_{1},x_{2},x_{3},x_{4}]^{T}}$, the last layer's outputs are ${Z = [z_{1},z_{2},z_{3}]^{T}}$ (A single vector is conventionally written as column vector, therefore, ${X}$, ${Z}$ and ${y^{h}}$ are written as transpose of row vectors). ${Z}$ is calculated from the penultimate layer's activation using the equation ${Z = W\star X}$ (${\star}$ here denotes matrix multiplication). Bias is ignored for sake of brevity. ${W}$ is the weight matrix connecting penultimate layer and output layer. ${W = \left[
          \begin{array}{ccc}
          w_{11} &amp; w_{12} &amp; w_{13} &amp; w_{14}          \\
          w_{21} &amp; w_{22} &amp; w_{23} &amp; w_{24}\\
          w_{31} &amp; w_{32} &amp; w_{33} &amp; w_{34}
         \end{array}
-    \right]}$. Shortly weight matrix can be written as ${W = [w_{1},w_{2},w_{3}]^{T}}$ where ${w_{i} = [w_{i1},w_{i2},w_{i3},w_{i4}]}$.</p>
+    \right]}$. Shortly weight matrix can be written as ${W = [w_{1},w_{2},w_{3}]^{T}}$ where ${w_{i} = [w_{i1},w_{i2},w_{i3},w_{i4}]}$. The output vector ${Z}$ is calculated as ${W\times X = \left[
+         \begin{array}{ccc}
+         w_{11}\times x_{1} &amp; w_{12}\times x_{2} &amp; w_{13}\times x_{3} &amp; w_{14}\times x_{4}          \\
+         w_{21}\times x_{1} &amp; w_{22}\times x_{2} &amp; w_{23}\times x_{3} &amp; w_{24}\times x_{4}\\
+         w_{31}\times x_{1} &amp; w_{32}\times x_{2} &amp; w_{33}\times x_{3} &amp; w_{34}\times x_{4}
+        \end{array}
+    \right]}$. In short this can be written as ${Z = \left[\begin{array}{ccc}
+         z_{1}          \\
+         z_{2}           \\
+         z_{3}
+        \end{array}
+    \right] = \left[
+         \begin{array}{ccc}
+         w_{1}X^{T}          \\
+         w_{2}X^{T}           \\
+         w_{3}X^{T}
+        \end{array}
+    \right]}$ where ${w_{i}X^{T}}$ denotes inner product between ${w_{i}}$ and ${X^{T}}$. ${Z}$ is a vector of logits and therfore is un-normalised. To get our prediction vector we would have to normalise this by passing ${Z}$ through a softmax layer. Our prediction vector would be ${\hat y = \left[
+         \begin{array}{ccc}
+         \frac {e^{w_{1}X^{T}}}{e^{w_{1}X^{T}}+e^{w_{2}X^{T}}+e^{w_{3}X^{T}}}          \\
+         \frac {e^{w_{2}X^{T}}}{e^{w_{1}X^{T}}+e^{w_{2}X^{T}}+e^{w_{3}X^{T}}}           \\
+         \frac {e^{w_{3}X^{T}}}{e^{w_{1}X^{T}}+e^{w_{2}X^{T}}+e^{w_{3}X^{T}}}
+        \end{array}
+    \right]}$. As given before our target vector is ${y^{h} = [0,1,0]^{T}}$. So, our cross-entropy loss will be ${L\left(y^{h},z\right) = -\log \left(\frac {e^{w_{2}X^{T}}}{e^{w_{1}X^{T}}+e^{w_{2}X^{T}}+e^{w_{3}X^{T}}}\right)}$. For preserving our sanity let's denote ${e^{w_{1}X^{T}}+e^{w_{2}X^{T}}+e^{w_{3}X^{T}}}$ by ${S}$. Then ${L\left(y^{h},z\right) = -\log \left(\frac {e^{w_{2}X^{T}}}{S}\right) = \log {S}-{w_{2}X^{T}}}$</p>
+<h3 id="Calculating-Loss-Without-Label-Smoothing">
+<a class="anchor" href="#Calculating-Loss-Without-Label-Smoothing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Calculating Loss Without Label Smoothing<a class="anchor-link" href="#Calculating-Loss-Without-Label-Smoothing"> </a>
+</h3>
+<p>Our prediction vector is same as before, but our target vector changes. Let's denote our label smoothed target vector as ${y^{l}}$. So, ${y^{l} = [\frac {\varepsilon}{3}, 1-\varepsilon + \frac {\varepsilon}{3}, \frac {\varepsilon}{3}]^{T}}$. Then, our new loss will be ${L\left(y^{l},z\right) = -\frac {\varepsilon}{3}\times \log\frac {e^{w_{1}X^{t}}}{S}-\left(1-\varepsilon+\frac{\varepsilon}{3}\right)\times \log\frac {e^{w_{2}X^{t}}}{S}-\frac {\varepsilon}{3}\times \log\frac {e^{w_{3}X^{t}}}{S} = -\left(1-\varepsilon\right)\times \log\frac {e^{w_{2}X^{t}}}{S}-\frac {\varepsilon}{3}\times\left(\log\frac {e^{w_{1}X^{t}}}{S}+\log\frac {e^{w_{2}X^{t}}}{S}+\log\frac {e^{w_{3}X^{t}}}{S}\right)}$. Remember that ${\log a + \log b = \log ab}$. Utilising this rule, loss can be written as ${L\left(y^{l},z\right)=\left(1-\varepsilon\right)\left(\log S-w_{2}X^{T}\right)-\frac{\varepsilon}{3}\times{\log\left(\frac{e^{w_{1}X^{T}+w_{2}X^{T}+w_{3}X^{T}}}{S^{3}}\right)}}$. To further reduce this equation, we need to know two more rules 1. ${\log\frac{a}{b}=\log a-\log b}$ and 2. ${\log a^{b}=b\log a}$. Then, ${L\left(y^{l},y\right)=\left(\log S-w_{2}X^{T}\right)-\varepsilon\left(\log S - w_{2}X^{T}\right)-\frac{\varepsilon}{3}\left(w_{1}X^{T}+w_{2}X^{T}+w_{3}X^{T}\right)+\frac{\varepsilon}{3}\log\left(S^{3}\right) = \left(\log S-w_{2}X^{T}\right)-\varepsilon\log S+\varepsilon\left(w_{2}X^{T}\right)-\frac{\varepsilon}{3}\left(w_{1}X^{T}+w_{2}X^{T}+w_{3}X^{T}\right)+{\varepsilon}\log\ S}$. Notice, that first term of the last expression is our ${L\left(y^{h},z\right)}$. Therefore our loss with smooth labels can be finally written as ${L\left(y^{l},z\right)=L\left(y^{h},z\right)+\frac{\varepsilon}{3}\left(2w_{2}X^{T}-w_{1}X^{T}-w_{3}X^{T}\right)}$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h2 id="Geometric-Point-Of-View">
+<a class="anchor" href="#Geometric-Point-Of-View" aria-hidden="true"><span class="octicon octicon-link"></span></a>Geometric Point Of View<a class="anchor-link" href="#Geometric-Point-Of-View"> </a>
+</h2>
+<p>Our last layer's output for the image we input esrlier is ${Z= \left[
+         \begin{array}{ccc}
+         w_{1}X^{T}          \\
+         w_{2}X^{T}           \\
+         w_{3}X^{T}
+        \end{array}
+    \right]}$. Since this class belongs to class 2, minimising the loss functions calculated above increases ${w_{2}X^{T}}$ while ${w_{1}X^{T}}$ and ${w_{2}X^{T}}$ are decreased. Notice a pattern that ${w_{i}X^{T}}$ produces logits for class ${i}$. ${w_{i}}$ can be thought of as a template for class ${i}$. Let's try to view the process of minimising or maximising ${w_{i}X^{T}}$ geometrically.</p>
+<h4 id="Euclidean-Norm">
+<a class="anchor" href="#Euclidean-Norm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Euclidean Norm<a class="anchor-link" href="#Euclidean-Norm"> </a>
+</h4>
+<p>Euclidean norm of two vectors is simply the distance between the two vectors in their space. Euclidean Norm for two vectors is ${a}$ and ${b}$ can be calculated as: ${\lVert a-b\rVert=\left(a^{T}a-2a^{T}{b}+b^{T}b\right)^{\frac{1}{2}}}$. ${\therefore \lVert a-b\rVert^{2}= a^{T}\star a-2a^{T}\star{b}+b^{T}\star b}$. (Remeber that ${\star}$ denotes matrix multiplication.)</p>
+<p>Now that we know how to calculate the euclidean norm, let's calculate it for ${w_{i}}$ and ${X}$. ${\lVert w_{i}-X\rVert^{2}= w_{i}^{T}\star w_{i}-2w_{i}^{T}\star{X}+X^{T}\star X= w_{i}^{T}\star w_{i}-2w_{i}{X}^{T}+X^{T}\star X}$. Geometrically this quantity is the distance between tempelate for class ${i}$ and penultimate layer's activation ${X}$. (For any two vectors ${a}$ and ${b}$, ${a\star b=a.b^{T}}$ where ${\star}$ and ${.}$ denote matrix multiplication and inner product respectively.)</p>
+<p>Notice the second term inside the expression of ${\lVert w_{i}-X\rVert^{2}}$ which is ${2w_{i}X^{T}}$. If this term increases, the distance between ${w_{i}}$ and ${X}$ decreases and whenever it decreases the mentioned distance increases. But notice that this second term is just the same as ${2\times z_{i}}$. This means whenever ${z_{i}}$ increases/decreases distance between tempelate for class ${i}$ and penultimate layer's output vector decreases/increases. If an image belongs to class ${k}$, minimising the loss increases ${z_{k}}$ and decreases every other logit. This means that minimising the loss is same as minimising the distance between penultimate layer's output ${X}$ and tempelate for correct class ${w_{k}}$ and maximising the distance between ${X}$ and tempelate for every ${w_{i}}$ where ${i \neq k}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>${L\left(y^{l},z\right) = \frac {\varepsilon}{3}\times \log\frac {e^{w_{1}X^{t}}}{S}+\left(1-\varepsilon+\frac{\varepsilon}{3}\right)\times \log\frac {e^{w_{2}X^{t}}}{S}+\frac {\varepsilon}{3}\times \log\frac {e^{w_{3}X^{t}}}{S}}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>${\left(\log S-w_{2}X^{T}\right)-\varepsilon\left(\log S - w_{2}X^{T}\right)-\frac{\varepsilon}{3}\left(w_{1}X^{T}+w_{2}X^{T}+w_{3}X^{T}\right)+\frac{\varepsilon}{3}\log\left(S^{3}\right) = \left(\log S-w_{2}X^{T}\right)-\varepsilon\log S+\varepsilon\left(w_{2}X^{T}\right)-\frac{\varepsilon}{3}\left(w_{1}X^{T}+w_{2}X^{T}+w_{3}X^{T}\right)+{\varepsilon}\log\ S}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>${L\left(y^{h},z\right)+\frac{\varepsilon}{3}\left(2w_{2}X^{T}-w_{1}X^{T}-w_{3}X^{T}\right)}$</p>
 
 </div>
 </div>
