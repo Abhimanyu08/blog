@@ -133,12 +133,13 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#How-And-Why-Does-It-Work?">How And Why Does It Work? </a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#Calculating-Loss-Without-Label-Smoothing">Calculating Loss Without Label Smoothing </a></li>
-<li class="toc-entry toc-h3"><a href="#Calculating-Loss-Without-Label-Smoothing">Calculating Loss Without Label Smoothing </a></li>
+<li class="toc-entry toc-h3"><a href="#Calculating-Loss-With-Label-Smoothing">Calculating Loss With Label Smoothing </a></li>
 </ul>
 </li>
 <li class="toc-entry toc-h2"><a href="#Geometric-Point-Of-View">Geometric Point Of View </a>
 <ul>
 <li class="toc-entry toc-h4"><a href="#Euclidean-Norm">Euclidean Norm </a></li>
+<li class="toc-entry toc-h4"><a href="#Loss-Mimisation-as-Distance-Minimisation/Maximisation">Loss Mimisation as Distance Minimisation/Maximisation </a></li>
 </ul>
 </li>
 </ul><!--
@@ -276,8 +277,8 @@ The loss is ${L\left(\hat y ,y\right) = \sum_{i=1}^{k} -y_{i} \times \log \hat y
          \frac {e^{w_{3}X^{T}}}{e^{w_{1}X^{T}}+e^{w_{2}X^{T}}+e^{w_{3}X^{T}}}
         \end{array}
     \right]}$. As given before our target vector is ${y^{h} = [0,1,0]^{T}}$. So, our cross-entropy loss will be ${L\left(y^{h},z\right) = -\log \left(\frac {e^{w_{2}X^{T}}}{e^{w_{1}X^{T}}+e^{w_{2}X^{T}}+e^{w_{3}X^{T}}}\right)}$. For preserving our sanity let's denote ${e^{w_{1}X^{T}}+e^{w_{2}X^{T}}+e^{w_{3}X^{T}}}$ by ${S}$. Then ${L\left(y^{h},z\right) = -\log \left(\frac {e^{w_{2}X^{T}}}{S}\right) = \log {S}-{w_{2}X^{T}}}$</p>
-<h3 id="Calculating-Loss-Without-Label-Smoothing">
-<a class="anchor" href="#Calculating-Loss-Without-Label-Smoothing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Calculating Loss Without Label Smoothing<a class="anchor-link" href="#Calculating-Loss-Without-Label-Smoothing"> </a>
+<h3 id="Calculating-Loss-With-Label-Smoothing">
+<a class="anchor" href="#Calculating-Loss-With-Label-Smoothing" aria-hidden="true"><span class="octicon octicon-link"></span></a>Calculating Loss With Label Smoothing<a class="anchor-link" href="#Calculating-Loss-With-Label-Smoothing"> </a>
 </h3>
 <p>Our prediction vector is same as before, but our target vector changes. Let's denote our label smoothed target vector as ${y^{l}}$. So, ${y^{l} = [\frac {\varepsilon}{3}, 1-\varepsilon + \frac {\varepsilon}{3}, \frac {\varepsilon}{3}]^{T}}$. Then, our new loss will be ${L\left(y^{l},z\right) = -\frac {\varepsilon}{3}\times \log\frac {e^{w_{1}X^{t}}}{S}-\left(1-\varepsilon+\frac{\varepsilon}{3}\right)\times \log\frac {e^{w_{2}X^{t}}}{S}-\frac {\varepsilon}{3}\times \log\frac {e^{w_{3}X^{t}}}{S} = -\left(1-\varepsilon\right)\times \log\frac {e^{w_{2}X^{t}}}{S}-\frac {\varepsilon}{3}\times\left(\log\frac {e^{w_{1}X^{t}}}{S}+\log\frac {e^{w_{2}X^{t}}}{S}+\log\frac {e^{w_{3}X^{t}}}{S}\right)}$. Remember that ${\log a + \log b = \log ab}$. Utilising this rule, loss can be written as ${L\left(y^{l},z\right)=\left(1-\varepsilon\right)\left(\log S-w_{2}X^{T}\right)-\frac{\varepsilon}{3}\times{\log\left(\frac{e^{w_{1}X^{T}+w_{2}X^{T}+w_{3}X^{T}}}{S^{3}}\right)}}$. To further reduce this equation, we need to know two more rules 1. ${\log\frac{a}{b}=\log a-\log b}$ and 2. ${\log a^{b}=b\log a}$. Then, ${L\left(y^{l},y\right)=\left(\log S-w_{2}X^{T}\right)-\varepsilon\left(\log S - w_{2}X^{T}\right)-\frac{\varepsilon}{3}\left(w_{1}X^{T}+w_{2}X^{T}+w_{3}X^{T}\right)+\frac{\varepsilon}{3}\log\left(S^{3}\right) = \left(\log S-w_{2}X^{T}\right)-\varepsilon\log S+\varepsilon\left(w_{2}X^{T}\right)-\frac{\varepsilon}{3}\left(w_{1}X^{T}+w_{2}X^{T}+w_{3}X^{T}\right)+{\varepsilon}\log\ S}$. Notice, that first term of the last expression is our ${L\left(y^{h},z\right)}$. Therefore our loss with smooth labels can be finally written as ${L\left(y^{l},z\right)=L\left(y^{h},z\right)+\frac{\varepsilon}{3}\left(2w_{2}X^{T}-w_{1}X^{T}-w_{3}X^{T}\right)}$.</p>
 
@@ -296,37 +297,17 @@ The loss is ${L\left(\hat y ,y\right) = \sum_{i=1}^{k} -y_{i} \times \log \hat y
          w_{2}X^{T}           \\
          w_{3}X^{T}
         \end{array}
-    \right]}$. Since this class belongs to class 2, minimising the loss functions calculated above increases ${w_{2}X^{T}}$ while ${w_{1}X^{T}}$ and ${w_{2}X^{T}}$ are decreased. Notice a pattern that ${w_{i}X^{T}}$ produces logits for class ${i}$. ${w_{i}}$ can be thought of as a template for class ${i}$. Let's try to view the process of minimising or maximising ${w_{i}X^{T}}$ geometrically.</p>
+    \right]}$. Since this class belongs to class 2, minimising the loss functions calculated above increases ${w_{2}X^{T}}$ while ${w_{1}X^{T}}$ and ${w_{2}X^{T}}$ are decreased. More generally, if an image belongs to class ${k}$ then in minising the loss ${z_{k}}$ is increased while every other logit is decreased. Also, notice a pattern that ${w_{i}X^{T}}$ produces logits for class ${i}$. ${w_{i}}$ can be thought of as a template for class ${i}$. Let's try to view the process of minimising or maximising ${w_{i}X^{T}}$ geometrically.</p>
 <h4 id="Euclidean-Norm">
 <a class="anchor" href="#Euclidean-Norm" aria-hidden="true"><span class="octicon octicon-link"></span></a>Euclidean Norm<a class="anchor-link" href="#Euclidean-Norm"> </a>
 </h4>
 <p>Euclidean norm of two vectors is simply the distance between the two vectors in their space. Euclidean Norm for two vectors is ${a}$ and ${b}$ can be calculated as: ${\lVert a-b\rVert=\left(a^{T}a-2a^{T}{b}+b^{T}b\right)^{\frac{1}{2}}}$. ${\therefore \lVert a-b\rVert^{2}= a^{T}\star a-2a^{T}\star{b}+b^{T}\star b}$. (Remeber that ${\star}$ denotes matrix multiplication.)</p>
-<p>Now that we know how to calculate the euclidean norm, let's calculate it for ${w_{i}}$ and ${X}$. ${\lVert w_{i}-X\rVert^{2}= w_{i}^{T}\star w_{i}-2w_{i}^{T}\star{X}+X^{T}\star X= w_{i}^{T}\star w_{i}-2w_{i}{X}^{T}+X^{T}\star X}$. Geometrically this quantity is the distance between tempelate for class ${i}$ and penultimate layer's activation ${X}$. (For any two vectors ${a}$ and ${b}$, ${a\star b=a.b^{T}}$ where ${\star}$ and ${.}$ denote matrix multiplication and inner product respectively.)</p>
-<p>Notice the second term inside the expression of ${\lVert w_{i}-X\rVert^{2}}$ which is ${2w_{i}X^{T}}$. If this term increases, the distance between ${w_{i}}$ and ${X}$ decreases and whenever it decreases the mentioned distance increases. But notice that this second term is just the same as ${2\times z_{i}}$. This means whenever ${z_{i}}$ increases/decreases distance between tempelate for class ${i}$ and penultimate layer's output vector decreases/increases. If an image belongs to class ${k}$, minimising the loss increases ${z_{k}}$ and decreases every other logit. This means that minimising the loss is same as minimising the distance between penultimate layer's output ${X}$ and tempelate for correct class ${w_{k}}$ and maximising the distance between ${X}$ and tempelate for every ${w_{i}}$ where ${i \neq k}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>${L\left(y^{l},z\right) = \frac {\varepsilon}{3}\times \log\frac {e^{w_{1}X^{t}}}{S}+\left(1-\varepsilon+\frac{\varepsilon}{3}\right)\times \log\frac {e^{w_{2}X^{t}}}{S}+\frac {\varepsilon}{3}\times \log\frac {e^{w_{3}X^{t}}}{S}}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>${\left(\log S-w_{2}X^{T}\right)-\varepsilon\left(\log S - w_{2}X^{T}\right)-\frac{\varepsilon}{3}\left(w_{1}X^{T}+w_{2}X^{T}+w_{3}X^{T}\right)+\frac{\varepsilon}{3}\log\left(S^{3}\right) = \left(\log S-w_{2}X^{T}\right)-\varepsilon\log S+\varepsilon\left(w_{2}X^{T}\right)-\frac{\varepsilon}{3}\left(w_{1}X^{T}+w_{2}X^{T}+w_{3}X^{T}\right)+{\varepsilon}\log\ S}$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>${L\left(y^{h},z\right)+\frac{\varepsilon}{3}\left(2w_{2}X^{T}-w_{1}X^{T}-w_{3}X^{T}\right)}$</p>
+<h4 id="Loss-Mimisation-as-Distance-Minimisation/Maximisation">
+<a class="anchor" href="#Loss-Mimisation-as-Distance-Minimisation/Maximisation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Loss Mimisation as Distance Minimisation/Maximisation<a class="anchor-link" href="#Loss-Mimisation-as-Distance-Minimisation/Maximisation"> </a>
+</h4>
+<p>Now that we know how to calculate the euclidean norm, let's calculate it for ${w_{i}}$ and ${X}$. ${\lVert w_{i}-X\rVert^{2}= w_{i}^{T}\star w_{i}-2w_{i}^{T}\star{X}+X^{T}\star X= w_{i}^{T}\star w_{i}-2w_{i}{X}^{T}+X^{T}\star X}$. (For any two vectors ${a}$ and ${b}$, ${a\star b=a.b^{T}}$ where ${\star}$ and ${.}$ denote matrix multiplication and inner product respectively). Geometrically this quantity is the distance between tempelate for class ${i}$ and penultimate layer's activation ${X}$.</p>
+<p>Notice the second term inside the expression of ${\lVert w_{i}-X\rVert^{2}}$ which is ${2w_{i}X^{T}}$. If this term increases, the distance between ${w_{i}}$ and ${X}$ decreases and whenever it decreases the mentioned distance increases. But notice that this second term is just the same as ${2\times z_{i}}$. This means whenever ${z_{i}}$ increases/decreases distance between tempelate for class ${i}$ and penultimate layer's output vector decreases/increases. If an image belongs to class ${k}$, minimising the loss increases ${z_{k}}$ and decreases every other logit. This means that minimising the loss is same as minimising the distance between penultimate layer's output ${X}$ and tempelate for correct class ${w_{k}}$ and maximising the distance between ${X}$ and tempelate for every ${w_{i}}$ where ${i \neq k}$.</p>
+<p>Thus,we can infer that minimising ${L\left(y^{h},z\right)}$ or ${L\left(y^{l},z\right)}$ produces the same effect which is to bring ${w_{k}}$ close to ${X}$ when image belongs to class k and taking ${w_{i}}$ where ${i\neq k}$ far from ${X}$. The different performance of these two losses stem from the manner in which they go about doing this which is explained below.</p>
 
 </div>
 </div>
