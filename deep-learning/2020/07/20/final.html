@@ -9,14 +9,14 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="A look inside the workings of label smoothing." />
 <meta property="og:description" content="A look inside the workings of label smoothing." />
-<link rel="canonical" href="https://abhimanyu08.github.io/blog/deep-learning/2020/07/19/Untitled1.html" />
-<meta property="og:url" content="https://abhimanyu08.github.io/blog/deep-learning/2020/07/19/Untitled1.html" />
+<link rel="canonical" href="https://abhimanyu08.github.io/blog/deep-learning/2020/07/20/final.html" />
+<meta property="og:url" content="https://abhimanyu08.github.io/blog/deep-learning/2020/07/20/final.html" />
 <meta property="og:site_name" content="Abhimanyu" />
 <meta property="og:image" content="https://abhimanyu08.github.io/blog/images/ls.JPG" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-07-19T00:00:00-05:00" />
+<meta property="article:published_time" content="2020-07-20T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"A look inside the workings of label smoothing.","@type":"BlogPosting","headline":"Directional Derivatives, Hessians and Why Poor Condition Number Is A ?","dateModified":"2020-07-19T00:00:00-05:00","datePublished":"2020-07-19T00:00:00-05:00","image":"https://abhimanyu08.github.io/blog/images/ls.JPG","mainEntityOfPage":{"@type":"WebPage","@id":"https://abhimanyu08.github.io/blog/deep-learning/2020/07/19/Untitled1.html"},"url":"https://abhimanyu08.github.io/blog/deep-learning/2020/07/19/Untitled1.html","@context":"https://schema.org"}</script>
+{"description":"A look inside the workings of label smoothing.","@type":"BlogPosting","headline":"Directional Derivatives, Hessians and Why Poor Condition Number Is A ?","dateModified":"2020-07-20T00:00:00-05:00","datePublished":"2020-07-20T00:00:00-05:00","image":"https://abhimanyu08.github.io/blog/images/ls.JPG","mainEntityOfPage":{"@type":"WebPage","@id":"https://abhimanyu08.github.io/blog/deep-learning/2020/07/20/final.html"},"url":"https://abhimanyu08.github.io/blog/deep-learning/2020/07/20/final.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://abhimanyu08.github.io/blog/feed.xml" title="Abhimanyu" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
 <title>Directional Derivatives, Hessians and Why Poor Condition Number Is A ? | Abhimanyu</title>
@@ -25,14 +25,14 @@
 <meta property="og:locale" content="en_US" />
 <meta name="description" content="A look inside the workings of label smoothing." />
 <meta property="og:description" content="A look inside the workings of label smoothing." />
-<link rel="canonical" href="https://abhimanyu08.github.io/blog/deep-learning/2020/07/19/Untitled1.html" />
-<meta property="og:url" content="https://abhimanyu08.github.io/blog/deep-learning/2020/07/19/Untitled1.html" />
+<link rel="canonical" href="https://abhimanyu08.github.io/blog/deep-learning/2020/07/20/final.html" />
+<meta property="og:url" content="https://abhimanyu08.github.io/blog/deep-learning/2020/07/20/final.html" />
 <meta property="og:site_name" content="Abhimanyu" />
 <meta property="og:image" content="https://abhimanyu08.github.io/blog/images/ls.JPG" />
 <meta property="og:type" content="article" />
-<meta property="article:published_time" content="2020-07-19T00:00:00-05:00" />
+<meta property="article:published_time" content="2020-07-20T00:00:00-05:00" />
 <script type="application/ld+json">
-{"description":"A look inside the workings of label smoothing.","@type":"BlogPosting","headline":"Directional Derivatives, Hessians and Why Poor Condition Number Is A ?","dateModified":"2020-07-19T00:00:00-05:00","datePublished":"2020-07-19T00:00:00-05:00","image":"https://abhimanyu08.github.io/blog/images/ls.JPG","mainEntityOfPage":{"@type":"WebPage","@id":"https://abhimanyu08.github.io/blog/deep-learning/2020/07/19/Untitled1.html"},"url":"https://abhimanyu08.github.io/blog/deep-learning/2020/07/19/Untitled1.html","@context":"https://schema.org"}</script>
+{"description":"A look inside the workings of label smoothing.","@type":"BlogPosting","headline":"Directional Derivatives, Hessians and Why Poor Condition Number Is A ?","dateModified":"2020-07-20T00:00:00-05:00","datePublished":"2020-07-20T00:00:00-05:00","image":"https://abhimanyu08.github.io/blog/images/ls.JPG","mainEntityOfPage":{"@type":"WebPage","@id":"https://abhimanyu08.github.io/blog/deep-learning/2020/07/20/final.html"},"url":"https://abhimanyu08.github.io/blog/deep-learning/2020/07/20/final.html","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -103,8 +103,8 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Directional Derivatives, Hessians and Why Poor Condition Number Is A ?</h1><p class="page-description">A look inside the workings of label smoothing.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-07-19T00:00:00-05:00" itemprop="datePublished">
-        Jul 19, 2020
+    <h1 class="post-title p-name" itemprop="name headline">Directional Derivatives, Hessians and Why Poor Condition Number Is A ?</h1><p class="page-description">A look inside the workings of label smoothing.</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2020-07-20T00:00:00-05:00" itemprop="datePublished">
+        Jul 20, 2020
       </time>
        • <span class="read-time" title="Estimated read time">
     
@@ -137,7 +137,7 @@ window.onload = wrap_img;
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
-# file to edit: _notebooks/Untitled1.ipynb
+# file to edit: _notebooks/2020-07-20-final.ipynb
 -->
 
 <div class="container" id="notebook-container">
@@ -247,7 +247,7 @@ In case of f(x), we move such that ${x = x - 2\epsilon = 1 - 0.001\times2 = 0.99
         theme="github-light"
         crossorigin="anonymous"
         async>
-</script><a class="u-url" href="/blog/deep-learning/2020/07/19/Untitled1.html" hidden></a>
+</script><a class="u-url" href="/blog/deep-learning/2020/07/20/final.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
