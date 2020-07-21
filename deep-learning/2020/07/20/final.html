@@ -107,7 +107,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      21 min read
+      22 min read
     
 </span></p>
 
@@ -485,7 +485,12 @@ Let's minimise the function ${f(w) = \frac{1}{2}w^{T}Aw - b^{T}w}$ where ${w\in 
 <p>Since ${A}$ is symmetric matrix, we can write eigendecomposition of ${A}$ as ${\textbf Q\Lambda \textbf Q^{T}}$. Since ${\textbf Q}$ is orthogonal matrix, ${\textbf Q\textbf Q^{T} = I}$. We know that multiplying a vector by an orthogonal matrix simply rotates the vector without changing it's magnitude. In case of vector ${w^{t+1}- w^{\ast}}$, we are only concerned with it's magnitude because that tells us how far we are from optimal point. So we can define a new variable ${x^{t} = Q^{T}(w^{t}- w^{\ast})}$. ${x^t}$ has same magnitude as $(w^{t}- w^{\ast})$. We do this because it will yield an easy interpretation in the end.</p>
 <p>Multiplying both sides of ${Eq(6)}$ with ${Q^{T}}$ and replacing ${A}$ with it's eigendecomposition we get:</p>
 <p>${Q^{T}(w^{t+1}- w^{\ast}) = Q^{T}(QQ^{T} - \epsilon Q\Lambda Q^{T})(w^t - w^\ast) = Q^{T}Q(I - \epsilon \Lambda)Q^{T}(w^t - w^\ast)  = (I - \epsilon \Lambda)x^t}$</p>
-<p>${x^{t+1} = (I - \epsilon \Lambda)x^t}$</p>
+<p>${x^{t+1} = (I - \epsilon \Lambda)x^t}$. We can write ${x^{t+1}}$ in terms of ${x^\omicron}$ as:</p>
+<p>${x^{t+1} = (I-\epsilon \Lambda)^{t}x^\omicron = diag([1-\epsilon\lambda_{1},...,1-\epsilon\lambda_{m}])^{t}x^\omicron}$.</p>
+<p>If a matrix ${B}$ is a diagonal matrix denoted by ${diag([b_{1}, b_{2},...,b_{n}])}$then ${B^k}$ is equal to ${diag([b_{1}^k, b_{2}^k,...,b_{n}^k])}$</p>
+<p>${x^{t+1} = diag([(1-\epsilon\lambda_{1})^t,...,(1-\epsilon\lambda_{m})^t])x^\omicron}$.</p>
+<p>Let ${x^\omicron_{i}}$ be the i-th element of vector ${x^\omicron}$</p>
+<p>${x^{t+1} = \left[\begin{array}{ccc}(1-\epsilon\lambda_{1})^t x^\omicron_{1}\\...\\(1-\epsilon\lambda_{m})^t x^\omicron_{m}\end{array}\right]}$.</p>
 
 </div>
 </div>
