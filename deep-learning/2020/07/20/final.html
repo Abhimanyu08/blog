@@ -107,7 +107,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      25 min read
+      26 min read
     
 </span></p>
 
@@ -531,7 +531,31 @@ Let's minimise the function ${f(w) = \frac{1}{2}w^{T}Aw - b^{T}w}$ where ${w\in 
 </h2>
 <p>Suppose we are at a certain point where the gradient vector ${g}$ is ${0}$ (A vector is 0 when all of it's components are 0) and all the eigenvalues of the Hessian are negative. What does that mean ? It means that in whichever direction we go the gradient decreases. Since the gradient is already 0, it's component will become negative if we move in any direction. Negative components further mean that moving in any direction will lead to decrease in the value of function. This is an interesting case. Since the value of function is decreasing regardless of which direction we move in, we must be at the point where value of function is greater than the value of function at it's neighbouring points. This point is called a local maximum or a global maximum.</p>
 <p>The opposite happens when the gradient vector ${g}$ is ${0}$ and all the eigenvalues of the Hessian are negative. This means that we are at point where the value of function is less than the value of function at it's neighbouring points. This point is called local minimum or global minimum.</p>
-<p>The procedure where we check the sign of all the eigenvalues of Hessian at points where gradient vector is 0 is called the second derivative test. The second derivative helps us determine whether the</p>
+<p>The procedure where we check the sign of all the eigenvalues of Hessian at points where gradient vector is 0 is called the second derivative test. The second derivative helps us determine whether the point is local maximum or local minimum.</p>
+<p>But what happens if the all the eigenvalues of the Hessian don't have the same sign. In this case the second-derivative test is inconclusive. If some eigenvalues are positive it means that derivative and thus consecutively value of function increases in those directions, while the value of functions decreaes in other directions. This point is called the <strong>saddle point</strong> of the function.</p>
+<p>Let's take an example for better clarification. Let ${f: R^{2}\rightarrow R}$ be a function defined as ${f(x_{1}, x_{2}) = x_{1}^{2} - x_2^2}$. The gradient vector of this function is ${g = \left[\begin{array}{ccc}\large\frac{\partial f}{\partial x_1}\\\large\frac{\partial f}{\partial x_2}\end{array}\right] = \left[\begin{array}{ccc}2x_{1}\\-2x_2\end{array}\right]}$. The Hessian for this function is ${H = \left[\begin{array}{ccc} \large\frac{\partial}{\partial x_1\partial x_1}f &amp; \large\frac{\partial}{\partial x_1\partial x_2}f\\
+\large\frac{\partial}{\partial x_2\partial x_1}f &amp; \large\frac{\partial}{\partial x_2\partial x_2}f\end{array}\right] = \left[
+         \begin{array}{ccc}
+         2 &amp; 0\\
+         0 &amp; -2\\
+         \end{array}
+\right]}$.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The gradient ${g}$ is 0 at the origin. We can see that vectors ${\left[\begin{array}{ccc} 1\\0\end{array}\right]}$ and ${\left[\begin{array}{ccc} 0\\-1\end{array}\right]}$ are eigenvectors of ${H}$ with eigenvalues 2 and -2 respectively (because when multiplied by Hessians these vectors are scaled by 2 and -2 respectively). Therfore origin is a saddle point because the value of function increases if we go in direction of ${x_1}$ and decreases in the direction ${x_2}$. This function is shown below:</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="/blog/images/copied_from_nb/my_icons/saddle.JPG" alt=""></p>
 
 </div>
 </div>
