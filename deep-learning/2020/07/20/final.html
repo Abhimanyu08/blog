@@ -107,7 +107,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      22 min read
+      23 min read
     
 </span></p>
 
@@ -477,7 +477,7 @@ Second directional derivative in direction ${u}$ can be written as ${\large\frac
 </h2>
 <p>The condition number of a matrix is the ratio of it's maximum eigenvalue and minimum eigenvalue. A matrix is said to be suffering from the case of poor condition number if it's condition number is too large. This means, in directions which are inclined towards the eigenvector corresponding to the largest eigenvector the gradient increases too fast, while in directions inclined towrds the eigenvector corresponding to least eigenvector the gradient increases slowly. This is probelmatic since gradient descent doesn't know about this effect. We would prefer to go in directions where gradient remains negative for longer (because negative gradient means value of function decreases by going in these directions).</p>
 <p>We can see the ill effects of poor condition number by looking at a concrete example.
-Let's minimise the function ${f(w) = \frac{1}{2}w^{T}Aw - b^{T}w}$ where ${w\in R^{m}}$ where A is symmetric and ivertible. Let optimal value of ${w}$ for this function be ${w^\ast}$. We can calculate the value of ${w^\ast}$ by using the fact that ${\large\frac{\partial}{\partial w}f}$ at ${w^\ast = 0}$. ${\therefore Aw^\ast - b = 0 \implies w^\ast = A^{-1}b}$. We want to arrive at ${w^\ast}$ using gradient descent. The gradient ${g}$ of ${f}$ is ${Aw-b}$</p>
+Let's minimise the function ${f(w) = \frac{1}{2}w^{T}Aw - b^{T}w}$ where ${w\in R^{m}}$ where A is symmetric and invertible. Let optimal value of ${w}$ for this function be ${w^\ast}$. We can calculate the value of ${w^\ast}$ by using the fact that ${\large\frac{\partial}{\partial w}f}$ at ${w^\ast = 0}$. ${\therefore Aw^\ast - b = 0 \implies w^\ast = A^{-1}b}$. We want to arrive at ${w^\ast}$ using gradient descent. The gradient ${g}$ of ${f}$ is ${Aw-b}$ and the <strong>Hessian</strong> matrix is ${A}$.</p>
 <p>We start from the point ${w^\omicron}$. Let's say at t-th iteration we are at ${w^t}$. The gradient advises us to go in opposite direction of ${Aw^t - b}$.</p>
 <p>${\therefore\, w^{t+1} = w^t - \epsilon(Aw^t - b)\,\,\,\, Eq(5)}$. We can calculate how far we are from optimal value at time t by calculating ${w^t - w^\ast}$. Subtracting ${w^\ast}$ from both sides of ${Eq(5)}$:</p>
 <p>${w^{t+1}- w^{\ast} = (w^t - w^\ast) - \epsilon(Aw^t - b) = (w^t - w^\ast) - \epsilon\large(\small A(w^t-w^\ast + w^\ast) - b\large) \small = (w^t - w^\ast)(I -\epsilon A) - \epsilon Aw^\ast + \epsilon b}$ where ${I}$ is the identity matrix. Since ${Aw^\ast = b}$, the last two terms cancel out. This leaves us with:</p>
@@ -491,6 +491,29 @@ Let's minimise the function ${f(w) = \frac{1}{2}w^{T}Aw - b^{T}w}$ where ${w\in 
 <p>${\therefore x^{t+1} = diag([(1-\epsilon\lambda_{1})^t,...,(1-\epsilon\lambda_{m})^t])x^\omicron}$.</p>
 <p>Let ${x^\omicron_{i}}$ be the i-th element of vector ${x^\omicron}$</p>
 <p>${x^{t+1} = \left[\begin{array}{ccc}(1-\epsilon\lambda_{1})^t x^\omicron_{1}\\...\\(1-\epsilon\lambda_{m})^t x^\omicron_{m}\end{array}\right]}$.</p>
+<p>${x^{t+1} = \left[\begin{array}{ccc}x^{t+1}_{1}\\...\\x^{t+1}_{m}\end{array}\right] = \left[\begin{array}{ccc}(1-\epsilon\lambda_{1})^t x^\omicron_{1}\\...\\(1-\epsilon\lambda_{m})^t x^\omicron_{m}\end{array}\right]}$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>This result yields an fascinating interpretation. At any iteration ${t}$, we want our error ${x^{t}}$ to be low. i-th component of error, ${x^{t}_{i} = (1-\epsilon\lambda_{i})^{t-1}x^{\omicron}_{i}}$. If ${(1-\epsilon\lambda_{i})^{t-1}}$ is small then error in that component is small. More specifically if ${\mid1-\epsilon\lambda_{i}\mid}$ is less than 1, the convergence will be faster for the i-th component.If ${\mid1-\epsilon\lambda_{i}\mid}$ is close to 1 then convergence will be slow. From here we can see that, components corresponding to larger eigenvalues will converge faster and those corresponding to lower eigenvalues will struggle till later iterations.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let ${\lambda_{min}, \lambda_{max}}$ be the least and largest eigenvalues of ${A}$ repectively. The overall convergence rate will be determined by error component which converges the slowest (i.e which is most close to 1). The slowest error component will be either ${\mid1-\epsilon\lambda_{min}\mid}$ or ${\mid1-\epsilon\lambda_{max}\mid}$ (because if ${\lambda_{min}\approx 0}$, then ${\mid1-\epsilon\lambda_{min}\mid \approx 1}$, or if ${\epsilon =0.01}$ and ${\lambda_{max} = 200}$ then ${\mid1-\epsilon\lambda_{max}\mid\approx 1}$). We can adjust the learning rate so that error component corresponding to least and largest eigenvalue converge at same rate. Let optimal learning rate be ${\epsilon^\ast}$.</p>
+<p>Then, ${\mid1-\epsilon^\ast\lambda_{min}\mid} = {\mid1-\epsilon^\ast\lambda_{max}\mid}$</p>
+<p>${1-\epsilon^\ast\lambda_{min} =\epsilon^\ast\lambda_{max}-1\implies \epsilon^\ast = \large\frac{2}{\lambda_{min} + \lambda_{max}}}$</p>
+<p>Then the optimal convergence rate is ${1-\large\frac{2\lambda_{max}}{\lambda_{min} + \lambda_{max}}}$.</p>
+<p>Optimal rate = ${\frac{\large\frac{\lambda_{max}}{\lambda_{min}} - 1}{\large\frac{\lambda_{max}}{\lambda_{min}} + 1}}$. Let condition number be denoted by ${\kappa}$.</p>
+<p>${\therefore}$ Optimal rate = ${\large\frac{\kappa-1}{\kappa+1}}$. This goes on to show that, larger the condition number the slower the gradient descent would be.</p>
+<p>This analysis showed again that how the eigenvalues of Hessian Matrix affect the convergence rate and optimal learning rate of our algorithms.</p>
 
 </div>
 </div>
