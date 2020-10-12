@@ -11,7 +11,7 @@ Also, I am very incompetent in programming. In fact, I wrote my first line of co
 
 Being armed with this impressive skillset, I hope now you can figure out why I added the phrase "rather ambitiously". 
 
-I decided to get good at these areas in which I so obviously sucked. For a lazy animal like me, it was too much to balance along with college and life (I sucked in them too hehe). So, I decided to drop out of college (after wasting an obscene amount of money on tuition) and pursue these fields (I am lucky though cause you can count on the fingers of one hand the number of parents in India who would allow their child to do what I did).
+I decided to get good in these areas in which I so obviously sucked. For a lazy animal like me, it was too much to balance along with college and life (I sucked in them too hehe). So, I decided to drop out of college (after wasting an obscene amount of money on tuition) and pursue these fields (I am lucky though cause you can count on the fingers of one hand the number of parents in India who would allow their child to do what I did).
 
 To get better at linear algebra I am studying "Linear algebra done right" by Axler and "Linear Algebra and Its Applications" by legendary Gilbert Strang.
 To get better at P&S, I am studying "All of Statistics" by Larry Wasserman.
@@ -20,7 +20,7 @@ To better understand Natural language processing I am reading Jacob Eisenstein's
 I have read first two parts of Deep learning book by Goodfellow et. al and made some nice handwritten notes which I am too lazy to upload (but I'll do that soon hopefully maybe).
 I would highly recommend fast.ai courses. I have taken deep learning for coders and deep learning from the foundations. It took insanely long time for me to complete them but it was worth it.
 
-All of these resources I have mentioned are freely available on the Internet except Gilbert Strang's book. You can take his freely available lectures on MIT OCW instead which follow the book closely.
+All of the resources I have mentioned are freely available on the Internet except Gilbert Strang's book. You can take his freely available lectures on MIT OCW instead which follow the book closely.
 
 Progress feels very slow right now but I try to just enjoy the process and not care about the results (Yes, I am lucky and privileged enought that I can do so). Most of the times though, I get mired in periods of anxiety and self-doubt. 
 
