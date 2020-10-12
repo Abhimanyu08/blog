@@ -18,13 +18,13 @@ To get better at P&S, I am studying "All of Statistics" by Larry Wasserman.
 There are numerous resources to get better at programming but I try to just build stuff and look up stack overflow or documentations whenever I get stuck. I am trying to read "Introduction to algorithms" by Cormern and writing it's pseudo code in python. 
 To better understand Natural language processing I am reading Jacob Eisenstein's NLP notes. 
 I have read first two parts of Deep learning book by Goodfellow et. al and made some nice handwritten notes which I am too lazy to upload (but I'll do that soon hopefully maybe).
-I would highly recommend fast.ai courses. I have taken deep learning for coders and deep learning from the foundations. It took a insanely long time for me to complete them but it was worth it.
+I would highly recommend fast.ai courses. I have taken deep learning for coders and deep learning from the foundations. It took insanely long time for me to complete them but it was worth it.
 
-All of these resources I have mentioned are freely available on the Internet except Gilbert Strang's book. (You can take his freely available lectures on MIT OCW which follow the book closely).
+All of these resources I have mentioned are freely available on the Internet except Gilbert Strang's book. You can take his freely available lectures on MIT OCW instead which follow the book closely.
 
 Progress feels very slow right now but I try to just enjoy the process and not care about the results (Yes, I am lucky and privileged enought that I can do so). Most of the times though, I get mired in periods of anxiety and self-doubt. 
 
-Once in a while, I torture my dumb brain by reading some other miscellaneous things. Here are some which I highly recommend.
+Once in a while, I torture my dumb brain by reading some other miscellaneous things. Here are some of which I highly recommend.
 1. Man's search for meaning by Victor E. Frankl
 2. Flow by Mihaly Csikszentmihalyi 
 3. Deep work by Cal Newport
