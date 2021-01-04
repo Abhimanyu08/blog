@@ -109,7 +109,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      24 min read
+      23 min read
     
 </span></p>
 
@@ -136,6 +136,7 @@ window.onload = wrap_img;
 <ul>
 <li class="toc-entry toc-h3"><a href="#Skip-gram-model:">Skip-gram model: </a></li>
 <li class="toc-entry toc-h3"><a href="#Continuous-bag-of-words:">Continuous bag of words: </a></li>
+<li class="toc-entry toc-h3"><a href="#Glove:">Glove: </a></li>
 </ul>
 </li>
 </ul><!--
@@ -160,7 +161,7 @@ window.onload = wrap_img;
 <h2 id="Introduction">
 <a class="anchor" href="#Introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction<a class="anchor-link" href="#Introduction"> </a>
 </h2>
-<p>Let's Imagine that we are the first research scientists ever who are attempting to design some algorithms which will make our computer able to make some sense of human language (We'll select English as the human language for sake of this blog). We start by first finding tasks which our computer should perform with certain level of competence if it finally gets the abilities we want to bless it with. Trying to solve the problem of analogies seems like a reasonable task for this purpose. If we ask our computer king is to queen as man is to ___ ? Hopefully, our computer should reply "woman"?</p>
+<p>Let's imagine that we are the first research scientists ever who are attempting to design some algorithms which will make our computer able to make some sense of human language (We'll select English as the human language for sake of this blog). We start by first finding tasks which our computer should perform with certain level of competence if it finally gets the abilities we want to bless it with. Trying to solve the problem of analogies seems like a reasonable task for this purpose. If we ask our computer king is to queen as man is to ___ ? Hopefully, our computer should reply "woman"?</p>
 
 </div>
 </div>
@@ -168,7 +169,8 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Looking at the task at hand closely, we realize that we can't just type in our computer "King is to queen as man is to what?" and expect it to answer. Our computer isn't a human which can understand English. The written language is a symbolic representation of our thoughts. We encode our thoughts in symbols so that we can convey those to other human. People who are unable to speak encode their thoughts in form of sign languages. There is one problem with process of conveying thoughts to other person by encoding them in symbols. The other person should know how to decode those symbols to understand them. You are able to decode the symbolic representation of English which you are so effortlessly doing right now while reading this blog. But suppose this blog was written in a language you don't know. Then this whole blog will just be a collection of meaningless symbols to you. Therefore, we have to encode our thoughts or messages by the rules which the receiver knows how to decode. In our case, the receiver is a computer, therefore, we have to convey our query to the computer in form which it can understand. We can design a function <code>find_analogy</code> which takes in three arguments <code>arg1</code>, <code>arg2</code> and <code>arg3</code>. It does some mathematical computations on these three arguments and returns a word such that the word is answer to question <code>arg1</code> is to <code>arg2</code> as <code>arg3</code> is to what. If we want answer to our question "King is to queen as man is to what?" we need to run the line of code <code>find_analogy(king, queen, man)</code>. But our computer doesn't know what the word "king","queen" and "man" mean. We have to encode the words in a form the computer understands. Well, we know that a computer can make sense of mathematical entities like scalars and vectors. Why don't we encode every word in dictionary so that each is represented by a unique scalar/vector.</p>
+<p>Looking at the task at hand closely, we realize that we can't just type in our computer "King is to queen as man is to what?" and expect it to answer. Our computer isn't a human which can make sense of english symbols yet. The written language is a symbolic representation of our thoughts. We encode our thoughts in symbols so that we can convey those to other human. People who are unable to speak encode their thoughts in form of sign languages. There is one problem with process of conveying thoughts to other person by encoding them in symbols. The other person should know how to decode those symbols. You are able to decode the symbolic representation of English which you are so effortlessly doing right now while reading this blog. But if this blog was written in a language you didn't know, then this whole blog will just be a collection of meaningless symbols to you. Therefore, we have to encode our thoughts or messages by the rules which the receiver knows how to decode. In our case, the receiver is a computer, therefore, we have to convey our query to the computer in a form which it can understand.</p>
+<p>Let's suppose in the end we design a function <code>find_analogy</code> which takes in three arguments <code>arg1</code>, <code>arg2</code> and <code>arg3</code>. It does some mathematical computations on these three arguments and returns a word such that the word is answer to question <code>arg1</code> is to <code>arg2</code> as <code>arg3</code> is to what. If we want answer to our question "King is to queen as man is to what?" we need to run the line of code <code>find_analogy(king, queen, man)</code>. But our computer doesn't know what the word "king","queen" and "man" mean. We have to encode the words in a form the computer understands. Well, we know that a computer can make sense of mathematical entities like scalars and vectors. Why don't we encode every word in dictionary so that each is represented by a unique scalar/vector.</p>
 
 </div>
 </div>
@@ -176,7 +178,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's start with simplest solution and represent our words with scalars. Let each word be represented by it's position in the standard English dictionary. So the word 'aardvark' is represented by scalar 1 and word "zebra" is represented by scalar 273000 (approximate number of words in Oxford dictionary). We can immediately sense something wrong about this representation. What would adding or subtracting representations of two words even mean? The analogy task by which we intend to challenge understanding of our computer requires having a sense of meaning. It should be able to reason that king-queen relationship is same as man-woman since we remove abstract concept of masculinity from king and man and add another abstract concept of femininity to arrive at queen and woman respectively. If we trick our computer by asking "king is to man as queen is to what?" then it should be able to do some computation which resembles subtracting abstract concept of royalty from king and queen to arrive at man and woman respectively. And there's no way a computer can capture such abstract concept if we just encode each word by it's position in the dictionary. Thus, with a little bit of thought we come to conclusion that representing words with vectors makes more sense.</p>
+<p>Let's start with simplest solution and represent our words with scalars such that each word is represented by it's position in the standard English dictionary. So the word 'aardvark' is represented by scalar 1 and word "zebra" is represented by scalar 273000 (approximate number of words in Oxford dictionary). We can immediately sense something wrong about this representation. What would adding or subtracting representations of two words even mean? The analogy task by which we intend to challenge understanding of our computer requires having a sense of meaning. It should be able to reason that king-queen relationship is same as man-woman since we remove abstract concept of masculinity from king and man and add another abstract concept of femininity to arrive at queen and woman respectively. If we trick our computer by asking a different question like "king is to man as queen is to what?" then it should be able to do some computation which resembles subtracting abstract concept of royalty from king and queen to arrive at man and woman respectively. And there's no way a computer can capture such abstract concepts if we just encode each word by it's position in the dictionary. Thus, with a little bit of thought we come to conclusion that representing words with vectors makes more sense.</p>
 
 </div>
 </div>
@@ -184,7 +186,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now, digressing a little bit, let us ponder on the question that given two vectors how do we know that if those two vectors are close to each other. We define closeness in terms of smaller angle between the two vectors. If those two vectors point in opposite directions then they are as far apart from each other as they can be. We can quantify this notion by calculating the cosine of acute angle between those two vector. Let ${a}$ and ${b}$ be two vectors and ${\theta}$ be the acute angle between them. Then, ${\cos\theta = \large\frac{a.b}{\Vert a\Vert \Vert b \Vert}}$. The closer the ${\cos\theta}$ is to 1 the closer the vectors are to each other in terms of direction. If it's 0 then this means vectors are perpendicular to each other and if it's closer to -1 then this means vectors point in opposite directions. How does this relate to our problem in hand?  Well, we can say that we want that the notion of simalirity between two words to be captured by an operation as simple as dot-product of the vectors of these two words. In other words, we want vectors of similar words to point in somewhat same direction. We will design vectors for every word such that they are unit vectors which makes cosine similarity the same as computing the dot product. This way we can design a function called 'is_similar' which takes in vectors for two words and will compute their dot product. If the dot product is close to 1 then the function will return True , otherwse it'll return False. So, we hope that we can design word vectors in such a way that synonymous words will have almost the same vectors.</p>
+<p>And so, we arrive at our next problem. <strong>How do we find good vector representations of words?</strong> Let's answer this question by trying out different possibilities.</p>
 
 </div>
 </div>
@@ -192,7 +194,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>And so, we arrive at our next problem. <strong>How do we find good vector representations of words?</strong> Let's answer this questions by trying out different possibilities.</p>
+<p>Let |V| be the length of our vocabulary/dictionary. We can represent each word by a |V|- dimensional vector which has 1 at index which is equal to position of word in dictionary and 0 everywhere else. Therefore, representation for word 'aardvark' is ${\left[\begin{array}{ccc}1\\0\\0\\.\\.\\.\\0\end{array}\right]}$ and 'Zebra' will be represented by ${\left[\begin{array}{ccc}0\\0\\0\\.\\.\\.\\1\end{array}\right]}$. We'll call this encoding the 'one-hot' representation of our words.</p>
 
 </div>
 </div>
@@ -200,15 +202,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let |V| be the length of our vocabulary/dictionary. Let's represent each word by a |V|- dimensional vector which has 1 at index which is equal to position of word in dictionary and 0 everywhere else. Therefore, representation for word 'aardvark' is ${\left[\begin{array}{ccc}1\\0\\0\\.\\.\\.\\0\end{array}\right]}$ and 'Zebra' will be represented by ${\left[\begin{array}{ccc}0\\0\\0\\.\\.\\.\\1\end{array}\right]}$. We'll call this encoding the 'one-hot' representation of our words.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Now, digressing a little bit, let us ponder on the question that given two vectors how do we know that if those two vectors are point in somewhat same directions? We can quantify this notion by calculating the cosine of angle between those two vectors. Let ${a}$ and ${b}$ be two vectors and ${\theta}$ be the acute angle between them. Then, ${\cos\theta = \large\frac{a.b}{\Vert a\Vert \Vert b \Vert}}$. If ${\cos\theta = 1}$ then vectors point in the same direction. If it's $0$ then the vectors are perpendicular to each other and if it's $-1$ then the vectors point in opposite directions. 
+<p>Now, digressing a little bit, let us ponder on the question that given two vectors how do we know if those two vectors point in somewhat same direction? We can quantify this notion by calculating the cosine of angle between those two vectors. Let ${a}$ and ${b}$ be two vectors and ${\theta}$ be the acute angle between them. Then, ${\cos\theta = \large\frac{a.b}{\Vert a\Vert \Vert b \Vert}}$. If ${\cos\theta = 1}$ then vectors point in the same direction. If it's $0$ then the vectors are perpendicular to each other and if it's $-1$ then the vectors point in opposite directions. 
 </p>
 <div class="flash">
     <svg class="octicon octicon-info" viewbox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 01-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 01-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg>
@@ -221,7 +215,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>How does this relate to our problem in hand? Well, we can say that we want that the notion of similarity between two words to be captured by an operation as simple as dot-product of the vectors of these two words. In other words, we want vectors of similar meaning to point in somewhat same direction. This way we can design a function called is_similar which takes in vectors for two words and will compute their dot product. If the dot product is close to 1 then the function will say yes these two words are similar. So, we hope that we can design word vectors in such a way that vectors of synonymous words point in somewhat same direction (and antonyms in the opposite).</p>
+<p>How does this relate to our problem in hand? Well, we can say that we want that the notion of similarity between two words to be captured by an operation as simple as dot-product of the vectors of these two words. In other words, we want vectors of similar meaning to point in somewhat same direction. This way we can design a function called <code>is_similar</code> which takes in vectors for two words and will compute their dot product. If the dot product is close to 1 then the function will say yes these two words are similar. So, we hope that we can design word vectors in such a way that vectors of synonymous words point in somewhat same direction (and antonyms in the opposite).</p>
 
 </div>
 </div>
@@ -229,7 +223,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Now, knowing the English language we know that words 'motel' and 'hotel' are very similar which means we want the vectors of these two words to give a dot-product close to 1, according to concept we just discussed. But, if we take the dot product of vectors from our 'one-hot' representation of these words, it comes out as 0. In-fact dot-product of any two word vectors from our one-hot representation is 0. This fact is disheartening since this means that one-hot representation are not capable of capturing similarity between two words. Each word-vector is orthogonal to every other word-vector in this representation which is same as saying no two words are similar to each other nor are they oppoisite which isn't the case in real world. So, we part our ways with the one-hot representation and search for other alternatives.</p>
+<p>Now, knowing the English language we know that words 'motel' and 'hotel' are very similar and so we want the vectors of these two words to give a dot-product close to 1, according to concept we just discussed. But, if we take the dot product of vectors from our 'one-hot' representation of these words, it comes out as 0. In-fact dot-product of any two word vectors from our one-hot representation is 0. This fact is disheartening since this means that one-hot representation are not capable of capturing similarity between two words. Each word-vector is orthogonal to every other word-vector in this representation which is same as saying no two words are similar to each other nor are they oppoisite which isn't the case in real world. So, we part our ways with the one-hot representation and search for other alternatives.</p>
 
 </div>
 </div>
@@ -242,8 +236,8 @@ window.onload = wrap_img;
 </h2>
 <p>We are looking for some concept about words which we can latch onto to form good vector representations of words. Through a fortunate stroke of serendipity we come across a quote by English linguist John Rupert Firth: <em>"A word is characterzied by the company it keeps"</em>. This quote implies that a word's meaning is decided by the context in which it appears. We can validate this statement by looking at some examples. Notice the use of word "bank" in following two sentences.</p>
 <ol>
-<li>"I deposited the cheque in the bank."</li>
-<li>"I was sitting alongside a river bank."</li>
+<li>I deposited the cheque in the bank.</li>
+<li>I was sitting alongside a river bank.</li>
 </ol>
 <p>In the two sentences above we can see that word "bank" takes on two completely different meaning based on the context in which it appears. In first sentence the word "bank" means a building where financial operations are carried out while in the other sentence it means the ground alongside a river. Therefore, meaning of word bank changed depending on the words it was surrounded by (context words). Moreover, consider the following examples:</p>
 <ol>
@@ -251,18 +245,18 @@ window.onload = wrap_img;
 <li>The motel we are going to stay at is famous for the excellent service it provides.</li>
 </ol>
 <p>Since, motel and hotel are pretty much synonymous, they tend to be surrounded by similar words like 'stay', 'service' etc.  Let's refer surrounding words of a word as "context words". We can say that two words are similar if they have very similar context words.</p>
-<p>To make use of this concept let's just count co-occurences of words. We first collect a large corpus of text. We then design a two dimensional matrix ${M}$ (let's call it count matrix) where ${M_{ij}}$ = Number of times the $j^{th}$ word of dictionary occurred in the context of $i^{th}$ word of dictionary in the corpus of text. Each row of this matrix will represent a word in vocabulary. The first row will represent the word 'aardvark' and first cell of this row will be the number of times word 'aardvark' occurred in context of word 'aardvark'. Similarly, the last cell of this row will represent the number of times word 'zebra' occurred in context of word 'aardvark'. Let $|V|$ be the number of words in our vocabulary. Thus each row contains ${|V|}$ cells and there ${|V|}$ such rows. Therefore, ${M}$ is ${|V|\times|V|}$ matrix. We need to specify one more detail to design this matrix; what does it mean by occurring in context of something? To formally specify this we design a hyperparameter called "context window" and denote it by letter c. c is the number of words either side of a word that classify as it's context words for.eg. in the sentence "I hope this year is better than the previous one." if we choose c = 2 and our center word is 'year' then words 'hope', 'this', 'is' and 'better' are it's context words.</p>
-<p>To efficiently fill out the cells in the matrix we first initialize a ${|V|\times|V|}$ matrix and initialize it with all 0's. Then, we take the first word in the our large corpus and collect it's context words. Then we increment the count in respective cells. We do this step for each word in the corpus.</p>
+<p>To make use of this concept let's just count co-occurences of words. We first collect a large corpus of text. We then design a two dimensional matrix ${M}$ (let's call it count matrix) where ${M_{ij}}$ = Number of times the $j^{th}$ word of dictionary occurred in the context of $i^{th}$ word of dictionary in the corpus of text. Each row of this matrix will represent a word in vocabulary. The first row will represent the word 'aardvark' and first cell of this row will be the number of times word 'aardvark' occurred in context of word 'aardvark'. Similarly, the last cell of this row will represent the number of times word 'zebra' occurred in context of word 'aardvark'. Let $|V|$ be the number of words in our vocabulary. Thus each row contains ${|V|}$ cells and there are ${|V|}$ such rows. Therefore, ${M}$ is a ${|V|\times|V|}$ matrix. We need to specify one more detail to design this matrix; what does it mean by occurring in context of something? To formally specify this we design a hyperparameter called "context window" and denote it by letter c. c is the number of words either side of a word that classify as it's context words for.eg. in the sentence "I hope this year is better than the previous one." if we choose c = 2 and our center word is 'year' then words 'hope', 'this', 'is' and 'better' are it's context words.</p>
+<p>To efficiently fill out the cells in the matrix we first make a ${|V|\times|V|}$ matrix filled with 0's. Then, we take the first word in the our large corpus and collect it's context words. Then we increment the count in respective cells. We do this step for each word in the corpus.</p>
 <p>We can see intutively that synonymous words will have very similar rows because in a large corpus of text they will have similar context words. We can take the row for any word, normalise it (to turn it into a unit vector) and declare that row as the vector representation of that word. Then, taking the dot-product of vectors of similar words will result in a number close to 1.</p>
-<p>This marks our first breakthrough!!! We have devised a representation of words which our computer can understand and then tell us which words are similar by doing an operation as simple as a dot-product. But it is only when we put this algorithm to practice in real-world do we notice that it has numerous shortcomings some of which are:</p>
+<p>This marks our first breakthrough!!! We have devised a representation of words which our computer can understand and then tell us which words are similar by doing an operation as simple as a dot-product. But it is only when we put this algorithm to practice in real-world do we notice that it has numerous shortcomings:</p>
 <ol>
 <li>Every word is represented by a ${|V|}$ dimensional vector. ${|V|}$ can be of the order of millions because it is the length of our vocabulary. Storing vector for every word takes a toll on memory of our computer.</li>
 <li>${M}$ is a huge ${|V|\times |V|}$ matrix which is sparse. This means that most of the entries of our matrix are 0. This is because most of the words don't occur in context of some particular words for.eg. words 'summer' and 'snow' probably never occur in context of each other.</li>
-<li>Some of the words occur numerous times in context of other words which isn't very informative <a href="http://for.eg/">for.eg</a> words like 'the' and 'is' occur in contexts of almost every word many times. This leads to drastic imbalance in word-frequency.</li>
+<li>Some of the words occur numerous times in context of other words which isn't very informative for.eg words like 'the' and 'is' occur in contexts of almost every word many times. This leads to drastic imbalance in word-frequency.</li>
 <li>New words are constantly being added to vocabulary. Words like 'tweet' and 'google' may not be in vocabulary of ancient texts but they are so prevalent now that they need their own definitions in a standard dictionary.</li>
 </ol>
 <p>Let's try to tackle these shortcomings ony by one.</p>
-<p>We have the concept of <strong>Singular Value Decomposition (SVD)</strong> to our rescue for tackling the first shortcoming. Let's understand what SVD does by taking a simple example. We can write a large number like 68 as $2\times2\times17$. Writing down $68$ in factorized form reveals a lot of facts like it is divisible by $2,4$ and 17, it is multiple of a prime number etc. Similarly, factoring a matrix can reveal a lot of facts about it. SVD says that any matrix A can be factorized into three simple matrices ${A, \Sigma}$ and ${B}$ as ${A\Sigma B^{T}}$ where $A$ and $B$ are orthogonal matrices and ${\Sigma}$ is a diagonal matrix.</p>
+<p>We have the concept of <strong>Singular Value Decomposition (SVD)</strong> to our rescue for tackling the first shortcoming. Let's understand what SVD does by taking a simple example. We can write a large number like 68 as $2\times2\times17$. Writing down $68$ in factorized form reveals a lot of facts like it is divisible by $2,4$ and 17, it is multiple of a prime number etc. Similarly, factoring a matrix can reveal a lot of facts about it. SVD says that any matrix A can be factorized into three simpler matrices ${A, \Sigma}$ and ${B}$ as ${A\Sigma B^{T}}$ where $A$ and $B$ are orthogonal matrices and ${\Sigma}$ is a diagonal matrix.</p>
 <p>Let's do this with our count matrix ${M}$. We can write $M$ as ${A\Sigma B^{T}}$. Here, each of ${A, \Sigma}$ and ${B}$ is a  ${|V|\times |V|}$ matrix. Then, we take only the first $k$ columns of ${A}$ which results in ${|V|\times k}$ matrix. We declare the rows of this matrix as vector representations of our words. This now solves our first problem because each word is now a ${k}$ dimensional vector where ${k}$ can be chosen by us based on some threshold.</p>
 <p>But the method of SVD which we used to circumvent one of our problems has some shortcomings in itself. SVD is not a trivial operation to perform. It does not scale well for large matrices because the amount of time it takes to perform SVD increases in quadratic fashion with respect to size of matrix. The matrix on which we want to perform SVD is already a huge matrix which will only get larger as new words are added in the vocabulary. These shortcomings are severe enough to compel us to look for other ways to find good vector representation of our words.</p>
 
@@ -279,6 +273,7 @@ window.onload = wrap_img;
 <p>This shows that:</p>
 <p><strong>1</strong>. <strong>A word is a good predictor of it's context words.</strong></p>
 <p><strong>2. Context words are good predictor of a center word.</strong></p>
+<p>These two concepts give us the foundation for building good vectors for our words.</p>
 
 </div>
 </div>
@@ -289,13 +284,13 @@ window.onload = wrap_img;
 <h3 id="Skip-gram-model:">
 <a class="anchor" href="#Skip-gram-model:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Skip-gram model:<a class="anchor-link" href="#Skip-gram-model:"> </a>
 </h3>
-<p>We can use the above two concept to build good word vectors. Let's go with the first concept above and see what we can conjure up. We can start by taking the first word in a large corpus and then try to <strong>predict</strong> it's context words using it's word vector. If predictions are correct then everything is fine, but if they are not then there must be something wrong with the word vectors. In that case, try to <strong>modify</strong> the vectors so that next time they don't commit the same mistake again. Do this for every word in the corpus and hopefully we have corrected all the bad word vectors.</p>
+<p>Let's go with the first concept above and see what we can conjure up. We can start by taking the first word in a large corpus and then try to <strong>predict</strong> it's context words using it's word vector. If predictions are correct then everything is fine, but if they are not then there must be something wrong with the word vectors. In that case, try to <strong>modify</strong> the vectors so that next time they don't commit the same mistake again. Do this for every word in the corpus and hopefully we have corrected all the bad word vectors. But, to correct bad word vectors we need to have them in the first place. Therefore, initially we'll initialize d-dimensional word vectors for every word randomly and we'll improve them over time using the algorithm we just envisaged.</p>
 <p>I've highlighted the words <strong>predict</strong> and <strong>modify</strong> because it is not clear how would we carry out these operations.</p>
 <p>Let's tackle the problem of <strong>prediction</strong> first. How do we predict the context words from a given word? For that we can change our notion of dot-product. Earlier we considered dot-product of vectors of two words to be a measure of similarity of those two words. Now, let's see the dot product of two word vectors as a measure of probability of them existing in the vicinity of each other. In other words, if dot-product of word vectors of two words, say 'a' and 'b' is close to 1 then that means they are very likely to occur nearby in the corpus, which means when we see 'a' we can safely predict that 'b' will be nearby.<br>
 </p>
 <div class="flash">
     <svg class="octicon octicon-info octicon octicon-info" viewbox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 01-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 01-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg>
-    <strong>Note: </strong>- I am using terms "dot-product" to mean cosine similarity between the vectors. If vectors are of unit length cosine similarity is the same as dot-product)
+    <strong>Note: </strong>- I am using terms "dot-product" to mean cosine similarity between the vectors. If vectors are of unit length cosine similarity is the same as dot-product
 </div>
 
 </div>
@@ -323,14 +318,14 @@ window.onload = wrap_img;
 <p>Exponentiate each of the entry in ${scores_{deep}}$</p>
 <p>${scores_{deep}} = {\left[exp(u.v_{1}),\space exp(u.v_{2}), ..., \space exp(u.v_{|V|})\right]}.$</p>
 <p>Store sum of all the entries of ${scores_{deep}}$in a variable 'Sum'</p>
-<p>Sum = ${exp(u.v_{1}) + exp(u.v_{2}) + ... + exp(u.v_{|V|}) = \large\Sigma_{i=1}^{|V|} exp(u.v_{i})}$</p>
+<p>Sum = ${exp(u.v_{1})\, +\, exp(u.v_{2})\, +\, ... \,+ \,exp(u.v_{|V|}) = \large\Sigma_{i=1}^{|V|} exp(u.v_{i})}$</p>
 </li>
 <li>
 <p>Divide each entry by Sum and rename the list to $probabilities_{deep}$ because the entries of list now convey the probabilities of words occurring alongside "deep".</p>
 <p>${probabilities_{deep}} = {\left[\large\frac{exp(u.v_{1})}{Sum},\space \frac{exp(u.v_{2})}{Sum}, ..., \space \frac{exp(u.v_{|V|})}{Sum}\right]}.$</p>
 </li>
 </ol>
-<p>If we want the probability of word "aardvark" occurring in context of "deep" we'll just index the first element from list $probabilities_{deep}$ and voila!! we've got our answer which is $\large\frac{exp(u.v_{1})}{\Sigma_{i=1}^{|V|} exp(u.v_{i})}$.  This quantity is basically $P( aardvark | deep)$ i.e. probability of seeing word "aardvark" given that we have just seen word "deep". The lists like $probabilities_{deep}$ are called a "probability distribution" over all the words in vocabulary. How do we predict then? Well we'll sample a word from dictionary based on probability distribution we just got.</p>
+<p>If we want the probability of word "aardvark" occurring in context of "deep" we'll just index the first element from list $probabilities_{deep}$ and voila!! we've got our answer which is $\large\frac{exp(u.v_{1})}{\Sigma_{i=1}^{|V|} exp(u.v_{i})}$.  This quantity is basically $P( aardvark | deep)$ i.e. probability of seeing word "aardvark" given that we have just seen word "deep". The lists like $probabilities_{deep}$ are called a "probability distribution" over all the words in vocabulary. How do we predict then? Well, we can just sample a word from dictionary based on probability distribution we just got.</p>
 
 </div>
 </div>
@@ -371,9 +366,11 @@ window.onload = wrap_img;
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now that, we've worked out a method to calculate our objective using an example, let's try to write it in more general terms.</p>
-<p>Let the size of context window be c which means for each word we consider c words to it's left and c words to it's right as it's context. Let $w_{i}$ and ${v_{w_i}}$ be the center word and it's word vector respectively. Let ${u_{w_{i}}}$ be the vector for word ${w_{i}}$  and ${u_{k}}$ be the vector for word in $k^{th}$ position in dictionary. Then our objective for this particular word is :</p>
+<p>Since we are going through an entire corpus word by word, predicting context for every word, we'll likely encounter every word in two scenarios. One in which that word will be the center word and other in which it'll be the context word for some other word. Let's use ${v_{w}}$ to denote the embedding for a word ${w}$ when it acts as a centre word and ${u_{w}}$ to denote it's embedding when it acts as context word.</p>
+<p>Let the size of context window be c which means for each word we consider c words to it's left and c words to it's right as it's context. Let $w_{i}$ and ${v_{w_i}}$ be the center word and it's word vector respectively. Let ${u_{w_{i}}}$ be the vector for word ${w_{i}}$  and ${u_{k}}$ be the vector for word in $k^{th}$ position in dictionary.</p>
+<p>Then our objective for this particular word is :</p>
 <p>$logL_{\large w_{i}} = \sum_{j=-c}^{c} logP(w_{i+j}| w_{i}) = \sum_{j=-c}^{c} log\Large\frac{exp(u_{w_i+j}.v_{w_i})}{\sum_{k=1}^{|V|}exp(u_{k}.v_{w_i})}$</p>
-<p>Simplifying further.</p>
+<p>Simplifying further,</p>
 <p>$logL_{w_{i}}= \normalsize\sum_{j=-c}^{c}u_{w_i+j}.v_{w_i} - 2c\sum_{k=1}^{|V|}exp(u_{k}.v_{w_i})$</p>
 
 </div>
@@ -406,13 +403,12 @@ window.onload = wrap_img;
 <h3 id="Continuous-bag-of-words:">
 <a class="anchor" href="#Continuous-bag-of-words:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Continuous bag of words:<a class="anchor-link" href="#Continuous-bag-of-words:"> </a>
 </h3>
-<p>Now, let's try to go the other way around and predict a word using it's context words. Let "A blog about word vectors." be a sentence in our corpus. We'll hide the second word from computer and ask it to guess that from the surrounding words. If it guesses "blog" then well and good but if it doesn't then we'll try to modify the vectors accordingly.</p>
-<p>This time the thing we are trying to maximize is $P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c})$ where $w_{i}$ is any word in the corpus and $w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c}$ are $2c$ context words from it's left and right context.</p>
-<p>How do we express $P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c})$  in terms of word vectors of these words ? Well, we can design a single vector for all the context word vectors by averaging them together. Let that single vector be denoted by $v_{c}$.</p>
-<p>$v_{c} = \Large\frac{v_{w_{i-c}}\,+\,...\,+ {v_{w_{i-1}}\,+\,{v_{w_{i+1}}\,+...\,+{v_{w_{i+c}}}}}}{2c}$. Let $u_{w_{i}}$ be the word vector for word $w_{i}$ and let ${u_{k}}$ be the vector for $k^{th}$ word in vocabulary. Then, we can calculate $P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c})$</p>
+<p>Now, let's try to go the other way around and predict a word using it's context words. Let  be a string of words from our corpus. $w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i}, w_{i+1},...,w_{i+c}$ be a string of words from our corpus. This time the thing we are trying to maximize is $P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c})$ where $w_{i}$ is any word in the corpus and $w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c}$ are $2c$ context words from it's left and right context.</p>
+<p>How do we express $P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c})$  in terms of word vectors of these words ? Well, we can design a single vector for all the context word vectors by averaging them together. Let that single vector be denoted by $u_{c}$.</p>
+<p>$u_{c} = \Large\frac{u_{w_{i-c}}\,+\,...\,+ {u_{w_{i-1}}\,+\,{u_{w_{i+1}}\,+...\,+{u_{w_{i+c}}}}}}{2c}$. Let $v_{w_{i}}$ be the word vector for word $w_{i}$ and let ${u_{k}}$ be the vector for $k^{th}$ word in vocabulary. Then, we can calculate $P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c})$</p>
 <p>as follows:</p>
-<p>$P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c}) = \frac{\large exp(u_{w_{i}}.v_{c})}{\large\sum_{k=1}^{|V|}exp(u_{k}.v_{c})}$. Same as before, we try minimize negative log of this quantity which we have aptly named $Loss$.</p>
-<p>$Loss = -log\frac{\large exp(u_{w_{i}}.v_{c})}{\large\sum_{k=1}^{|V|}exp(u_{k}.v_{c})} = -u_{w_{i}}.v_{c} + \sum_{k=1}^{|V|}exp(u_{k}.v_{c})$</p>
+<p>$P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c}) = \frac{\large exp(v_{w_{i}}.u_{c})}{\large\sum_{k=1}^{|V|}exp(u_{k}.u_{c})}$. Same as before, we try minimize negative log of this quantity which we have aptly named $Loss$.</p>
+<p>$Loss = -log\frac{\large exp(v_{w_{i}}.u_{c})}{\large\sum_{k=1}^{|V|}exp(u_{k}.u_{c})} = -v_{w_{i}}.u_{c} + \sum_{k=1}^{|V|}exp(u_{k}.u_{c})$</p>
 <p>We now modify word vectors by Gradient descent as described above.</p>
 <p><strong>Summary:</strong></p>
 <p>For every word in large corpus of words:</p>
@@ -423,6 +419,17 @@ window.onload = wrap_img;
 <li>Modify those word vectors using the gradient descent.</li>
 </ol>
 <p>Hopefully, at the end of this procedure, we will have satisfactory word vectors.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Glove:">
+<a class="anchor" href="#Glove:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Glove:<a class="anchor-link" href="#Glove:"> </a>
+</h3>
+<p>Having found some very good methods to design vectors for our words we can now sit back and relax. But, being research scientists we are itching to find some shortcomings in our methods and improve upon them. Let's see if we can find any. If we analyse carefully at one of our loss functions we'll notice the term $sum_{k=1}^{|V|}exp(u_{k}.v_{w_{i})$ there. This term is computationally expensive to calculate since we are taking dot-product of $v_{w_{i}}$ with vector of every word. We need to get rid of this term.</p>
 
 </div>
 </div>
