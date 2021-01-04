@@ -1,4 +1,144 @@
-<!--
+<!DOCTYPE html>
+<html lang="en"><head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>King is to queen as man is to? | Abhimanyu</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="King is to queen as man is to?" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A discussion of methods to make dumb machines make sense of symbols of human language" />
+<meta property="og:description" content="A discussion of methods to make dumb machines make sense of symbols of human language" />
+<link rel="canonical" href="https://abhimanyu08.github.io/blog/deep-learning/natural-language-processing/2021/01/04/final.html" />
+<meta property="og:url" content="https://abhimanyu08.github.io/blog/deep-learning/natural-language-processing/2021/01/04/final.html" />
+<meta property="og:site_name" content="Abhimanyu" />
+<meta property="og:image" content="https://abhimanyu08.github.io/blog/images/word.jpeg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-01-04T00:00:00-06:00" />
+<script type="application/ld+json">
+{"datePublished":"2021-01-04T00:00:00-06:00","headline":"King is to queen as man is to?","image":"https://abhimanyu08.github.io/blog/images/word.jpeg","description":"A discussion of methods to make dumb machines make sense of symbols of human language","mainEntityOfPage":{"@type":"WebPage","@id":"https://abhimanyu08.github.io/blog/deep-learning/natural-language-processing/2021/01/04/final.html"},"@type":"BlogPosting","url":"https://abhimanyu08.github.io/blog/deep-learning/natural-language-processing/2021/01/04/final.html","dateModified":"2021-01-04T00:00:00-06:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+<link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://abhimanyu08.github.io/blog/feed.xml" title="Abhimanyu" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
+<title>King is to queen as man is to? | Abhimanyu</title>
+<meta name="generator" content="Jekyll v4.0.0" />
+<meta property="og:title" content="King is to queen as man is to?" />
+<meta property="og:locale" content="en_US" />
+<meta name="description" content="A discussion of methods to make dumb machines make sense of symbols of human language" />
+<meta property="og:description" content="A discussion of methods to make dumb machines make sense of symbols of human language" />
+<link rel="canonical" href="https://abhimanyu08.github.io/blog/deep-learning/natural-language-processing/2021/01/04/final.html" />
+<meta property="og:url" content="https://abhimanyu08.github.io/blog/deep-learning/natural-language-processing/2021/01/04/final.html" />
+<meta property="og:site_name" content="Abhimanyu" />
+<meta property="og:image" content="https://abhimanyu08.github.io/blog/images/word.jpeg" />
+<meta property="og:type" content="article" />
+<meta property="article:published_time" content="2021-01-04T00:00:00-06:00" />
+<script type="application/ld+json">
+{"datePublished":"2021-01-04T00:00:00-06:00","headline":"King is to queen as man is to?","image":"https://abhimanyu08.github.io/blog/images/word.jpeg","description":"A discussion of methods to make dumb machines make sense of symbols of human language","mainEntityOfPage":{"@type":"WebPage","@id":"https://abhimanyu08.github.io/blog/deep-learning/natural-language-processing/2021/01/04/final.html"},"@type":"BlogPosting","url":"https://abhimanyu08.github.io/blog/deep-learning/natural-language-processing/2021/01/04/final.html","dateModified":"2021-01-04T00:00:00-06:00","@context":"https://schema.org"}</script>
+<!-- End Jekyll SEO tag -->
+
+<link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
+<link rel="stylesheet" href="//use.fontawesome.com/releases/v5.0.7/css/all.css"><link type="application/atom+xml" rel="alternate" href="https://abhimanyu08.github.io/blog/feed.xml" title="Abhimanyu" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.css" integrity="sha384-zB1R0rpPzHqg7Kpt0Aljp8JPLqbXI3bhnPWROx27a9N0Ll6ZP/+DiW/UqRcLbRjq" crossorigin="anonymous">
+    <script type="text/javascript" async src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML"> </script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/katex.min.js" integrity="sha384-y23I5Q6l+B6vatafAwxRu/0oK/79VlbSz7Q9aiSZUvyWYIYsd+qj+o24G5ZU2zJz" crossorigin="anonymous"></script>
+    <script defer src="https://cdn.jsdelivr.net/npm/katex@0.11.1/dist/contrib/auto-render.min.js" integrity="sha384-kWPLUVMOks5AQFrykwIup5lo0m3iMkkHrD0uJ4H5cjeGihAutqP0yW0J6dpFiVkI" crossorigin="anonymous"></script>
+    <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        renderMathInElement( document.body, {
+        delimiters: [
+            {left: "$$", right: "$$", display: true},
+            {left: "[%", right: "%]", display: true},
+            {left: "$", right: "$", display: false}
+        ]}
+        );
+    });
+    </script>
+
+
+<script>
+function wrap_img(fn) {
+    if (document.attachEvent ? document.readyState === "complete" : document.readyState !== "loading") {
+        var elements = document.querySelectorAll(".post img");
+        Array.prototype.forEach.call(elements, function(el, i) {
+            if (el.getAttribute("title")) {
+                const caption = document.createElement('figcaption');
+                var node = document.createTextNode(el.getAttribute("title"));
+                caption.appendChild(node);
+                const wrapper = document.createElement('figure');
+                wrapper.className = 'image';
+                el.parentNode.insertBefore(wrapper, el);
+                el.parentNode.removeChild(el);
+                wrapper.appendChild(el);
+                wrapper.appendChild(caption);
+            }
+        });
+    } else { document.addEventListener('DOMContentLoaded', fn); }
+}
+window.onload = wrap_img;
+</script>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function(){
+    // add link icon to anchor tags
+    var elem = document.querySelectorAll(".anchor-link")
+    elem.forEach(e => (e.innerHTML = '<i class="fas fa-link fa-xs"></i>'));
+    });
+</script>
+</head><body><header class="site-header">
+
+  <div class="wrapper"><a class="site-title" rel="author" href="/blog/">Abhimanyu</a><nav class="site-nav">
+        <input type="checkbox" id="nav-trigger" class="nav-trigger" />
+        <label for="nav-trigger">
+          <span class="menu-icon">
+            <svg viewBox="0 0 18 15" width="18px" height="15px">
+              <path d="M18,1.484c0,0.82-0.665,1.484-1.484,1.484H1.484C0.665,2.969,0,2.304,0,1.484l0,0C0,0.665,0.665,0,1.484,0 h15.032C17.335,0,18,0.665,18,1.484L18,1.484z M18,7.516C18,8.335,17.335,9,16.516,9H1.484C0.665,9,0,8.335,0,7.516l0,0 c0-0.82,0.665-1.484,1.484-1.484h15.032C17.335,6.031,18,6.696,18,7.516L18,7.516z M18,13.516C18,14.335,17.335,15,16.516,15H1.484 C0.665,15,0,14.335,0,13.516l0,0c0-0.82,0.665-1.483,1.484-1.483h15.032C17.335,12.031,18,12.695,18,13.516L18,13.516z"/>
+            </svg>
+          </span>
+        </label>
+
+        <div class="trigger"><a class="page-link" href="/blog/about/">About Me</a><a class="page-link" href="/blog/search/">Search</a><a class="page-link" href="/blog/categories/">Tags</a></div>
+      </nav></div>
+</header>
+<main class="page-content" aria-label="Content">
+      <div class="wrapper">
+        <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
+
+  <header class="post-header">
+    <h1 class="post-title p-name" itemprop="name headline">King is to queen as man is to?</h1><p class="page-description">A discussion of methods to make dumb machines make sense of symbols of human language</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-01-04T00:00:00-06:00" itemprop="datePublished">
+        Jan 4, 2021
+      </time>
+       • <span class="read-time" title="Estimated read time">
+    
+    
+      24 min read
+    
+</span></p>
+
+    
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#deep-learning">deep-learning</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#natural-language-processing">natural-language-processing</a>
+        
+      
+      </p>
+    
+
+    
+      </header>
+
+  <div class="post-content e-content" itemprop="articleBody">
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Introduction">Introduction </a></li>
+<li class="toc-entry toc-h2"><a href="#Count-based-Methods:">Count-based Methods: </a></li>
+<li class="toc-entry toc-h2"><a href="#Iteration-based-methods:">Iteration-based methods: </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Skip-gram-model:">Skip-gram model: </a></li>
+<li class="toc-entry toc-h3"><a href="#Continuous-bag-of-words:">Continuous bag of words: </a></li>
+</ul>
+</li>
+</ul><!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
@@ -14,76 +154,93 @@
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Introduction">Introduction<a class="anchor-link" href="#Introduction"> </a></h2><p>Let's Imagine that we are the first research scientists ever who are attempting to design some algorithms which will make our computer able to make some sense of human language (We'll select English as the human language for sake of this blog). We start by first finding tasks which our computer should perform with certain level of competence if it finally gets the abilities we want to bless it with. Trying to solve the problem of analogies seems like a reasonable task for this purpose. If we ask our computer king is to queen as man is to ___ ? Hopefully, our computer should reply "woman"?</p>
+<h2 id="Introduction">
+<a class="anchor" href="#Introduction" aria-hidden="true"><span class="octicon octicon-link"></span></a>Introduction<a class="anchor-link" href="#Introduction"> </a>
+</h2>
+<p>Let's Imagine that we are the first research scientists ever who are attempting to design some algorithms which will make our computer able to make some sense of human language (We'll select English as the human language for sake of this blog). We start by first finding tasks which our computer should perform with certain level of competence if it finally gets the abilities we want to bless it with. Trying to solve the problem of analogies seems like a reasonable task for this purpose. If we ask our computer king is to queen as man is to ___ ? Hopefully, our computer should reply "woman"?</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Looking at the task at hand closely, we realize that we can't just type in our computer "King is to queen as man is to what?" and expect it to answer. Our computer isn't a human which can understand English. The written language is a symbolic representation of our thoughts. We encode our thoughts in symbols so that we can convey those to other human. People who are unable to speak encode their thoughts in form of sign languages. There is one problem with process of conveying thoughts to other person by encoding them in symbols. The other person should know how to decode those symbols to understand them. You are able to decode the symbolic representation of English which you are so effortlessly doing right now while reading this blog. But suppose this blog was written in a language you don't know. Then this whole blog will just be a collection of meaningless symbols to you. Therefore, we have to encode our thoughts or messages by the rules which the receiver knows how to decode. In our case, the receiver is a computer, therefore, we have to convey our query to the computer in form which it can understand. We can design a function <code>find_analogy</code> which takes in three arguments <code>arg1</code>, <code>arg2</code> and <code>arg3</code>. It does some mathematical computations on these three arguments and returns a word such that the word is answer to question <code>arg1</code> is to <code>arg2</code> as <code>arg3</code> is to what. If we want answer to our question "King is to queen as man is to what?" we need to run the line of code <code>find_analogy(king, queen, man)</code>. But our computer doesn't know what the word "king","queen" and "man" mean. We have to encode the words in a form the computer understands. Well, we know that a computer can make sense of mathematical entities like scalars and vectors. Why don't we encode every word in dictionary so that each is represented by a unique scalar/vector.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let's start with simplest solution and represent our words with scalars. Let each word be represented by it's position in the standard English dictionary. So the word 'aardvark' is represented by scalar 1 and word "zebra" is represented by scalar 273000 (approximate number of words in Oxford dictionary). We can immediately sense something wrong about this representation. What would adding or subtracting representations of two words even mean? The analogy task by which we intend to challenge understanding of our computer requires having a sense of meaning. It should be able to reason that king-queen relationship is same as man-woman since we remove abstract concept of masculinity from king and man and add another abstract concept of femininity to arrive at queen and woman respectively. If we trick our computer by asking "king is to man as queen is to what?" then it should be able to do some computation which resembles subtracting abstract concept of royalty from king and queen to arrive at man and woman respectively. And there's no way a computer can capture such abstract concept if we just encode each word by it's position in the dictionary. Thus, with a little bit of thought we come to conclusion that representing words with vectors makes more sense.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now, digressing a little bit, let us ponder on the question that given two vectors how do we know that if those two vectors are close to each other. We define closeness in terms of smaller angle between the two vectors. If those two vectors point in opposite directions then they are as far apart from each other as they can be. We can quantify this notion by calculating the cosine of acute angle between those two vector. Let ${a}$ and ${b}$ be two vectors and ${\theta}$ be the acute angle between them. Then, ${\cos\theta = \large\frac{a.b}{\Vert a\Vert \Vert b \Vert}}$. The closer the ${\cos\theta}$ is to 1 the closer the vectors are to each other in terms of direction. If it's 0 then this means vectors are perpendicular to each other and if it's closer to -1 then this means vectors point in opposite directions. How does this relate to our problem in hand?  Well, we can say that we want that the notion of simalirity between two words to be captured by an operation as simple as dot-product of the vectors of these two words. In other words, we want vectors of similar words to point in somewhat same direction. We will design vectors for every word such that they are unit vectors which makes cosine similarity the same as computing the dot product. This way we can design a function called 'is_similar' which takes in vectors for two words and will compute their dot product. If the dot product is close to 1 then the function will return True , otherwse it'll return False. So, we hope that we can design word vectors in such a way that synonymous words will have almost the same vectors.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>And so, we arrive at our next problem. <strong>How do we find good vector representations of words?</strong> Let's answer this questions by trying out different possibilities.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let |V| be the length of our vocabulary/dictionary. Let's represent each word by a |V|- dimensional vector which has 1 at index which is equal to position of word in dictionary and 0 everywhere else. Therefore, representation for word 'aardvark' is ${\left[\begin{array}{ccc}1\\0\\0\\.\\.\\.\\0\end{array}\right]}$ and 'Zebra' will be represented by ${\left[\begin{array}{ccc}0\\0\\0\\.\\.\\.\\1\end{array}\right]}$. We'll call this encoding the 'one-hot' representation of our words.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now, digressing a little bit, let us ponder on the question that given two vectors how do we know that if those two vectors are point in somewhat same directions? We can quantify this notion by calculating the cosine of angle between those two vectors. Let ${a}$ and ${b}$ be two vectors and ${\theta}$ be the acute angle between them. Then, ${\cos\theta = \large\frac{a.b}{\Vert a\Vert \Vert b \Vert}}$. If ${\cos\theta = 1}$ then vectors point in the same direction. If it's $0$ then the vectors are perpendicular to each other and if it's $-1$ then the vectors point in opposite directions. 
+</p>
 <div class="flash">
-    <svg class="octicon octicon-info" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 01-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 01-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg>
-    <strong>Note: </strong>We&#8217;ll restrict the word vectors to be unit vectors. Then, calculating cosine similarity is same as taking dot-product.
-</div></p>
+    <svg class="octicon octicon-info" viewbox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 01-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 01-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg>
+    <strong>Note: </strong>We’ll restrict the word vectors to be unit vectors. Then, calculating cosine similarity is same as taking dot-product.
+</div>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>How does this relate to our problem in hand? Well, we can say that we want that the notion of similarity between two words to be captured by an operation as simple as dot-product of the vectors of these two words. In other words, we want vectors of similar meaning to point in somewhat same direction. This way we can design a function called is_similar which takes in vectors for two words and will compute their dot product. If the dot product is close to 1 then the function will say yes these two words are similar. So, we hope that we can design word vectors in such a way that vectors of synonymous words point in somewhat same direction (and antonyms in the opposite).</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now, knowing the English language we know that words 'motel' and 'hotel' are very similar which means we want the vectors of these two words to give a dot-product close to 1, according to concept we just discussed. But, if we take the dot product of vectors from our 'one-hot' representation of these words, it comes out as 0. In-fact dot-product of any two word vectors from our one-hot representation is 0. This fact is disheartening since this means that one-hot representation are not capable of capturing similarity between two words. Each word-vector is orthogonal to every other word-vector in this representation which is same as saying no two words are similar to each other nor are they oppoisite which isn't the case in real world. So, we part our ways with the one-hot representation and search for other alternatives.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Count-based-Methods:">Count-based Methods:<a class="anchor-link" href="#Count-based-Methods:"> </a></h2><p>We are looking for some concept about words which we can latch onto to form good vector representations of words. Through a fortunate stroke of serendipity we come across a quote by English linguist John Rupert Firth: <em>"A word is characterzied by the company it keeps"</em>. This quote implies that a word's meaning is decided by the context in which it appears. We can validate this statement by looking at some examples. Notice the use of word "bank" in following two sentences.</p>
+<h2 id="Count-based-Methods:">
+<a class="anchor" href="#Count-based-Methods:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Count-based Methods:<a class="anchor-link" href="#Count-based-Methods:"> </a>
+</h2>
+<p>We are looking for some concept about words which we can latch onto to form good vector representations of words. Through a fortunate stroke of serendipity we come across a quote by English linguist John Rupert Firth: <em>"A word is characterzied by the company it keeps"</em>. This quote implies that a word's meaning is decided by the context in which it appears. We can validate this statement by looking at some examples. Notice the use of word "bank" in following two sentences.</p>
 <ol>
 <li>"I deposited the cheque in the bank."</li>
 <li>"I was sitting alongside a river bank."</li>
@@ -112,9 +269,13 @@
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Iteration-based-methods:">Iteration-based methods:<a class="anchor-link" href="#Iteration-based-methods:"> </a></h2><p>Although our previous method didn't work out in the end, we found that guiding principle of "A word is characterized by the company it keeps" is pretty good. We would want to continue on this train of thought to devise other methods of finding word vectors. How else does the company of word characterize it? We can notice one fact that context words are pretty good predictors of a center word. That's what we have been doing since childhood when we are solving 'Fill in the blanks" type questions in our exams. Try to complete the following sentence: "A ___ was seen flying in the sky after taking off from airport." If you just read till the word "sky" there would be many possibilities in your mind for the word that fills in the blank for eg 'bird', 'airplane', 'birds', 'helicopter' etc. If you read the whole sentence and see the word "airport" you immediately lock in "airplane" as the most likely answer. We can also see it other way round. Given a word, say "football" you would assume that words like "kick", "score", "goal" will be in it's vicinity in a large corpus, rather than words like "racket", "serve" etc.</p>
+<h2 id="Iteration-based-methods:">
+<a class="anchor" href="#Iteration-based-methods:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Iteration-based methods:<a class="anchor-link" href="#Iteration-based-methods:"> </a>
+</h2>
+<p>Although our previous method didn't work out in the end, we found that guiding principle of "A word is characterized by the company it keeps" is pretty good. We would want to continue on this train of thought to devise other methods of finding word vectors. How else does the company of word characterize it? We can notice one fact that context words are pretty good predictors of a center word. That's what we have been doing since childhood when we are solving 'Fill in the blanks" type questions in our exams. Try to complete the following sentence: "A ___ was seen flying in the sky after taking off from airport." If you just read till the word "sky" there would be many possibilities in your mind for the word that fills in the blank for eg 'bird', 'airplane', 'birds', 'helicopter' etc. If you read the whole sentence and see the word "airport" you immediately lock in "airplane" as the most likely answer. We can also see it other way round. Given a word, say "football" you would assume that words like "kick", "score", "goal" will be in it's vicinity in a large corpus, rather than words like "racket", "serve" etc.</p>
 <p>This shows that:</p>
 <p><strong>1</strong>. <strong>A word is a good predictor of it's context words.</strong></p>
 <p><strong>2. Context words are good predictor of a center word.</strong></p>
@@ -122,40 +283,50 @@
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Skip-gram-model:">Skip-gram model:<a class="anchor-link" href="#Skip-gram-model:"> </a></h3><p>We can use the above two concept to build good word vectors. Let's go with the first concept above and see what we can conjure up. We can start by taking the first word in a large corpus and then try to <strong>predict</strong> it's context words using it's word vector. If predictions are correct then everything is fine, but if they are not then there must be something wrong with the word vectors. In that case, try to <strong>modify</strong> the vectors so that next time they don't commit the same mistake again. Do this for every word in the corpus and hopefully we have corrected all the bad word vectors.</p>
+<h3 id="Skip-gram-model:">
+<a class="anchor" href="#Skip-gram-model:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Skip-gram model:<a class="anchor-link" href="#Skip-gram-model:"> </a>
+</h3>
+<p>We can use the above two concept to build good word vectors. Let's go with the first concept above and see what we can conjure up. We can start by taking the first word in a large corpus and then try to <strong>predict</strong> it's context words using it's word vector. If predictions are correct then everything is fine, but if they are not then there must be something wrong with the word vectors. In that case, try to <strong>modify</strong> the vectors so that next time they don't commit the same mistake again. Do this for every word in the corpus and hopefully we have corrected all the bad word vectors.</p>
 <p>I've highlighted the words <strong>predict</strong> and <strong>modify</strong> because it is not clear how would we carry out these operations.</p>
-<p>Let's tackle the problem of <strong>prediction</strong> first. How do we predict the context words from a given word? For that we can change our notion of dot-product. Earlier we considered dot-product of vectors of two words to be a measure of similarity of those two words. Now, let's see the dot product of two word vectors as a measure of probability of them existing in the vicinity of each other. In other words, if dot-product of word vectors of two words, say 'a' and 'b' is close to 1 then that means they are very likely to occur nearby in the corpus, which means when we see 'a' we can safely predict that 'b' will be nearby.<br />
+<p>Let's tackle the problem of <strong>prediction</strong> first. How do we predict the context words from a given word? For that we can change our notion of dot-product. Earlier we considered dot-product of vectors of two words to be a measure of similarity of those two words. Now, let's see the dot product of two word vectors as a measure of probability of them existing in the vicinity of each other. In other words, if dot-product of word vectors of two words, say 'a' and 'b' is close to 1 then that means they are very likely to occur nearby in the corpus, which means when we see 'a' we can safely predict that 'b' will be nearby.<br>
+</p>
 <div class="flash">
-    <svg class="octicon octicon-info octicon octicon-info" viewBox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 01-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 01-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg>
+    <svg class="octicon octicon-info octicon octicon-info" viewbox="0 0 14 16" version="1.1" width="14" height="16" aria-hidden="true"><path fill-rule="evenodd" d="M6.3 5.69a.942.942 0 01-.28-.7c0-.28.09-.52.28-.7.19-.18.42-.28.7-.28.28 0 .52.09.7.28.18.19.28.42.28.7 0 .28-.09.52-.28.7a1 1 0 01-.7.3c-.28 0-.52-.11-.7-.3zM8 7.99c-.02-.25-.11-.48-.31-.69-.2-.19-.42-.3-.69-.31H6c-.27.02-.48.13-.69.31-.2.2-.3.44-.31.69h1v3c.02.27.11.5.31.69.2.2.42.31.69.31h1c.27 0 .48-.11.69-.31.2-.19.3-.42.31-.69H8V7.98v.01zM7 2.3c-3.14 0-5.7 2.54-5.7 5.68 0 3.14 2.56 5.7 5.7 5.7s5.7-2.55 5.7-5.7c0-3.15-2.56-5.69-5.7-5.69v.01zM7 .98c3.86 0 7 3.14 7 7s-3.14 7-7 7-7-3.12-7-7 3.14-7 7-7z"></path></svg>
     <strong>Note: </strong>- I am using terms "dot-product" to mean cosine similarity between the vectors. If vectors are of unit length cosine similarity is the same as dot-product)
-</div></p>
+</div>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let's see how we can convert dot-product of word vectors to probabilities with an example. Take word vector of "deep" and take it's dot product with vector of every word in the vocabulary and collect the results in a list. This will give us a list of length ${|V|}$. We can see this list as a "score" for probability of each word in vocabulary occurring with word "deep". We hope that score for word "learning" is close to 1 (because if we see the word "deep" there's high chances that word "learning" is nearby in a corpus). Wouldn't it be great if we could turn this list of scores in a list of probabilities depending on the score. This list of probabilities would then tell the probability of each word in vocabulary occurring in context of word "deep". Since all the scores are between -1 and 1 let's exponentiate them to turn them into positive numbers (because ${e^{x}}$ is always positive and if ${x \lt y \implies e^{x} \lt e^{y}}$ which will make sure larger scores turn into larger positive numbers). Now the list is a collection of positive numbers with no upper bound. To squeeze these numbers between 0 and 1 let's divide each entry in the list by the sum of all the entries in the list. This way all the numbers sum to 1 which makes them a valid probability distribution. The sequence of operations we did to convert scores to probabilities is called <strong>Softmax</strong> and takes a single line of code to implement.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let's write down what we did in mathematical notations.</p>
 <p>Let ${u}$ denote the word vector of word "deep" and ${v_{1}, v_{2}, ..., v_{|V|}}$ be the word vectors of every word in vocabulary.</p>
 <ol>
-<li><p>Take the dot product of each ${v_{i}}$ with ${u}$ and collect the results in a list called ${scores_{deep}}$.</p>
+<li>
+<p>Take the dot product of each ${v_{i}}$ with ${u}$ and collect the results in a list called ${scores_{deep}}$.</p>
 <p>${scores_{deep} = \left[u.v_{1},\space u.v_{2}, ..., \space u.v_{|V|}\right]}$.</p>
 </li>
-<li><p>Exponentiate each of the entry in ${scores_{deep}}$</p>
+<li>
+<p>Exponentiate each of the entry in ${scores_{deep}}$</p>
 <p>${scores_{deep}} = {\left[exp(u.v_{1}),\space exp(u.v_{2}), ..., \space exp(u.v_{|V|})\right]}.$</p>
 <p>Store sum of all the entries of ${scores_{deep}}$in a variable 'Sum'</p>
 <p>Sum = ${exp(u.v_{1}) + exp(u.v_{2}) + ... + exp(u.v_{|V|}) = \large\Sigma_{i=1}^{|V|} exp(u.v_{i})}$</p>
 </li>
-<li><p>Divide each entry by Sum and rename the list to $probabilities_{deep}$ because the entries of list now convey the probabilities of words occurring alongside "deep".</p>
+<li>
+<p>Divide each entry by Sum and rename the list to $probabilities_{deep}$ because the entries of list now convey the probabilities of words occurring alongside "deep".</p>
 <p>${probabilities_{deep}} = {\left[\large\frac{exp(u.v_{1})}{Sum},\space \frac{exp(u.v_{2})}{Sum}, ..., \space \frac{exp(u.v_{|V|})}{Sum}\right]}.$</p>
 </li>
 </ol>
@@ -164,7 +335,8 @@
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now that we've worked out a way to convert dot-product to probability let's see how we can design good word vectors for our words.</p>
 <p>Let " A blog about word vectors" be a string of words in our big corpus. Since words  "A", "about", "word" and "vectors" are in context of word "blog", we would want $P(a, about, word, vectors | blog)$ to be close to 1.</p>
@@ -175,7 +347,8 @@
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>$L = P(a | blog)\times P(about | blog)\times P(word| blog)\times  P(vectors| blog)$</p>
 <p>We have already devised a way to calculate each of the four factors above.</p>
@@ -184,7 +357,8 @@
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>When calculating $L$ on our computer, we encounter one problem; $L$ is product of numbers which are between 0 and 1. Multiplying many such numbers together leads to underflow errors. To circumvent this, we instead try to maximize $log L$. Taking log would turn products of numbers between $0$ and $1$ into sum of large negative numbers which our computer would be able to handle.</p>
 <p>Writing our new objective down:</p>
@@ -193,7 +367,8 @@
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Now that, we've worked out a method to calculate our objective using an example, let's try to write it in more general terms.</p>
 <p>Let the size of context window be c which means for each word we consider c words to it's left and c words to it's right as it's context. Let $w_{i}$ and ${v_{w_i}}$ be the center word and it's word vector respectively. Let ${u_{w_{i}}}$ be the vector for word ${w_{i}}$  and ${u_{k}}$ be the vector for word in $k^{th}$ position in dictionary. Then our objective for this particular word is :</p>
@@ -204,7 +379,8 @@
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Instead of maximizing $logL_{w_{i}}$ let's minimize $-logL_{w_{i}}$. Both are essentially the same operation but we choose to go the later way because now we can refer $-logL_{w_{i}}$ as $Loss$ which is appealing intuitively (we can say that we are minimising the $Loss$)</p>
 <p>So, $Loss =-\normalsize\sum_{j=-c}^{c}u_{w_i+j}.v_{w_i} + 2c\sum_{k=1}^{|V|}exp(u_{k}.v_{w_i})$</p>
@@ -224,9 +400,13 @@
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Continuous-bag-of-words:">Continuous bag of words:<a class="anchor-link" href="#Continuous-bag-of-words:"> </a></h3><p>Now, let's try to go the other way around and predict a word using it's context words. Let "A blog about word vectors." be a sentence in our corpus. We'll hide the second word from computer and ask it to guess that from the surrounding words. If it guesses "blog" then well and good but if it doesn't then we'll try to modify the vectors accordingly.</p>
+<h3 id="Continuous-bag-of-words:">
+<a class="anchor" href="#Continuous-bag-of-words:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Continuous bag of words:<a class="anchor-link" href="#Continuous-bag-of-words:"> </a>
+</h3>
+<p>Now, let's try to go the other way around and predict a word using it's context words. Let "A blog about word vectors." be a sentence in our corpus. We'll hide the second word from computer and ask it to guess that from the surrounding words. If it guesses "blog" then well and good but if it doesn't then we'll try to modify the vectors accordingly.</p>
 <p>This time the thing we are trying to maximize is $P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c})$ where $w_{i}$ is any word in the corpus and $w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c}$ are $2c$ context words from it's left and right context.</p>
 <p>How do we express $P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c})$  in terms of word vectors of these words ? Well, we can design a single vector for all the context word vectors by averaging them together. Let that single vector be denoted by $v_{c}$.</p>
 <p>$v_{c} = \Large\frac{v_{w_{i-c}}\,+\,...\,+ {v_{w_{i-1}}\,+\,{v_{w_{i+1}}\,+...\,+{v_{w_{i+c}}}}}}{2c}$. Let $u_{w_{i}}$ be the word vector for word $w_{i}$ and let ${u_{k}}$ be the vector for $k^{th}$ word in vocabulary. Then, we can calculate $P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c})$</p>
@@ -249,3 +429,45 @@
 </div>
 </div>
 
+
+
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="Abhimanyu08/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blog/deep-learning/natural-language-processing/2021/01/04/final.html" hidden></a>
+</article>
+      </div>
+    </main><footer class="site-footer h-card">
+  <data class="u-url" href="/blog/"></data>
+
+  <div class="wrapper">
+
+    <div class="footer-col-wrapper">
+      <div class="footer-col">
+        <p class="feed-subscribe">
+          <a href="/blog/feed.xml">
+            <svg class="svg-icon orange">
+              <use xlink:href="/blog/assets/minima-social-icons.svg#rss"></use>
+            </svg><span>Subscribe</span>
+          </a>
+        </p>
+      </div>
+      <div class="footer-col">
+        <p>A blog where I write about things I learn on my self-taught journey in the field of Artificial Intelligence</p>
+      </div>
+    </div>
+
+    <div class="social-links"><ul class="social-media-list"><li><a rel="me" href="https://github.com/Abhimanyu08" title="Abhimanyu08"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#github"></use></svg></a></li><li><a rel="me" href="https://twitter.com/A_Bhimany_u" title="A_Bhimany_u"><svg class="svg-icon grey"><use xlink:href="/blog/assets/minima-social-icons.svg#twitter"></use></svg></a></li></ul>
+</div>
+
+  </div>
+
+</footer>
+</body>
+
+</html>
