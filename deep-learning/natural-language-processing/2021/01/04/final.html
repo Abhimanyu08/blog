@@ -380,7 +380,7 @@ window.onload = wrap_img;
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Instead of maximizing $logL_{w_{i}}$ let's minimize $-logL_{w_{i}}$. Both are essentially the same operation but we choose to go the later way because now we can refer $-logL_{w_{i}}$ as $Loss$ which is appealing intuitively (we can say that we are minimising the $Loss$)</p>
-<p>So, $Loss =-\normalsize\sum_{j=-c}^{c}u_{w_i+j}.v_{w_i} + 2c\sum_{k=1}^{|V|}exp(u_{k}.v_{w_i})$</p>
+<p>So, $Loss =-\normalsize\sum_{j=-c}^{c}u_{w_i+j}.v_{w_i} + 2c \,log\sum_{k=1}^{|V|}exp(u_{k}.v_{w_i})$</p>
 <p>The problem we face now is how do we minimize it? Well, we can see that Loss depends on vectors $u_{1},...,u_{|V|}$ and $v_{i}$. We could try to tinker with these to minimize the $Loss$. The way we do that is by using an algorithm called <strong>Gradient Descent</strong>.</p>
 <p>Suppose we want to modify ${v_{i}}$ to decrease $Loss$. According to gradient descent we should first take the gradient of $Loss$ with respect to $v_{i}$ which we can denote by $\large\frac{\delta Loss}{\delta v_{i}}$. Then we should modify $v_{i}$ using the following rule :</p>
 <p>$v_{i} \leftarrow v_{i} - \alpha\frac{\delta Loss}{\delta v_{i}}$  where $\alpha$ is called the 'learning rate'.</p>
@@ -408,7 +408,7 @@ window.onload = wrap_img;
 <p>$u_{c} = \Large\frac{u_{w_{i-c}}\,+\,...\,+ {u_{w_{i-1}}\,+\,{u_{w_{i+1}}\,+...\,+{u_{w_{i+c}}}}}}{2c}$. Let $v_{w_{i}}$ be the word vector for word $w_{i}$ and let ${u_{k}}$ be the vector for $k^{th}$ word in vocabulary. Then, we can calculate $P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c})$</p>
 <p>as follows:</p>
 <p>$P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c}) = \frac{\large exp(v_{w_{i}}.u_{c})}{\large\sum_{k=1}^{|V|}exp(u_{k}.u_{c})}$. Same as before, we try minimize negative log of this quantity which we have aptly named $Loss$.</p>
-<p>$Loss = -log\frac{\large exp(v_{w_{i}}.u_{c})}{\large\sum_{k=1}^{|V|}exp(u_{k}.u_{c})} = -v_{w_{i}}.u_{c} + \sum_{k=1}^{|V|}exp(u_{k}.u_{c})$</p>
+<p>$Loss = -log\frac{\large exp(v_{w_{i}}.u_{c})}{\large\sum_{k=1}^{|V|}exp(u_{k}.u_{c})} = -v_{w_{i}}.u_{c} + log\sum_{k=1}^{|V|}exp(u_{k}.u_{c})$</p>
 <p>We now modify word vectors by Gradient descent as described above.</p>
 <p><strong>Summary:</strong></p>
 <p>For every word in large corpus of words:</p>
