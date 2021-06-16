@@ -223,7 +223,9 @@ window.onload = wrap_img;
 <p>Since ${log a - log b = log \frac{a}{b}}$</p>
 <p>${\therefore \hat\beta = argmax_{\beta} \space log\space \frac{\normalsize exp\frac{-1}{2}(Y-X\beta)^{T}\space I\space(Y-X\beta)}{\normalsize\sqrt{2\pi^{k}}}}$.</p>
 <p>Just to jog your memory, let me write the expression of probability density of a random variable ${W}$ which has a multivariate Normal distribution whose mean vector is ${\mu}$ and covariance matrix is ${I}$</p>
-<p>${\normalsize P(W\space ; \mu, I) = \frac{\normalsize exp \frac{-1}{2}(W-\mu)^{T}\space I\space(W-\mu)}{\normalsize\sqrt{2\pi^{k}}}}$. This equation looks strikingly familiar to the equation of our morphed square minimization objective.</p>
+<p>${P_{normal}(W\space ; \mu, I) = \frac{\normalsize exp \frac{-1}{2}(W-\mu)^{T}\space I\space(W-\mu)}{\normalsize\sqrt{2\pi^{k}}}}$. This equation looks strikingly familiar to the equation of our morphed square minimization objective. That is indeed the case, but we have to be careful. We may be tempted to interpret ${ \normalsize\frac{ exp\frac{-1}{2}(Y-X\beta)^{T}\space I\space(Y-X\beta)}{\sqrt{2\pi^{k}}}}$ as ${P_{normal}(Y\space ; X\beta ,I)}$ but remember that the mean of a normal distribution is a constant quantity and in our interpretation it's a variable ${X\beta}$. But, the quantity ${X\beta}$ is constant for a given ${X}$. Therefore, our interpretation should be ${ \normalsize\frac{ exp\frac{-1}{2}(Y-X\beta)^{T}\space I\space(Y-X\beta)}{\sqrt{2\pi^{k}}} = \small P_{normal}(Y|X\space ; X\beta ,I)}$, which in words is read as probability of ${Y}$ given ${X}$.</p>
+<p><img src="/blog/images/copied_from_nb/my_icons/normal-dist.jpg" alt=""></p>
+<p>So, by minimising</p>
 
 </div>
 </div>
