@@ -174,7 +174,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Minimizing the Squared Error is the technique any machine learning practitioner uses while tackling a Regression problem in which the target is a continuous variable. Let's say we have collected all our independent variables in a matrix ${X}$ of shape (m,n) where m is the number of training examples and each training example is represented by a n dimensional vector. All the dependent variables are represented by a vector ${Y}$ of length m (each training example has a real number as it's target). Our task is to find a vector ${\beta}$ of length n such that ${X\beta = Y}$. Now this task can be simple solved by saying ${\beta = X^{-1}Y}$ but this is the correct answer only in the case when m = n i.e ${X}$ is a squared matrix and ${Y}$ lies in the column space of ${X}$ i.e Y is simply a weighted sum of columns of X. If that's not the case ${X\beta}$ can never be equal to ${Y}$. All we can hope to do is minimize the distance between the two vectors ${X\beta}$ and ${Y}$. The distance we choose to minimize is ${(Y-X\beta)^{2}}$ or ${(Y-X\beta)^{T}(Y-X\beta)}$. Let's denote this error by ${\epsilon}$. Now, if you are like me, you may wonder why don't we simply minimize ${Y - X\beta}$ or some other power of ${Y - X\beta}$. This is perfectly valid question to ask and we are going to explore this in this blog.</p>
+<p>Minimizing the Squared Error is the technique any machine learning practitioner uses while tackling a Regression problem in which the target is a continuous variable. Let's say we have collected all our independent variables in a matrix ${X}$ of shape (m,n) where m is the number of training examples and each training example is represented by a n dimensional vector. All the dependent variables are represented by a vector ${Y}$ of length m (each training example has a real number as it's target). Our task is to find a vector ${\hat\beta}$ of length n such that ${X\hat\beta = Y}$. Now this task can be simple solved by saying ${\hat\beta = X^{-1}Y}$ but this is the correct answer only in the case when m = n i.e ${X}$ is a squared matrix and ${Y}$ lies in the column space of ${X}$ i.e Y is simply a weighted sum of columns of X. If that's not the case ${X\hat\beta}$ can never be equal to ${Y}$. All we can hope to do is minimize the distance between the two vectors ${X\hat\beta}$ and ${Y}$. The distance we choose to minimize is ${(Y-X\hat\beta)^{2}}$ which can also be written as ${(Y-X\hat\beta)^{T}(Y-X\hat\beta)}$. Let's denote this error by ${\epsilon}$. Now, if you are like me, you may wonder why don't we simply minimize ${Y - X\beta}$ or some other power of ${Y - X\beta}$. This is perfectly valid question to ask and we are going to explore this in this blog. For now, just note that ${\hat\beta = argmin_{\beta} \space(Y-X\beta)^{T}(Y-X\beta)}$.</p>
 
 </div>
 </div>
@@ -195,6 +195,7 @@ window.onload = wrap_img;
 <p>To construct such estimate of a distribution we collect the age and ranking of m players and observe them for the next 10 matches and note down how many of those matches they won. Let each of these observations be represented by ${x^{i}, y^{i}}$ where each ${x^{i}}$ is itself a vector of length two containing the age and ranking of ${i^{th}}$ player and ${y^{i}}$ is the number of matches won by that player out of 10. Let's assume every observation is independent of any other observation. Given each ${x^{i}}$ our distribution should predict ${y^{i}}$ and this can only happen when ${P(x^{i}, y^{i}\space ;\space \hat\theta)}$ is maximum of among all other ${P(x^{i}, y\space ; \space \hat\theta)}$ where ${y \neq y_{i}}$. The quantity ${P(x^{i}, y^{i})}$ is known as likelihood of the observation  ${(x^{i}, y^{i})}$. Since we want likelihood of all the observations to be maximum, we might as well say that we we want the quantity ${P(x^{1}, y^{1})\cdot P(x^{2}, y^{2})\cdot P(x^{3}, y^{3}) ... P(x^{m}, y^{m})}$ to be maximum which in short can be written as ${\Pi_{i=1}^{m}P(x^{i}, y^{i}\space ; \space \theta)}$. Then ${\hat\theta}$ will be whatever value of ${\theta}$ which can achieve this feat.</p>
 <p>${\therefore \hat\theta = argmax_{\theta} \space\Pi_{i=1}^{m} P(x^{i}, y^{i}\space ; \space \theta)}$.</p>
 <p>This method of estimating ${\theta_{true}}$ is called maximum likelihood estimation and obtained ${\hat\theta}$ is called maximum likelihood estimate of ${\theta_{true}}$. Maximum likelihood estimates of true parameters have many desirable properties, most important of which is: As we increase the number of training examples, the probability of estimates being close to true parameter increases. Well, this is obvious for any type of estimate.  What's special about the maximum likelihood estimates is that they do so the fastest of any other type of estimate. In other words, if we are using maximum likelihood estimates to estimate our paramters and someone else is using other methods, then our performance on prediction will improve faster on collecting more training data.</p>
+<p>On a side note we can si</p>
 
 </div>
 </div>
@@ -211,7 +212,17 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's get back to minimising</p>
+<p>Let's get back to minimising sqaured error and see through a sequence of logical steps how it is maximum likelihood estimation in disguise.</p>
+<p>${\hat\beta = argmin_{\beta} \space(Y-X\beta)^{T}(Y-X\beta) = argmin_{\beta} \space(Y-X\beta)^{T}\space I\space(Y-X\beta)}$ where ${I}$ is the identity matrix.</p>
+<p>Mutltiplying a function by a negative number turns it's minimas to maximas and vice versa. So let's multiply our function by ${\frac{-1}{2}}$</p>
+<p>${\therefore \hat\beta = argmax_{\beta} \space\frac{-1}{2}(Y-X\beta)^{T}\space I\space(Y-X\beta)}$</p>
+<p>Exponentiating the function and then taking it's log returns the function itself, because log and exp are inverse functions of each other.</p>
+<p>${\therefore \hat\beta = argmax_{\beta} \space log\space exp\frac{-1}{2}(Y-X\beta)^{T}\space I\space(Y-X\beta)}$.</p>
+<p>Subtracting a constant from a function doesn't change the location of it's maximas and minimas. So, let's subtract ${log \sqrt{2\pi^{k}}}$</p>
+<p>${\therefore \hat\beta = argmax_{\beta} \space log\space exp\frac{-1}{2}(Y-X\beta)^{T}\space I\space(Y-X\beta) - log \sqrt{2\pi^{k}}}$.</p>
+<p>Since ${log a - log b = log \frac{a}{b}}$</p>
+<p>${\therefore \hat\beta = argmax_{\beta} \space log\space \frac{\large exp\frac{-1}{2}(Y-X\beta)^{T}\space I\space(Y-X\beta)}{\large\sqrt{2\pi^{k}}}}$.</p>
+<p>And just for a refresher the formula</p>
 
 </div>
 </div>
