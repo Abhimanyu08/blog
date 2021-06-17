@@ -3,34 +3,36 @@
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="viewport" content="width=device-width, initial-scale=1"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Title | Abhimanyu</title>
+<title>Why Squared Error Minimization = Maximum Likelihood Estimation | Abhimanyu</title>
 <meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Title" />
+<meta property="og:title" content="Why Squared Error Minimization = Maximum Likelihood Estimation" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="A blog where I write about things I learn on my self-taught journey in the field of Artificial Intelligence" />
-<meta property="og:description" content="A blog where I write about things I learn on my self-taught journey in the field of Artificial Intelligence" />
-<link rel="canonical" href="https://abhimanyu08.github.io/blog/2021/06/16/Untitled.html" />
-<meta property="og:url" content="https://abhimanyu08.github.io/blog/2021/06/16/Untitled.html" />
+<meta name="description" content="An investigation into why minimizing squared error is the same as maximum likelihood estimation" />
+<meta property="og:description" content="An investigation into why minimizing squared error is the same as maximum likelihood estimation" />
+<link rel="canonical" href="https://abhimanyu08.github.io/blog/deep-learning/mathematics/2021/06/16/Untitled.html" />
+<meta property="og:url" content="https://abhimanyu08.github.io/blog/deep-learning/mathematics/2021/06/16/Untitled.html" />
 <meta property="og:site_name" content="Abhimanyu" />
+<meta property="og:image" content="https://abhimanyu08.github.io/blog/images/normal-dist.jpg" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-06-16T00:00:00-05:00" />
 <script type="application/ld+json">
-{"datePublished":"2021-06-16T00:00:00-05:00","dateModified":"2021-06-16T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://abhimanyu08.github.io/blog/2021/06/16/Untitled.html"},"description":"A blog where I write about things I learn on my self-taught journey in the field of Artificial Intelligence","@type":"BlogPosting","url":"https://abhimanyu08.github.io/blog/2021/06/16/Untitled.html","headline":"Title","@context":"https://schema.org"}</script>
+{"datePublished":"2021-06-16T00:00:00-05:00","dateModified":"2021-06-16T00:00:00-05:00","image":"https://abhimanyu08.github.io/blog/images/normal-dist.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://abhimanyu08.github.io/blog/deep-learning/mathematics/2021/06/16/Untitled.html"},"description":"An investigation into why minimizing squared error is the same as maximum likelihood estimation","@type":"BlogPosting","url":"https://abhimanyu08.github.io/blog/deep-learning/mathematics/2021/06/16/Untitled.html","headline":"Why Squared Error Minimization = Maximum Likelihood Estimation","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 <link rel="stylesheet" href="/blog/assets/css/style.css"><link type="application/atom+xml" rel="alternate" href="https://abhimanyu08.github.io/blog/feed.xml" title="Abhimanyu" /><link rel="shortcut icon" type="image/x-icon" href="/blog/images/favicon.ico"><!-- Begin Jekyll SEO tag v2.6.1 -->
-<title>Title | Abhimanyu</title>
+<title>Why Squared Error Minimization = Maximum Likelihood Estimation | Abhimanyu</title>
 <meta name="generator" content="Jekyll v4.0.0" />
-<meta property="og:title" content="Title" />
+<meta property="og:title" content="Why Squared Error Minimization = Maximum Likelihood Estimation" />
 <meta property="og:locale" content="en_US" />
-<meta name="description" content="A blog where I write about things I learn on my self-taught journey in the field of Artificial Intelligence" />
-<meta property="og:description" content="A blog where I write about things I learn on my self-taught journey in the field of Artificial Intelligence" />
-<link rel="canonical" href="https://abhimanyu08.github.io/blog/2021/06/16/Untitled.html" />
-<meta property="og:url" content="https://abhimanyu08.github.io/blog/2021/06/16/Untitled.html" />
+<meta name="description" content="An investigation into why minimizing squared error is the same as maximum likelihood estimation" />
+<meta property="og:description" content="An investigation into why minimizing squared error is the same as maximum likelihood estimation" />
+<link rel="canonical" href="https://abhimanyu08.github.io/blog/deep-learning/mathematics/2021/06/16/Untitled.html" />
+<meta property="og:url" content="https://abhimanyu08.github.io/blog/deep-learning/mathematics/2021/06/16/Untitled.html" />
 <meta property="og:site_name" content="Abhimanyu" />
+<meta property="og:image" content="https://abhimanyu08.github.io/blog/images/normal-dist.jpg" />
 <meta property="og:type" content="article" />
 <meta property="article:published_time" content="2021-06-16T00:00:00-05:00" />
 <script type="application/ld+json">
-{"datePublished":"2021-06-16T00:00:00-05:00","dateModified":"2021-06-16T00:00:00-05:00","mainEntityOfPage":{"@type":"WebPage","@id":"https://abhimanyu08.github.io/blog/2021/06/16/Untitled.html"},"description":"A blog where I write about things I learn on my self-taught journey in the field of Artificial Intelligence","@type":"BlogPosting","url":"https://abhimanyu08.github.io/blog/2021/06/16/Untitled.html","headline":"Title","@context":"https://schema.org"}</script>
+{"datePublished":"2021-06-16T00:00:00-05:00","dateModified":"2021-06-16T00:00:00-05:00","image":"https://abhimanyu08.github.io/blog/images/normal-dist.jpg","mainEntityOfPage":{"@type":"WebPage","@id":"https://abhimanyu08.github.io/blog/deep-learning/mathematics/2021/06/16/Untitled.html"},"description":"An investigation into why minimizing squared error is the same as maximum likelihood estimation","@type":"BlogPosting","url":"https://abhimanyu08.github.io/blog/deep-learning/mathematics/2021/06/16/Untitled.html","headline":"Why Squared Error Minimization = Maximum Likelihood Estimation","@context":"https://schema.org"}</script>
 <!-- End Jekyll SEO tag -->
 
 <link href="https://unpkg.com/@primer/css/dist/primer.css" rel="stylesheet" />
@@ -101,7 +103,7 @@ window.onload = wrap_img;
         <article class="post h-entry" itemscope itemtype="http://schema.org/BlogPosting">
 
   <header class="post-header">
-    <h1 class="post-title p-name" itemprop="name headline">Title</h1><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-06-16T00:00:00-05:00" itemprop="datePublished">
+    <h1 class="post-title p-name" itemprop="name headline">Why Squared Error Minimization = Maximum Likelihood Estimation</h1><p class="page-description">An investigation into why minimizing squared error is the same as maximum likelihood estimation</p><p class="post-meta post-meta-title"><time class="dt-published" datetime="2021-06-16T00:00:00-05:00" itemprop="datePublished">
         Jun 16, 2021
       </time>
        • <span class="read-time" title="Estimated read time">
@@ -112,33 +114,30 @@ window.onload = wrap_img;
 </span></p>
 
     
+      <p class="category-tags"><i class="fas fa-tags category-tags-icon"></i></i> 
+      
+        <a class="category-tags-link" href="/blog/categories/#deep-learning">deep-learning</a>
+        &nbsp;
+      
+        <a class="category-tags-link" href="/blog/categories/#mathematics">mathematics</a>
+        
+      
+      </p>
+    
 
     
-      
-        <div class="pb-5 d-flex flex-wrap flex-justify-end">
-          <div class="px-2">
-
-    <a href="https://github.com/Abhimanyu08/blog/tree/master/_notebooks/Untitled.ipynb" role="button" target="_blank">
-<img class="notebook-badge-image" src="/blog/assets/badges/github.svg" alt="View On GitHub">
-    </a>
-</div>
-
-          <div class="px-2">
-    <a href="https://mybinder.org/v2/gh/Abhimanyu08/blog/master?filepath=_notebooks%2FUntitled.ipynb" target="_blank">
-        <img class="notebook-badge-image" src="/blog/assets/badges/binder.svg" alt="Open In Binder"/>
-    </a>
-</div>
-
-          <div class="px-2">
-    <a href="https://colab.research.google.com/github/Abhimanyu08/blog/blob/master/_notebooks/Untitled.ipynb" target="_blank">
-        <img class="notebook-badge-image" src="/blog/assets/badges/colab.svg" alt="Open In Colab"/>
-    </a>
-</div>
-        </div>
       </header>
 
   <div class="post-content e-content" itemprop="articleBody">
-    <!--
+    <ul class="section-nav">
+<li class="toc-entry toc-h2"><a href="#Pre-requisites">Pre-requisites </a>
+<ul>
+<li class="toc-entry toc-h3"><a href="#Minimizing-the-squared-error-loss">Minimizing the squared error loss </a></li>
+<li class="toc-entry toc-h3"><a href="#Maximum-Likelihood-Estimation">Maximum Likelihood Estimation </a></li>
+<li class="toc-entry toc-h3"><a href="#Minimising-Squared-Error-${\rightarrow}$-Maximising-Likelihood">Minimising Squared Error ${\rightarrow}$ Maximising Likelihood </a></li>
+</ul>
+</li>
+</ul><!--
 #################################################
 ### THIS FILE WAS AUTOGENERATED! DO NOT EDIT! ###
 #################################################
@@ -154,46 +153,43 @@ window.onload = wrap_img;
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Why-Squared-Error-Minimization-=-Maximum-Likelihood-Estimation">Why Squared Error Minimization = Maximum Likelihood Estimation<a class="anchor-link" href="#Why-Squared-Error-Minimization-=-Maximum-Likelihood-Estimation"> </a></h2><blockquote><p>An investigation into why minimizing squared error is the same as maximum likelihood estimation</p>
-<ul>
-<li>toc:true - badges: false</li>
-<li>comments: true</li>
-<li>categories: [deep-learning, mathematics]</li>
-<li>image: images/normal-dist.jpg</li>
-</ul>
-</blockquote>
-
+<h2 id="Pre-requisites">
+<a class="anchor" href="#Pre-requisites" aria-hidden="true"><span class="octicon octicon-link"></span></a>Pre-requisites<a class="anchor-link" href="#Pre-requisites"> </a>
+</h2>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Pre-requisites">Pre-requisites<a class="anchor-link" href="#Pre-requisites"> </a></h2>
+<h3 id="Minimizing-the-squared-error-loss">
+<a class="anchor" href="#Minimizing-the-squared-error-loss" aria-hidden="true"><span class="octicon octicon-link"></span></a>Minimizing the squared error loss<a class="anchor-link" href="#Minimizing-the-squared-error-loss"> </a>
+</h3>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Minimizing-the-squared-error-loss">Minimizing the squared error loss<a class="anchor-link" href="#Minimizing-the-squared-error-loss"> </a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Minimizing the Squared Error is the technique any machine learning practitioner uses while tackling a Regression problem in which the target is a continuous variable. Let's say we have collected all our independent variables in a matrix ${X}$ of shape (m,n) where m is the number of training examples and each training example is represented by a n dimensional vector. All the dependent variables are represented by a vector ${Y}$ of length m (each training example has a real number as it's target). Our task is to find a vector ${\hat\beta}$ of length n such that ${X\hat\beta = Y}$. Now this task can be simple solved by saying ${\hat\beta = X^{-1}Y}$ but this is the correct answer only in the case when m = n i.e ${X}$ is a squared matrix and ${Y}$ lies in the column space of ${X}$ i.e Y is simply a weighted sum of columns of X. If that's not the case ${X\hat\beta}$ can never be equal to ${Y}$. All we can hope to do is minimize the distance between the two vectors ${X\hat\beta}$ and ${Y}$. The distance we choose to minimize is ${(Y-X\hat\beta)^{2}}$ which can also be written as ${(Y-X\hat\beta)^{T}(Y-X\hat\beta)}$. Let's denote this error by ${\epsilon}$. Now, if you are like me, you may wonder why don't we simply minimize ${Y - X\beta}$ or some other power of ${Y - X\beta}$. This is perfectly valid question to ask and we are going to explore this in this blog. For now, just note that ${\hat\beta = argmin_{\beta} \space(Y-X\beta)^{T}(Y-X\beta)}$.</p>
 
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Maximum-Likelihood-Estimation">Maximum Likelihood Estimation<a class="anchor-link" href="#Maximum-Likelihood-Estimation"> </a></h3>
+<h3 id="Maximum-Likelihood-Estimation">
+<a class="anchor" href="#Maximum-Likelihood-Estimation" aria-hidden="true"><span class="octicon octicon-link"></span></a>Maximum Likelihood Estimation<a class="anchor-link" href="#Maximum-Likelihood-Estimation"> </a>
+</h3>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Another way of looking at the regression task is that we have m observations of ${(x,y)}$ where ${x}$ is a n dimensional vector and ${y}$ is it's corresponding target value. These m data points come from a true but unknown data distribution ${P(X,Y\space;\space\theta)}$ where ${\theta_{true}}$ is the parameter of the distribution. Let's say we want to predict how many matches will each of the player win out of his next 10 matches by just looking at the player's age and ATP ranking. Therefore, our independent variable is ${X = [\text Age, \text Ranking]}$ and dependent variable is ${Y =}$ number of matches won out of next 10 for eg. Nadal will be represented by vector ${(35,3)}$ and Federer by ${(39,8)}$. What do you think ${P([18,123], 10)}$ will be? In other words what is the probability that a player aged 18 and ranked 123 wins all 10 of his next matches? We can safely say that this a highly unlikely event since the player is inexperienced. In the same way, we would expect ${P([30,1], 8)}$ to be high since the player is ranked highest in the world. Now instead of guessing, we want to construct a probability distribution over random variables ${X}$ and ${Y}$. Once we have such a distribution we can simply plug in age and ranking of any player and calculate ${P([\text age,\text ranking], Y\space ; \space \theta_{true})}$ for each ${Y}$ in ${(0,10)}$ and report the one which gave the highest probability. Unfortunately, we can't know true distribution since for that we would have to collect data from every single active player which can be a lot. But, we can estimate the true distribution. Any distribution is entirely characterised by it's parameters. for eg a Gaussian distribution is charachterised by it's mean and variance and is denoted as ${N (x; \mu, \sigma^{2})}$. If we can estimate the parameters of a distribution, then can construct a good estimate of the distribution as a whole. Let's denote the estimate of parameters ${\theta_{true}}$ as ${\hat\theta}$.</p>
 <p>To construct such estimate of a distribution we collect the age and ranking of m players and observe them for the next 10 matches and note down how many of those matches they won. Let each of these observations be represented by ${x^{i}, y^{i}}$ where each ${x^{i}}$ is itself a vector of length two containing the age and ranking of ${i^{th}}$ player and ${y^{i}}$ is the number of matches won by that player out of 10. Let's assume every observation is independent of any other observation. Given each ${x^{i}}$ our distribution should predict ${y^{i}}$ and this can only happen when ${P(x^{i}, y^{i}\space ;\space \hat\theta)}$ is maximum of among all other ${P(x^{i}, y\space ; \space \hat\theta)}$ where ${y \neq y_{i}}$. The quantity ${P(x^{i}, y^{i})}$ is known as likelihood of the observation  ${(x^{i}, y^{i})}$. Since we want likelihood of all the observations to be maximum, we might as well say that we we want the quantity ${P(x^{1}, y^{1})\cdot P(x^{2}, y^{2})\cdot P(x^{3}, y^{3}) ... P(x^{m}, y^{m})}$ to be maximum which in short can be written as ${\Pi_{i=1}^{m}P(x^{i}, y^{i}\space ; \space \theta)}$. Then ${\hat\theta}$ will be whatever value of ${\theta}$ which can achieve this feat.</p>
@@ -204,13 +200,17 @@ window.onload = wrap_img;
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Minimising-Squared-Error-${\rightarrow}$-Maximising-Likelihood">Minimising Squared Error ${\rightarrow}$ Maximising Likelihood<a class="anchor-link" href="#Minimising-Squared-Error-${\rightarrow}$-Maximising-Likelihood"> </a></h3>
+<h3 id="Minimising-Squared-Error-${\rightarrow}$-Maximising-Likelihood">
+<a class="anchor" href="#Minimising-Squared-Error-%24%7B%5Crightarrow%7D%24-Maximising-Likelihood" aria-hidden="true"><span class="octicon octicon-link"></span></a>Minimising Squared Error ${\rightarrow}$ Maximising Likelihood<a class="anchor-link" href="#Minimising-Squared-Error-%24%7B%5Crightarrow%7D%24-Maximising-Likelihood"> </a>
+</h3>
 </div>
 </div>
 </div>
-<div class="cell border-box-sizing text_cell rendered"><div class="inner_cell">
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let's get back to minimising sqaured error and see through a sequence of logical steps how it is maximum likelihood estimation in disguise.</p>
 <p>${\hat\beta = argmin_{\beta} \space(Y-X\beta)^{T}(Y-X\beta) = argmin_{\beta} \space(Y-X\beta)^{T}\space I\space(Y-X\beta)}$ where ${I}$ is the identity matrix.</p>
@@ -226,7 +226,7 @@ window.onload = wrap_img;
 <p>${P_{normal}(W\space ; \mu, I) = \frac{\normalsize exp \frac{-1}{2}(W-\mu)^{T}\space I\space(W-\mu)}{\normalsize\sqrt{2\pi^{k}}}}$. This equation looks strikingly familiar to the equation of our morphed square minimization objective. That is indeed the case, but we have to be careful. We may be tempted to interpret ${ \normalsize\frac{ exp\frac{-1}{2}(Y-X\beta)^{T}\space I\space(Y-X\beta)}{\sqrt{2\pi^{k}}}}$ as ${P_{normal}(Y\space ; X\beta ,I)}$ but remember that the mean of a normal distribution is a constant quantity and in our interpretation it's a variable ${X\beta}$. But, the quantity ${X\beta}$ is constant for a given ${X}$. Therefore, our interpretation should be ${ \normalsize\frac{ exp\frac{-1}{2}(Y-X\beta)^{T}\space I\space(Y-X\beta)}{\sqrt{2\pi^{k}}} = \small P_{normal}(Y|X\space ; X\beta ,I)}$, which in words is read as probability of ${Y}$ given ${X}$. Now we can plug this in the equation for ${\hat\beta}$</p>
 <p>${\therefore \hat\beta = argmax_{\beta}\space log P_{normal}(Y|X\space ; X\beta, I)}$.</p>
 <p>This means that by minimising squared error we were indeed maximising the likelihood of variable ${Y|X}$. Also, we can see that by minimising squared error we were implicitly assuming that given a particular ${X}$, ${Y}$ is a multivariate gaussian random variable with Identity matrix as it's covariance matrix.</p>
-<p><img src="/blog/images/copied_from_nb/my_icons/normal-dist.jpg" alt="" /></p>
+<p><img src="/blog/images/copied_from_nb/my_icons/normal-dist.jpg" alt=""></p>
 <p>So, by minimising</p>
 
 </div>
@@ -236,7 +236,15 @@ window.onload = wrap_img;
 
 
 
-  </div><a class="u-url" href="/blog/2021/06/16/Untitled.html" hidden></a>
+  </div><!-- from https://github.com/utterance/utterances -->
+<script src="https://utteranc.es/client.js"
+        repo="Abhimanyu08/blog"
+        issue-term="title"
+        label="blogpost-comment"
+        theme="github-light"
+        crossorigin="anonymous"
+        async>
+</script><a class="u-url" href="/blog/deep-learning/mathematics/2021/06/16/Untitled.html" hidden></a>
 </article>
       </div>
     </main><footer class="site-footer h-card">
