@@ -138,7 +138,11 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h2"><a href="#Minimizing-the-squared-error-loss">Minimizing the squared error loss </a>
 <ul>
 <li class="toc-entry toc-h3"><a href="#Maximum-Likelihood-Estimation">Maximum Likelihood Estimation </a></li>
-<li class="toc-entry toc-h3"><a href="#Minimising-Squared-Error-${\rightarrow}$-Maximising-Likelihood">Minimising Squared Error ${\rightarrow}$ Maximising Likelihood </a></li>
+<li class="toc-entry toc-h3"><a href="#Minimising-Squared-Error-${\rightarrow}$-Maximising-Likelihood">Minimising Squared Error ${\rightarrow}$ Maximising Likelihood </a>
+<ul>
+<li class="toc-entry toc-h4"><a href="#A-Small-Example">A Small Example </a></li>
+</ul>
+</li>
 </ul>
 </li>
 </ul><!--
@@ -294,8 +298,8 @@ window.onload = wrap_img;
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Just to jog your memory, let me write the expression of probability density of a random variable ${W}$ which has a multivariate Normal distribution whose mean vector is ${\mu}$ and covariance matrix is ${I}$</p>
-<p>${P_{normal}(W\space ; \mu, I) = \frac{\normalsize exp \frac{-1}{2}(W-\mu)^{T}\space I\space(W-\mu)}{\normalsize\sqrt{2\pi^{k}}}}$. This equation looks strikingly familiar to the equation of our morphed square minimization objective. That is indeed the case, but we have to be careful. We may be tempted to interpret ${ \normalsize\frac{ exp\frac{-1}{2}(Y-X\beta)^{T}\space I\space(Y-X\beta)}{\sqrt{2\pi^{k}}}}$ as ${P_{normal}(Y\space ; X\beta ,I)}$ but remember that the mean of a normal distribution is a constant quantity and in our interpretation it's a variable ${X\beta}$. But, the quantity ${X\beta}$ is constant for a given ${X}$. Therefore, our interpretation should be ${ \normalsize\frac{ exp\frac{-1}{2}(Y-X\beta)^{T}\space I\space(Y-X\beta)}{\sqrt{2\pi^{k}}} = \small P_{normal}(Y|X\space ; X\beta ,I)}$, which in words is read as probability of ${Y}$ given ${X}$. Now we can plug this in the equation for ${\hat\beta}$</p>
-<p>${\therefore \hat\beta = argmax_{\beta}\space log P_{normal}(Y|X\space ; X\beta, I)}$.</p>
+<p>${P_{normal}(\small W\space ; \mu, \small I) = \frac{\normalsize exp \frac{-1}{2}(W-\mu)^{T}\space(W-\mu)}{\normalsize{(2\pi)^{0.5k}}}}$. This equation looks strikingly familiar to the equation of our morphed square minimization objective.</p>
+<p>${\therefore \hat\beta = argmax_{\beta}\space log P_{normal}(Y_{1}\space ; \space X_{1}\beta, I) \space + \space ... +\space log P_{normal}(Y_{p}\space ; \space X_{p}\beta, I)}$</p>
 
 </div>
 </div>
@@ -303,11 +307,12 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>This means that by minimising squared error we were indeed maximising the log-likelihood of variable ${Y|X}$. Also, we can see that by minimising squared error we were implicitly assuming that given a particular ${X}$, ${Y}$ is a multivariate gaussian random variable with Identity matrix as it's covariance matrix. Now you may be confused that given a particular ${X}$ why is ${Y}$ a vector in our representation? Shouldn't it be a fixed number? This is because in a large dataset there may be instances with same input value ${x}$ but different labels due to error in data collection or just by the virtue of randomness in the true data distribution.</p>
+<p>This means that by minimising squared error we were indeed maximising the log-likelihood of several random variables. Also, we can see that by minimising squared error we were implicitly assuming that given a particular ${X}$, ${Y}$ is a multivariate gaussian random variable with Identity matrix as it's covariance matrix.</p>
 <p>Now we have turned the task of finding the argument that minimises squared error into the task of finding the argument that maximises the likelihood of multivariate gaussian distribution which is very easy if you remember what a Gaussian curve looks like. If not, given below is the picture of a graph of probablity density of a random variable with gaussian distribution which has scalar mean ${\mu}$ and scalar variance ${\sigma}$ i.e ${P_{normal}(X\space ; \space \mu, \sigma)}$</p>
 <p><img src="/blog/images/copied_from_nb/my_icons/normal-dist.jpg" alt=""></p>
-<p>In this picture, we can see that maximum of the distribution occurs at the mean of random variable also called expectation of random variable and denoted as ${E[X]}$. This means that ${P_{normal}(Y|X\space ; X\beta, I)}$ is maximised when ${X\beta}$ is mean of variable ${Y|X}$.</p>
-<p>${\therefore X\hat\beta = E[Y|X]}$</p>
+<p>In this picture, we can see that maximum of the distribution occurs at the mean of random variable also called expectation of random variable and denoted as ${E[X]}$. This means that ${P_{normal}(Y_{i}\space ;\space X_{i}\beta, I)}$ is maximised when ${X_{i}\beta}$ is mean of variable ${Y_{i}}$.</p>
+<p>${\therefore X_{i}\hat\beta = E[Y_{i}]}$.</p>
+<p>This means that for a given ${x}$ in the dataset if we predict the mean of all the labels it is associated with, the squared error will be at it's minimum.</p>
 
 </div>
 </div>
@@ -315,23 +320,83 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's understand this by a small example. Let our training dataset be ${X = \left[
+<h4 id="A-Small-Example">
+<a class="anchor" href="#A-Small-Example" aria-hidden="true"><span class="octicon octicon-link"></span></a>A Small Example<a class="anchor-link" href="#A-Small-Example"> </a>
+</h4>
+<p>Let's take our previous dataset ${([(1,2), 10],\, [(1,3),9],\, [(1,2), 12])}$ and try to fit a linear model on it by minimizing the squared error. Arranging input and target variables seperately we have ${X = \left[
          \begin{array}{ccc}
          1 &amp; 2\\
          1 &amp; 3\\
-         1 &amp; 2
+         1 &amp; 2\\
          \end{array}
-\right]}$ and coresponding targets be ${Y = \left[
+\right]}$ and ${Y = \left[
          \begin{array}{ccc}
          10\\
-         11\\
-         12
+         9\\
+         12\\
          \end{array}
-\right]}$. As you can see same input ${[1,2]}$ has two different labels 10 and 12. We have to find a ${\hat\beta}$ which minimises ${(Y-X\hat\beta)^{T}(Y-X\hat\beta)}$ and then our predictions on training dataset will simply by ${X\hat\beta}$.</p>
+\right]}$. As we saw earlier we can use normal equations to find the vector ${\hat\beta}$ such that ${X\hat\beta \approx Y}$.</p>
+<p>But why go the route of normal equations when we can calculate ${X\hat\beta}$ in our heads. For a given ${x}$, just predict the mean of all the ${y}$'s it is associated with.</p>
+<p>Therefore for ${(1,2)}$ we predict mean of 10 and 12 which is 11 and for ${[1,3]}$ we predict just 9.</p>
+<p>${\therefore X\hat\beta = \left[
+         \begin{array}{ccc}
+         11\\
+         9\\
+         11\\
+         \end{array}
+\right]}$</p>
 
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Let's verify that the normal equations give the same results:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">]])</span>
+<span class="n">Y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">10</span><span class="p">,</span><span class="mi">9</span><span class="p">,</span><span class="mi">12</span><span class="p">])</span>
+
+<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linalg</span><span class="o">.</span><span class="n">inv</span><span class="p">((</span><span class="n">X</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="nd">@X</span><span class="p">))</span><span class="o">@</span><span class="p">(</span><span class="n">X</span><span class="o">.</span><span class="n">transpose</span><span class="p">()</span><span class="nd">@Y</span><span class="p">)</span>
+
+<span class="n">X</span><span class="nd">@B</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>array([11.,  9., 11.])</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
 </div>
 
 
