@@ -136,7 +136,6 @@ window.onload = wrap_img;
 <ul>
 <li class="toc-entry toc-h3"><a href="#Skip-gram-model:">Skip-gram model: </a></li>
 <li class="toc-entry toc-h3"><a href="#Continuous-bag-of-words:">Continuous bag of words: </a></li>
-<li class="toc-entry toc-h3"><a href="#Glove:">Glove: </a></li>
 </ul>
 </li>
 </ul><!--
@@ -419,17 +418,6 @@ window.onload = wrap_img;
 <li>Modify those word vectors using the gradient descent.</li>
 </ol>
 <p>Hopefully, at the end of this procedure, we will have satisfactory word vectors.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Glove:">
-<a class="anchor" href="#Glove:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Glove:<a class="anchor-link" href="#Glove:"> </a>
-</h3>
-<p>Having found some very good methods to design vectors for our words we can now sit back and relax. But, being research scientists we are itching to find some shortcomings in our methods and improve upon them. Let's see if we can find any. If we analyse carefully at one of our loss functions we'll notice the term $sum_{k=1}^{|V|}exp(u_{k}.v_{w_{i})$ there. This term is computationally expensive to calculate since we are taking dot-product of $v_{w_{i}}$ with vector of every word. We need to get rid of this term.</p>
 
 </div>
 </div>
