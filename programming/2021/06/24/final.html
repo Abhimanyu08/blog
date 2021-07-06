@@ -107,7 +107,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      2 min read
+      6 min read
     
 </span></p>
 
@@ -127,8 +127,10 @@ window.onload = wrap_img;
     <ul class="section-nav">
 <li class="toc-entry toc-h2"><a href="#Profiling-to-find-bottlenecks">Profiling to find bottlenecks </a>
 <ul>
-<li class="toc-entry toc-h4"><a href="#Using-Decorators">Using Decorators </a></li>
-<li class="toc-entry toc-h4"><a href="#Using-magic-commands">Using magic commands </a></li>
+<li class="toc-entry toc-h3"><a href="#Using-Decorators">Using Decorators </a></li>
+<li class="toc-entry toc-h3"><a href="#Using-magic-commands">Using magic commands </a></li>
+<li class="toc-entry toc-h3"><a href="#Using-cProfile-Module">Using cProfile Module </a></li>
+<li class="toc-entry toc-h3"><a href="#Visualising-cProfile-Output-using-SnakeViz">Visualising cProfile Output using SnakeViz </a></li>
 </ul>
 </li>
 </ul><!--
@@ -201,9 +203,9 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Using-Decorators">
+<h3 id="Using-Decorators">
 <a class="anchor" href="#Using-Decorators" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using Decorators<a class="anchor-link" href="#Using-Decorators"> </a>
-</h4>
+</h3>
 </div>
 </div>
 </div>
@@ -319,9 +321,9 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h4 id="Using-magic-commands">
+<h3 id="Using-magic-commands">
 <a class="anchor" href="#Using-magic-commands" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using magic commands<a class="anchor-link" href="#Using-magic-commands"> </a>
-</h4>
+</h3>
 </div>
 </div>
 </div>
@@ -417,6 +419,530 @@ window.onload = wrap_img;
 </div>
 </div>
 </div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Using-cProfile-Module">
+<a class="anchor" href="#Using-cProfile-Module" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using cProfile Module<a class="anchor-link" href="#Using-cProfile-Module"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>cProfile is the build in profiling tool in the standard library. Using this module gives more detailed information at the cost of greater overhead. It can be used from command line as below</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>python -m cProfile -s cumulative julia_set.py
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>         36221990 function calls in 11.859 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000   11.859   11.859 {built-in method builtins.exec}
+        1    0.025    0.025   11.859   11.859 julia_set.py:1(&lt;module&gt;)
+        1    0.471    0.471   11.834   11.834 julia_set.py:21(calc_pure_python)
+        1    7.066    7.066   11.150   11.150 julia_set.py:7(calculate_z_serial_purepython)
+ 34219980    4.084    0.000    4.084    0.000 {built-in method builtins.abs}
+  2002000    0.207    0.000    0.207    0.000 {method 'append' of 'list' objects}
+        1    0.006    0.006    0.006    0.006 {built-in method builtins.sum}
+        4    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To get more control over the results of cProfile we can write the results into a statistics file as below:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> python -m cProfile -o profile.stats julia_set.py
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The above line of code writes the results of cProfile in a file named <code>profile.stats</code>. We can analyze this file in a seperate programme using the <code>pstats</code> module</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pstats</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">pstats</span><span class="o">.</span><span class="n">Stats</span><span class="p">(</span><span class="s2">"profile.stats"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="s2">"cumulative"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;pstats.Stats at 0x24c7bdfbc70&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The above line of code sorted the functions according to the cumulative time taken by them</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">print_stats</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Wed Jun 30 18:58:11 2021    profile.stats
+
+         36221990 function calls in 11.664 seconds
+
+   Ordered by: cumulative time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    0.000    0.000   11.664   11.664 {built-in method builtins.exec}
+        1    0.028    0.028   11.664   11.664 julia_set.py:1(&lt;module&gt;)
+        1    0.451    0.451   11.637   11.637 julia_set.py:21(calc_pure_python)
+        1    6.911    6.911   10.985   10.985 julia_set.py:7(calculate_z_serial_purepython)
+ 34219980    4.075    0.000    4.075    0.000 {built-in method builtins.abs}
+  2002000    0.195    0.000    0.195    0.000 {method 'append' of 'list' objects}
+        1    0.006    0.006    0.006    0.006 {built-in method builtins.sum}
+        4    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;pstats.Stats at 0x24c7bdfbc70&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Similarly, we can sort according to total time taken as follows:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="s2">"tottime"</span><span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;pstats.Stats at 0x24c7bdfbc70&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">print_stats</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Wed Jun 30 18:58:11 2021    profile.stats
+
+         36221990 function calls in 11.664 seconds
+
+   Ordered by: internal time
+
+   ncalls  tottime  percall  cumtime  percall filename:lineno(function)
+        1    6.911    6.911   10.985   10.985 julia_set.py:7(calculate_z_serial_purepython)
+ 34219980    4.075    0.000    4.075    0.000 {built-in method builtins.abs}
+        1    0.451    0.451   11.637   11.637 julia_set.py:21(calc_pure_python)
+  2002000    0.195    0.000    0.195    0.000 {method 'append' of 'list' objects}
+        1    0.028    0.028   11.664   11.664 julia_set.py:1(&lt;module&gt;)
+        1    0.006    0.006    0.006    0.006 {built-in method builtins.sum}
+        1    0.000    0.000   11.664   11.664 {built-in method builtins.exec}
+        4    0.000    0.000    0.000    0.000 {built-in method builtins.len}
+        1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
+
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;pstats.Stats at 0x24c7bdfbc70&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To get a sense of which function was called by which, or what are the functions being profiled we can use <code>print_callers()</code> method:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">print_callers</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>   Ordered by: internal time
+
+Function                                          was called by...
+                                                      ncalls  tottime  cumtime
+julia_set.py:7(calculate_z_serial_purepython)     &lt;-       1    6.911   10.985  julia_set.py:21(calc_pure_python)
+{built-in method builtins.abs}                    &lt;- 34219980    4.075    4.075  julia_set.py:7(calculate_z_serial_purepython)
+julia_set.py:21(calc_pure_python)                 &lt;-       1    0.451   11.637  julia_set.py:1(&lt;module&gt;)
+{method 'append' of 'list' objects}               &lt;- 2002000    0.195    0.195  julia_set.py:21(calc_pure_python)
+julia_set.py:1(&lt;module&gt;)                          &lt;-       1    0.028   11.664  {built-in method builtins.exec}
+{built-in method builtins.sum}                    &lt;-       1    0.006    0.006  julia_set.py:21(calc_pure_python)
+{built-in method builtins.exec}                   &lt;- 
+{built-in method builtins.len}                    &lt;-       2    0.000    0.000  julia_set.py:7(calculate_z_serial_purepython)
+                                                           2    0.000    0.000  julia_set.py:21(calc_pure_python)
+{method 'disable' of '_lsprof.Profiler' objects}  &lt;- 
+
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;pstats.Stats at 0x24c7bdfbc70&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>To print which function called which other functions i.e flipping the information in previous output cell, we can use <code>p.print_callees()</code></p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">print_callees</span><span class="p">()</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>   Ordered by: internal time
+
+Function                                          called...
+                                                      ncalls  tottime  cumtime
+julia_set.py:7(calculate_z_serial_purepython)     -&gt; 34219980    4.075    4.075  {built-in method builtins.abs}
+                                                           2    0.000    0.000  {built-in method builtins.len}
+{built-in method builtins.abs}                    -&gt; 
+julia_set.py:21(calc_pure_python)                 -&gt;       1    6.911   10.985  julia_set.py:7(calculate_z_serial_purepython)
+                                                           2    0.000    0.000  {built-in method builtins.len}
+                                                           1    0.006    0.006  {built-in method builtins.sum}
+                                                     2002000    0.195    0.195  {method 'append' of 'list' objects}
+{method 'append' of 'list' objects}               -&gt; 
+julia_set.py:1(&lt;module&gt;)                          -&gt;       1    0.451   11.637  julia_set.py:21(calc_pure_python)
+{built-in method builtins.sum}                    -&gt; 
+{built-in method builtins.exec}                   -&gt;       1    0.028   11.664  julia_set.py:1(&lt;module&gt;)
+{built-in method builtins.len}                    -&gt; 
+{method 'disable' of '_lsprof.Profiler' objects}  -&gt; 
+
+
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>&lt;pstats.Stats at 0x24c7bdfbc70&gt;</pre>
+</div>
+
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Visualising-cProfile-Output-using-SnakeViz">
+<a class="anchor" href="#Visualising-cProfile-Output-using-SnakeViz" aria-hidden="true"><span class="octicon octicon-link"></span></a>Visualising cProfile Output using SnakeViz<a class="anchor-link" href="#Visualising-cProfile-Output-using-SnakeViz"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can use <code>snakeviz</code> visulaiser to visualize the outputs of cProfile profiler</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install snakeviz
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> snakeviz profile.stats
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>^C
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
 </div>
 
 
