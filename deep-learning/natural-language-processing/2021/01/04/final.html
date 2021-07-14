@@ -298,7 +298,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>Let's see how we can convert dot-product of word vectors to probabilities with an example. Take word vector of "deep" and take it's dot product with vector of every word in the vocabulary and collect the results in a list. This will give us a list of length ${|V|}$. We can see this list as a "score" for probability of each word in vocabulary occurring with word "deep". We hope that score for word "learning" is close to 1 (because if we see the word "deep" there's high chances that word "learning" is nearby in a corpus). Wouldn't it be great if we could turn this list of scores in a list of probabilities depending on the score. This list of probabilities would then tell the probability of each word in vocabulary occurring in context of word "deep". Since all the scores are between -1 and 1 let's exponentiate them to turn them into positive numbers (because ${e^{x}}$ is always positive and if ${x \lt y \implies e^{x} \lt e^{y}}$ which will make sure larger scores turn into larger positive numbers). To squeeze these numbers between 0 and 1 let's divide each entry in the list by the sum of all the entries in the list. This way all the numbers sum to 1 which makes them a valid probability distribution. The sequence of operations we did to convert scores to probabilities is called <strong>Softmax</strong> and takes a single line of code to implement.</p>
+<p>Let's see how we can convert dot-product of word vectors to probabilities with an example. Take word vector of "deep" and take it's dot product with vector of every word in the vocabulary and collect the results in a list. This will give us a list of length ${|V|}$. We can see this list as a "score" for probability of each word in vocabulary occurring with word "deep". We hope that score for word "learning" is close to 1 (because if we see the word "deep" there's high chances that word "learning" is nearby in a corpus). Wouldn't it be great if we could turn this list of scores in a list of probabilities depending on the score. This list of probabilities would then tell the probability of each word in vocabulary occurring in context of word "deep". Since all the scores are between -1 and 1 let's exponentiate them to turn them into positive numbers (because ${e^{x}}$ is always positive and if ${x \lt y \implies e^{x} \lt e^{y}}$ which will make sure larger scores turn into larger positive numbers). To squeeze these numbers between 0 and 1 let's divide each entry in the list by the sum of all the entries in the list. This way all the numbers sum to 1 which makes them a valid probability distribution. The sequence of operations we did to convert scores to probabilities are collectively called <strong>Softmax</strong> operation.</p>
 
 </div>
 </div>
@@ -307,7 +307,7 @@ window.onload = wrap_img;
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>Let's write down what we did in mathematical notations.</p>
-<p>Let ${u}$ denote the word vector of word "deep" and ${v_{1}, v_{2}, ..., v_{|V|}}$ be the word vectors of every word in vocabulary.</p>
+<p>Let ${u}$ denote the word vector of word "deep" and ${v_{1}, v_{2}, ..., v_{|V|}}$ be the word vectors of every word in vocabulary. (If you're wondering why we're using two letters ${u}$ and ${v}$ for word vectors, it's because the roles of words are different. ${u}$ denotes the word vector of center word and ${v}$ denotes the word vectors of context words).</p>
 <ol>
 <li>
 <p>Take the dot product of each ${v_{i}}$ with ${u}$ and collect the results in a list called ${scores_{deep}}$.</p>
@@ -317,14 +317,14 @@ window.onload = wrap_img;
 <p>Exponentiate each of the entry in ${scores_{deep}}$</p>
 <p>${scores_{deep}} = {\left[exp(u.v_{1}),\space exp(u.v_{2}), ..., \space exp(u.v_{|V|})\right]}.$</p>
 <p>Store sum of all the entries of ${scores_{deep}}$in a variable 'Sum'</p>
-<p>Sum = ${exp(u.v_{1})\, +\, exp(u.v_{2})\, +\, ... \,+ \,exp(u.v_{|V|}) = \large\Sigma_{i=1}^{|V|} exp(u.v_{i})}$</p>
+<p>Sum = ${exp(u.v_{1})\, +\, exp(u.v_{2})\, +\, ... \,+ \,exp(u.v_{|V|}) = \normalsize\Sigma_{\small i=1}^{\small|V|} \small exp(u.v_{i})}$</p>
 </li>
 <li>
 <p>Divide each entry by Sum and rename the list to $probabilities_{deep}$ because the entries of list now convey the probabilities of words occurring alongside "deep".</p>
 <p>${probabilities_{deep}} = {\left[\large\frac{exp(u.v_{1})}{Sum},\space \frac{exp(u.v_{2})}{Sum}, ..., \space \frac{exp(u.v_{|V|})}{Sum}\right]}.$</p>
 </li>
 </ol>
-<p>If we want the probability of word "aardvark" occurring in context of "deep" we'll just index the first element from list $probabilities_{deep}$ and voila!! we've got our answer which is $\large\frac{exp(u.v_{1})}{\Sigma_{i=1}^{|V|} exp(u.v_{i})}$.  This quantity is basically $P( aardvark | deep)$ i.e. probability of seeing word "aardvark" given that we have just seen word "deep". The lists like $probabilities_{deep}$ are called a "probability distribution" over all the words in vocabulary. How do we predict then? Well, we can just sample a word from dictionary based on probability distribution we just got.</p>
+<p>If we want the probability of word "aardvark" occurring in context of "deep" we'll just index the first element from list $probabilities_{deep}$ to get our answer which is ${\frac{\normalsize exp(u.v_{1})}{\normalsize Sum}}$.  This quantity is basically $P( aardvark | deep)$ i.e. probability of seeing word "aardvark" given that we have just seen word "deep". The lists like $probabilities_{deep}$ are called a "probability distribution" over all the words in vocabulary.</p>
 
 </div>
 </div>
@@ -346,7 +346,7 @@ window.onload = wrap_img;
 <div class="text_cell_render border-box-sizing rendered_html">
 <p>$L = P(a | blog)\times P(about | blog)\times P(word| blog)\times  P(vectors| blog)$</p>
 <p>We have already devised a way to calculate each of the four factors above.</p>
-<p>$L = \Large\frac{exp(u_{a}.v_{blog})}{\Sigma_{i=1}^{|V|} exp(u_{i}.v_{blog})}\times \Large\frac{exp(u_{about}.v_{blog})}{\Sigma_{i=1}^{|V|} exp(u_{i}.v_{blog})}\times \Large\frac{exp(u_{word}.v_{blog})}{\Sigma_{i=1}^{|V|} exp(u_{i}.v_{blog})}\times \Large\frac{exp(u_{vectors}.v_{blog})}{\Sigma_{i=1}^{|V|} exp(u_{i}.v_{blog})}$</p>
+<p>$L = \Large\frac{exp(u_{blog}.v_{a})}{\Sigma_{i=1}^{|V|} exp(u_{blog}.v_{i})}\times \Large\frac{exp(u_{blog}.v_{about})}{\Sigma_{i=1}^{|V|} exp(u_{blog}.v_{i})}\times \Large\frac{exp(u_{blog}.v_{word})}{\Sigma_{i=1}^{|V|} exp(u_{blog}.v_{i})}\times \Large\frac{exp(u_{blog}.v_{vectors})}{\Sigma_{i=1}^{|V|} exp(u_{blog}.v_{i})}$</p>
 
 </div>
 </div>
@@ -402,12 +402,12 @@ window.onload = wrap_img;
 <h3 id="Continuous-bag-of-words:">
 <a class="anchor" href="#Continuous-bag-of-words:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Continuous bag of words:<a class="anchor-link" href="#Continuous-bag-of-words:"> </a>
 </h3>
-<p>Now, let's try to go the other way around and predict a word using it's context words. Let  be a string of words from our corpus. $w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i}, w_{i+1},...,w_{i+c}$ be a string of words from our corpus. This time the thing we are trying to maximize is $P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c})$ where $w_{i}$ is any word in the corpus and $w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c}$ are $2c$ context words from it's left and right context.</p>
-<p>How do we express $P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c})$  in terms of word vectors of these words ? Well, we can design a single vector for all the context word vectors by averaging them together. Let that single vector be denoted by $u_{c}$.</p>
-<p>$u_{c} = \Large\frac{u_{w_{i-c}}\,+\,...\,+ {u_{w_{i-1}}\,+\,{u_{w_{i+1}}\,+...\,+{u_{w_{i+c}}}}}}{2c}$. Let $v_{w_{i}}$ be the word vector for word $w_{i}$ and let ${u_{k}}$ be the vector for $k^{th}$ word in vocabulary. Then, we can calculate $P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c})$</p>
+<p>Now, let's try to go the other way around and predict a word using it's context words. Let $w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i}, w_{i+1},...,w_{i+c}$ be a string of words from our corpus. This time the thing we are trying to maximize is $P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c})$ where $w_{i}$ is any word in the corpus and $w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c}$ are $2c$ context words from it's left and right context.</p>
+<p>How do we express $P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c})$  in terms of word vectors of these words ? First, we can design a single vector for all the context word vectors by averaging them together. Let that single vector be denoted by $v_{w_{i}}$.</p>
+<p>$v_{w_{i}} = \frac{v_{w_{i-c}}\,+\,...\,+ {v_{w_{i-1}}\,+\,{v_{w_{i+1}}\,+...\,+{v_{w_{i+c}}}}}}{2c}$. Let $u_{w_{i}}$ be the word vector for word $w_{i}$. Then, we can calculate $P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c})$</p>
 <p>as follows:</p>
-<p>$P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c}) = \frac{\large exp(v_{w_{i}}.u_{c})}{\large\sum_{k=1}^{|V|}exp(u_{k}.u_{c})}$. Same as before, we try minimize negative log of this quantity which we have aptly named $Loss$.</p>
-<p>$Loss = -log\frac{\large exp(v_{w_{i}}.u_{c})}{\large\sum_{k=1}^{|V|}exp(u_{k}.u_{c})} = -v_{w_{i}}.u_{c} + log\sum_{k=1}^{|V|}exp(u_{k}.u_{c})$</p>
+<p>$P( w_{i} | w_{i-c}, w_{i-c+1},..., w_{i-1},w_{i+1},...,w_{i+c}) = \frac{\large exp(u_{w_{i}}.v_{w_{i}})}{\large\sum_{k=1}^{|V|}exp(u_{k}.v_{w_{i}})}$. Same as before, we try minimize negative log of this quantity which we have aptly named $Loss$.</p>
+<p>$Loss = -log\frac{exp(u_{w_{i}}.v_{w_{i}})}{\sum_{k=1}^{|V|}exp(u_{k}.v_{w_{i}})} = -u_{w_{i}}.v_{w_{i}} + log\sum_{k=1}^{|V|}exp(u_{k}.v_{w_{i}})$</p>
 <p>We now modify word vectors by Gradient descent as described above.</p>
 <p><strong>Summary:</strong></p>
 <p>For every word in large corpus of words:</p>
