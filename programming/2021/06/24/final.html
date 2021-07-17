@@ -107,7 +107,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      6 min read
+      14 min read
     
 </span></p>
 
@@ -131,6 +131,7 @@ window.onload = wrap_img;
 <li class="toc-entry toc-h3"><a href="#Using-magic-commands">Using magic commands </a></li>
 <li class="toc-entry toc-h3"><a href="#Using-cProfile-Module">Using cProfile Module </a></li>
 <li class="toc-entry toc-h3"><a href="#Visualising-cProfile-Output-using-SnakeViz">Visualising cProfile Output using SnakeViz </a></li>
+<li class="toc-entry toc-h3"><a href="#Using-line_profiler-for-Line-by-Line-measurements">Using line_profiler for Line-by-Line measurements </a></li>
 </ul>
 </li>
 </ul><!--
@@ -149,6 +150,14 @@ window.onload = wrap_img;
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Making the code faster requires us to first understand where are the bottlenecks in our program. By finding out pieces of code which are taking the longest time we can narrow down our focus to those and save ourselves from spending our time and energy on parts of programme which were already optimized for performance.</p>
+
+</div>
+</div>
+</div>
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -357,7 +366,7 @@ window.onload = wrap_img;
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>6.73 s ± 112 ms per loop (mean ± std. dev. of 7 runs, 1 loop each)
+<pre>17 s ± 1.41 s per loop (mean ± std. dev. of 7 runs, 1 loop each)
 </pre>
 </div>
 </div>
@@ -396,7 +405,7 @@ window.onload = wrap_img;
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>5 loops, best of 2: 6.96 sec per loop
+<pre>5 loops, best of 2: 16.2 sec per loop
 </pre>
 </div>
 </div>
@@ -456,18 +465,18 @@ window.onload = wrap_img;
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>         36221990 function calls in 11.859 seconds
+<pre>         36221990 function calls in 24.540 seconds
 
    Ordered by: cumulative time
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-        1    0.000    0.000   11.859   11.859 {built-in method builtins.exec}
-        1    0.025    0.025   11.859   11.859 julia_set.py:1(&lt;module&gt;)
-        1    0.471    0.471   11.834   11.834 julia_set.py:21(calc_pure_python)
-        1    7.066    7.066   11.150   11.150 julia_set.py:7(calculate_z_serial_purepython)
- 34219980    4.084    0.000    4.084    0.000 {built-in method builtins.abs}
-  2002000    0.207    0.000    0.207    0.000 {method 'append' of 'list' objects}
-        1    0.006    0.006    0.006    0.006 {built-in method builtins.sum}
+        1    0.000    0.000   24.540   24.540 {built-in method builtins.exec}
+        1    0.038    0.038   24.540   24.540 julia_set.py:1(&lt;module&gt;)
+        1    0.894    0.894   24.503   24.503 julia_set.py:21(calc_pure_python)
+        1   15.991   15.991   23.277   23.277 julia_set.py:7(calculate_z_serial_purepython)
+ 34219980    7.286    0.000    7.286    0.000 {built-in method builtins.abs}
+  2002000    0.321    0.000    0.321    0.000 {method 'append' of 'list' objects}
+        1    0.010    0.010    0.010    0.010 {built-in method builtins.sum}
         4    0.000    0.000    0.000    0.000 {built-in method builtins.len}
         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
 
@@ -523,40 +532,10 @@ window.onload = wrap_img;
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pstats</span>
-</pre></div>
 
-    </div>
-</div>
-</div>
+<span class="n">p</span> <span class="o">=</span> <span class="n">pstats</span><span class="o">.</span><span class="n">Stats</span><span class="p">(</span><span class="s2">"profile.stats"</span><span class="p">)</span>
 
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p</span> <span class="o">=</span> <span class="n">pstats</span><span class="o">.</span><span class="n">Stats</span><span class="p">(</span><span class="s2">"profile.stats"</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">p</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="s2">"cumulative"</span><span class="p">)</span>
+<span class="n">p</span><span class="o">.</span><span class="n">sort_stats</span><span class="p">(</span><span class="s2">"cumulative"</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -571,7 +550,7 @@ window.onload = wrap_img;
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;pstats.Stats at 0x24c7bdfbc70&gt;</pre>
+<pre>&lt;pstats.Stats at 0x215b957a160&gt;</pre>
 </div>
 
 </div>
@@ -585,7 +564,7 @@ window.onload = wrap_img;
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>The above line of code sorted the functions according to the cumulative time taken by them</p>
+<p>The last line of code in the cell above sorted the functions according to the cumulative time taken by them</p>
 
 </div>
 </div>
@@ -610,20 +589,20 @@ window.onload = wrap_img;
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Wed Jun 30 18:58:11 2021    profile.stats
+<pre>Sat Jul 17 10:32:32 2021    profile.stats
 
-         36221990 function calls in 11.664 seconds
+         36221990 function calls in 24.906 seconds
 
    Ordered by: cumulative time
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-        1    0.000    0.000   11.664   11.664 {built-in method builtins.exec}
-        1    0.028    0.028   11.664   11.664 julia_set.py:1(&lt;module&gt;)
-        1    0.451    0.451   11.637   11.637 julia_set.py:21(calc_pure_python)
-        1    6.911    6.911   10.985   10.985 julia_set.py:7(calculate_z_serial_purepython)
- 34219980    4.075    0.000    4.075    0.000 {built-in method builtins.abs}
-  2002000    0.195    0.000    0.195    0.000 {method 'append' of 'list' objects}
-        1    0.006    0.006    0.006    0.006 {built-in method builtins.sum}
+        1    0.000    0.000   24.906   24.906 {built-in method builtins.exec}
+        1    0.039    0.039   24.906   24.906 julia_set.py:1(&lt;module&gt;)
+        1    0.942    0.942   24.867   24.867 julia_set.py:21(calc_pure_python)
+        1   16.292   16.292   23.595   23.595 julia_set.py:7(calculate_z_serial_purepython)
+ 34219980    7.303    0.000    7.303    0.000 {built-in method builtins.abs}
+  2002000    0.319    0.000    0.319    0.000 {method 'append' of 'list' objects}
+        1    0.011    0.011    0.011    0.011 {built-in method builtins.sum}
         4    0.000    0.000    0.000    0.000 {built-in method builtins.len}
         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
 
@@ -637,7 +616,7 @@ window.onload = wrap_img;
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;pstats.Stats at 0x24c7bdfbc70&gt;</pre>
+<pre>&lt;pstats.Stats at 0x215b957a160&gt;</pre>
 </div>
 
 </div>
@@ -678,7 +657,7 @@ window.onload = wrap_img;
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;pstats.Stats at 0x24c7bdfbc70&gt;</pre>
+<pre>&lt;pstats.Stats at 0x215b957a160&gt;</pre>
 </div>
 
 </div>
@@ -709,20 +688,20 @@ window.onload = wrap_img;
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Wed Jun 30 18:58:11 2021    profile.stats
+<pre>Sat Jul 17 10:32:32 2021    profile.stats
 
-         36221990 function calls in 11.664 seconds
+         36221990 function calls in 24.906 seconds
 
    Ordered by: internal time
 
    ncalls  tottime  percall  cumtime  percall filename:lineno(function)
-        1    6.911    6.911   10.985   10.985 julia_set.py:7(calculate_z_serial_purepython)
- 34219980    4.075    0.000    4.075    0.000 {built-in method builtins.abs}
-        1    0.451    0.451   11.637   11.637 julia_set.py:21(calc_pure_python)
-  2002000    0.195    0.000    0.195    0.000 {method 'append' of 'list' objects}
-        1    0.028    0.028   11.664   11.664 julia_set.py:1(&lt;module&gt;)
-        1    0.006    0.006    0.006    0.006 {built-in method builtins.sum}
-        1    0.000    0.000   11.664   11.664 {built-in method builtins.exec}
+        1   16.292   16.292   23.595   23.595 julia_set.py:7(calculate_z_serial_purepython)
+ 34219980    7.303    0.000    7.303    0.000 {built-in method builtins.abs}
+        1    0.942    0.942   24.867   24.867 julia_set.py:21(calc_pure_python)
+  2002000    0.319    0.000    0.319    0.000 {method 'append' of 'list' objects}
+        1    0.039    0.039   24.906   24.906 julia_set.py:1(&lt;module&gt;)
+        1    0.011    0.011    0.011    0.011 {built-in method builtins.sum}
+        1    0.000    0.000   24.906   24.906 {built-in method builtins.exec}
         4    0.000    0.000    0.000    0.000 {built-in method builtins.len}
         1    0.000    0.000    0.000    0.000 {method 'disable' of '_lsprof.Profiler' objects}
 
@@ -736,7 +715,7 @@ window.onload = wrap_img;
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;pstats.Stats at 0x24c7bdfbc70&gt;</pre>
+<pre>&lt;pstats.Stats at 0x215b957a160&gt;</pre>
 </div>
 
 </div>
@@ -779,12 +758,12 @@ window.onload = wrap_img;
 
 Function                                          was called by...
                                                       ncalls  tottime  cumtime
-julia_set.py:7(calculate_z_serial_purepython)     &lt;-       1    6.911   10.985  julia_set.py:21(calc_pure_python)
-{built-in method builtins.abs}                    &lt;- 34219980    4.075    4.075  julia_set.py:7(calculate_z_serial_purepython)
-julia_set.py:21(calc_pure_python)                 &lt;-       1    0.451   11.637  julia_set.py:1(&lt;module&gt;)
-{method 'append' of 'list' objects}               &lt;- 2002000    0.195    0.195  julia_set.py:21(calc_pure_python)
-julia_set.py:1(&lt;module&gt;)                          &lt;-       1    0.028   11.664  {built-in method builtins.exec}
-{built-in method builtins.sum}                    &lt;-       1    0.006    0.006  julia_set.py:21(calc_pure_python)
+julia_set.py:7(calculate_z_serial_purepython)     &lt;-       1   16.292   23.595  julia_set.py:21(calc_pure_python)
+{built-in method builtins.abs}                    &lt;- 34219980    7.303    7.303  julia_set.py:7(calculate_z_serial_purepython)
+julia_set.py:21(calc_pure_python)                 &lt;-       1    0.942   24.867  julia_set.py:1(&lt;module&gt;)
+{method 'append' of 'list' objects}               &lt;- 2002000    0.319    0.319  julia_set.py:21(calc_pure_python)
+julia_set.py:1(&lt;module&gt;)                          &lt;-       1    0.039   24.906  {built-in method builtins.exec}
+{built-in method builtins.sum}                    &lt;-       1    0.011    0.011  julia_set.py:21(calc_pure_python)
 {built-in method builtins.exec}                   &lt;- 
 {built-in method builtins.len}                    &lt;-       2    0.000    0.000  julia_set.py:7(calculate_z_serial_purepython)
                                                            2    0.000    0.000  julia_set.py:21(calc_pure_python)
@@ -800,7 +779,7 @@ julia_set.py:1(&lt;module&gt;)                          &lt;-       1    0.028  
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;pstats.Stats at 0x24c7bdfbc70&gt;</pre>
+<pre>&lt;pstats.Stats at 0x215b957a160&gt;</pre>
 </div>
 
 </div>
@@ -843,17 +822,17 @@ julia_set.py:1(&lt;module&gt;)                          &lt;-       1    0.028  
 
 Function                                          called...
                                                       ncalls  tottime  cumtime
-julia_set.py:7(calculate_z_serial_purepython)     -&gt; 34219980    4.075    4.075  {built-in method builtins.abs}
+julia_set.py:7(calculate_z_serial_purepython)     -&gt; 34219980    7.303    7.303  {built-in method builtins.abs}
                                                            2    0.000    0.000  {built-in method builtins.len}
 {built-in method builtins.abs}                    -&gt; 
-julia_set.py:21(calc_pure_python)                 -&gt;       1    6.911   10.985  julia_set.py:7(calculate_z_serial_purepython)
+julia_set.py:21(calc_pure_python)                 -&gt;       1   16.292   23.595  julia_set.py:7(calculate_z_serial_purepython)
                                                            2    0.000    0.000  {built-in method builtins.len}
-                                                           1    0.006    0.006  {built-in method builtins.sum}
-                                                     2002000    0.195    0.195  {method 'append' of 'list' objects}
+                                                           1    0.011    0.011  {built-in method builtins.sum}
+                                                     2002000    0.319    0.319  {method 'append' of 'list' objects}
 {method 'append' of 'list' objects}               -&gt; 
-julia_set.py:1(&lt;module&gt;)                          -&gt;       1    0.451   11.637  julia_set.py:21(calc_pure_python)
+julia_set.py:1(&lt;module&gt;)                          -&gt;       1    0.942   24.867  julia_set.py:21(calc_pure_python)
 {built-in method builtins.sum}                    -&gt; 
-{built-in method builtins.exec}                   -&gt;       1    0.028   11.664  julia_set.py:1(&lt;module&gt;)
+{built-in method builtins.exec}                   -&gt;       1    0.039   24.906  julia_set.py:1(&lt;module&gt;)
 {built-in method builtins.len}                    -&gt; 
 {method 'disable' of '_lsprof.Profiler' objects}  -&gt; 
 
@@ -867,7 +846,7 @@ julia_set.py:1(&lt;module&gt;)                          -&gt;       1    0.451  
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>&lt;pstats.Stats at 0x24c7bdfbc70&gt;</pre>
+<pre>&lt;pstats.Stats at 0x215b957a160&gt;</pre>
 </div>
 
 </div>
@@ -926,13 +905,150 @@ julia_set.py:1(&lt;module&gt;)                          -&gt;       1    0.451  
 </div>
 </div>
 
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>The above line of produces a graphic as shown below:
+<img src="/blog/images/copied_from_nb/my_icons/profiler.PNG" alt=""></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Using-line_profiler-for-Line-by-Line-measurements">
+<a class="anchor" href="#Using-line_profiler-for-Line-by-Line-measurements" aria-hidden="true"><span class="octicon octicon-link"></span></a>Using line_profiler for Line-by-Line measurements<a class="anchor-link" href="#Using-line_profiler-for-Line-by-Line-measurements"> </a>
+</h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Above profiling methods only give information at the function level. That's a good starting point. Once we have figured out the functions which are taking up the most time we can profile them further line by line using the <code>line_profiler</code> tool by Robert Kern</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span>pip install line_profiler
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Before running the relevant line_profiler commands from the command line we have to decorate the functions we are interested in by <code>@profile</code> decorator. The <code>kernprof</code> script is used to execute the code. The argument <code>-l</code> specifies that we want line-by-line profiling instead of function level. The <code>-v</code> argument stand for verbose output. Without <code>-v</code> you receive an <code>.lprof</code> output which can be later analyzed by <code>line-profiler</code> module.</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> kernprof -l -v julia_set.py
+</pre></div>
+
+    </div>
+</div>
+</div>
+
 <div class="output_wrapper">
 <div class="output">
 
 <div class="output_area">
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>^C
+<pre>Wrote profile results to julia_set.py.lprof
+Timer unit: 1e-06 s
+
+Total time: 93.4638 s
+File: julia_set.py
+Function: calculate_z_serial_purepython at line 7
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+     7                                           @profile
+     8                                           def calculate_z_serial_purepython(maxiter, zs, cs):
+     9                                               """Calculate output list using Julia update rule"""
+    10         1       5846.4   5846.4      0.0      output = [0] * len(zs)
+    11   1000001     656046.7      0.7      0.7      for i in range(len(zs)):
+    12   1000000     655067.5      0.7      0.7          n = 0
+    13   1000000     750590.3      0.8      0.8          z = zs[i]
+    14   1000000     719062.3      0.7      0.8          c = cs[i]
+    15  34219980   36962398.8      1.1     39.5          while abs(z) &lt; 2 and n &lt; maxiter:
+    16  33219980   27921885.4      0.8     29.9              z = z * z + c
+    17  33219980   25029336.6      0.8     26.8              n += 1
+    18   1000000     763567.8      0.8      0.8          output[i] = n
+    19         1         10.5     10.5      0.0      return output
+
+Total time: 159.399 s
+File: julia_set.py
+Function: calc_pure_python at line 21
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    21                                           @profile
+    22                                           def calc_pure_python(desired_width, max_iterations):
+    23                                               """Create a list of complex co-ordinates (zs) and complex parameters (cs), build Julia set and display"""
+    24         1          9.5      9.5      0.0      x_step = (float(x2 - x1) / float(desired_width))
+    25         1          2.8      2.8      0.0      y_step = (float(y1 - y2) / float(desired_width))
+    26         1          1.3      1.3      0.0      x = []
+    27         1          1.1      1.1      0.0      y = []
+    28         1          1.2      1.2      0.0      ycoord = y2
+    29      1001       1255.8      1.3      0.0      while ycoord &gt; y1:
+    30      1000       1535.0      1.5      0.0          y.append(ycoord)
+    31      1000       1291.5      1.3      0.0          ycoord += y_step
+    32         1          1.2      1.2      0.0      xcoord = x1
+    33      1001       1235.3      1.2      0.0      while xcoord &lt; x2:
+    34      1000       1406.3      1.4      0.0          x.append(xcoord)
+    35      1000       1230.4      1.2      0.0          xcoord += x_step
+    36                                               # set width and height to the generated pixel counts, rather than the
+    37                                               # pre-rounding desired width and height
+    38         1          3.1      3.1      0.0      width = len(x)
+    39         1          1.5      1.5      0.0      height = len(y)
+    40                                               # build a list of co-ordinates and the initial condition for each cell.
+    41                                               # Note that our initial condition is a constant and could easily be removed,
+    42                                               # we use it to simulate a real-world scenario with several inputs to our
+    43                                               # function
+    44         1          1.4      1.4      0.0      zs = []
+    45         1          1.4      1.4      0.0      cs = []
+    46      1001        958.0      1.0      0.0      for ycoord in y:
+    47   1001000     886158.6      0.9      0.6          for xcoord in x:
+    48   1000000    1429082.3      1.4      0.9              zs.append(complex(xcoord, ycoord))
+    49   1000000    1487039.5      1.5      0.9              cs.append(complex(c_real, c_imag))
+    50                                           
+    51                                           #     print("Length of x:", len(x))
+    52                                           #     print("Total elements:", len(zs))
+    53                                           #     start_time = time.time()
+    54         1  155577400.0 155577400.0     97.6      output = calculate_z_serial_purepython(max_iterations, zs, cs)
+    55                                           #     end_time = time.time()
+    56                                           #     secs = end_time - start_time
+    57                                           #     print(calculate_z_serial_purepython.__name__ + " took", secs, "seconds")
+    58                                           
+    59                                               # this sum is expected for 1000^2 grid with 300 iterations
+    60         1      10861.3  10861.3      0.0      assert sum(output) == 33219980
+
 </pre>
 </div>
 </div>
@@ -943,6 +1059,164 @@ julia_set.py:1(&lt;module&gt;)                          -&gt;       1    0.451  
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>By looking at the <code>%Time</code> column we can see that the while loop in function <code>calc_pure_python</code> takes 39.5 % of the total time it takes to run the whole programme. More specifically the line <code>while abs(z) &lt; 2 and n &lt; maxiter</code> takes up 39.5% of the time. We can't figure out which part of either side of <code>and</code> takes the most time yet. Also we can see that an operation as simple as <code>n += 1</code> takes up 26% of the total time. This is because of the python's dynamic lookup machinery. Every time we encounter that line in the loop python checks whether the <code>n</code> object has an <code>__add__</code> function. (If it didn't, it'll walk up any inherited classes to see whether any of them has it.), then integer 1 is passed to the <code>__add__</code> function to it's thing. To reduce the cost of this rather simple operation, type specialization is the way to go (which we'll encounter later).</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>Now getting back to that time consuming while loop; we want to figure out which one of <code>abs(z) &lt; 2</code> and <code>n &lt; maxiter</code> took greater time. Whichever takes less time and is False more often should be put on the left side of <code>and</code> because if first argument of an <code>and</code> statement is False it doesn't even need to look at the second argument.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>We can breakup the two statements on either send of <code>and</code> into seperate lines and then run a line profiler as below:</p>
+
+</div>
+</div>
+</div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">statement1</span> <span class="o">=</span> <span class="nb">abs</span><span class="p">(</span><span class="n">z</span><span class="p">)</span> <span class="o">&lt;</span> <span class="mi">2</span>
+<span class="n">statement2</span> <span class="o">=</span> <span class="n">n</span> <span class="o">&lt;</span> <span class="n">maxiter</span>
+
+<span class="k">while</span> <span class="n">statement1</span> <span class="ow">and</span> <span class="n">statement2</span><span class="p">:</span>
+    <span class="o">...</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+</div>
+    
+
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="o">!</span> kernprof -l -v julia_set.py
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+<div class="output_area">
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Wrote profile results to julia_set.py.lprof
+Timer unit: 1e-06 s
+
+Total time: 156.846 s
+File: julia_set.py
+Function: calculate_z_serial_purepython at line 21
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    21                                           @profile
+    22                                           def calculate_z_serial_purepython(maxiter, zs, cs):
+    23                                               """Calculate output list using Julia update rule"""
+    24         1       6964.2   6964.2      0.0      output = [0] * len(zs)
+    25   1000001     727030.2      0.7      0.5      for i in range(len(zs)):
+    26   1000000     703580.7      0.7      0.4          n = 0
+    27   1000000     822355.9      0.8      0.5          z = zs[i]
+    28   1000000     795890.2      0.8      0.5          c = cs[i]
+    29                                                   while True:
+    30  34219980   39121477.8      1.1     24.9              statement1 = abs(z) &lt; 2
+    31  34219980   27895802.9      0.8     17.8              statement2 = n &lt; maxiter
+    32  34219980   27064761.2      0.8     17.3              if statement1 and statement2: 
+    33  33219980   30971767.7      0.9     19.7                  z = z * z + c
+    34  33219980   27879240.0      0.8     17.8                  n += 1
+    35                                                       else: 
+    36                                                           break
+    37   1000000     857110.0      0.9      0.5          output[i] = n
+    38         1         10.5     10.5      0.0      return output
+
+Total time: 275.555 s
+File: julia_set.py
+Function: calc_pure_python at line 41
+
+Line #      Hits         Time  Per Hit   % Time  Line Contents
+==============================================================
+    41                                           @profile
+    42                                           def calc_pure_python(desired_width, max_iterations):
+    43                                               """Create a list of complex co-ordinates (zs) and complex parameters (cs), build Julia set and display"""
+    44         1          8.5      8.5      0.0      x_step = (float(x2 - x1) / float(desired_width))
+    45         1          2.6      2.6      0.0      y_step = (float(y1 - y2) / float(desired_width))
+    46         1          1.3      1.3      0.0      x = []
+    47         1          1.2      1.2      0.0      y = []
+    48         1          1.2      1.2      0.0      ycoord = y2
+    49      1001       1366.8      1.4      0.0      while ycoord &gt; y1:
+    50      1000       1751.9      1.8      0.0          y.append(ycoord)
+    51      1000       1422.5      1.4      0.0          ycoord += y_step
+    52         1          1.3      1.3      0.0      xcoord = x1
+    53      1001       1414.5      1.4      0.0      while xcoord &lt; x2:
+    54      1000       1628.6      1.6      0.0          x.append(xcoord)
+    55      1000       1438.4      1.4      0.0          xcoord += x_step
+    56                                               # set width and height to the generated pixel counts, rather than the
+    57                                               # pre-rounding desired width and height
+    58         1          4.3      4.3      0.0      width = len(x)
+    59         1          1.7      1.7      0.0      height = len(y)
+    60                                               # build a list of co-ordinates and the initial condition for each cell.
+    61                                               # Note that our initial condition is a constant and could easily be removed,
+    62                                               # we use it to simulate a real-world scenario with several inputs to our
+    63                                               # function
+    64         1          2.1      2.1      0.0      zs = []
+    65         1          1.4      1.4      0.0      cs = []
+    66      1001       1065.7      1.1      0.0      for ycoord in y:
+    67   1001000    1016534.9      1.0      0.4          for xcoord in x:
+    68   1000000    1584552.3      1.6      0.6              zs.append(complex(xcoord, ycoord))
+    69   1000000    1627592.5      1.6      0.6              cs.append(complex(c_real, c_imag))
+    70                                           
+    71                                           #     print("Length of x:", len(x))
+    72                                           #     print("Total elements:", len(zs))
+    73                                           #     start_time = time.time()
+    74         1  271301669.6 271301669.6     98.5      output = calculate_z_serial_purepython(max_iterations, zs, cs)
+    75                                           #     end_time = time.time()
+    76                                           #     secs = end_time - start_time
+    77                                           #     print(calculate_z_serial_purepython.__name__ + " took", secs, "seconds")
+    78                                           
+    79                                               # this sum is expected for 1000^2 grid with 300 iterations
+    80         1      14830.6  14830.6      0.0      assert sum(output) == 33219980
+
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+    
+
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>It looks as if checking <code>abs(z) &lt; 2</code> takes more time than checking <code>n &lt; maxiter</code>. Now we need to know which of these two statements is <code>False</code> more often. <code>n &lt; maxiter</code> will be false on 1 of every 301 calls since <code>maxiter = 300</code> in the programme.</p>
+
+</div>
+</div>
+</div>
 </div>
 
 
